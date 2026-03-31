@@ -19,6 +19,10 @@
 
 ## [2026-03-31] - Performance Optimization (PSI Fixes)
 - **Google Maps Lazy Loading:** Implemented "Click-to-Load" pattern for the map to eliminate 350KB+ of unused JS on initial load.
-- **Font Optimization:** Added `&display=swap` and preloaded the primary Inter font file to reduce LCP element delay.
-- **Non-Blocking CSS:** Deferred FontAwesome loading to remove it from the critical rendering path.
+- **Font Optimization:** Added `&display=swap` and preloaded the primary Inter font file to reduce LCP element delay. Made Google Fonts CSS non-blocking.
+- **Non-Blocking CSS:** Deferred FontAwesome loading to remove it from the critical rendering path. Inlined Astro's main CSS bundle via `build.inlineStylesheets: 'always'` to eliminate the final render-blocking request.
 - **Resource Hints:** Added preloads and optimized preconnects for faster asset discovery.
+
+## [2026-03-31] - Accessibility Fixes (PSI)
+- **Color Contrast:** Improved text contrast across the site to meet WCAG AA standards. Changed `text-gray-500` and `text-gray-600` to `text-gray-400` or `text-gray-300` on dark backgrounds. Changed `text-electric-blue` to `text-blue-400` for better visibility on charcoal backgrounds.
+- **Heading Order:** Fixed non-sequential heading levels in the footer by changing `<h4>` tags to `<h3>` tags.
