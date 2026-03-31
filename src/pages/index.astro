@@ -2,7 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Untouchable Smoke Shop | Atlanta's #1 Midnight Spot" description="Untouchable Smoke Shop in Atlanta offers the best prices on vapes, glass, and accessories. Located at 533 Peachtree St NE, open late until 2 AM on weekends.">
+<Layout title="Untouchable Smoke Shop | Atlanta's #1 Midnight Spot (Midtown ATL)" description="Untouchable Smoke Shop in Midtown Atlanta offers the best prices on vapes, glass, and accessories near Georgia Tech. Located at 533 Peachtree St NE, open late until 2 AM.">
+    <!-- FLOATING MOBILE CALL BUTTON -->
+    <a href="tel:4708736088" class="fixed bottom-6 right-6 z-[60] md:hidden vibe-gradient w-16 h-16 rounded-full flex items-center justify-center shadow-2xl shadow-cyan-500/40 animate-bounce" aria-label="Call Shop Now">
+        <i class="fa-solid fa-phone text-white text-2xl"></i>
+    </a>
+
     <!-- AGE VERIFICATION OVERLAY -->
     <div id="age-gate" class="fixed inset-0 z-[100] bg-deep-black flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="age-gate-title">
         <div class="max-w-md 3xl:max-w-xl w-full glass-morphism p-8 3xl:p-12 rounded-3xl text-center border-teal-glow/30 border-2 shadow-2xl shadow-teal-glow/10">
@@ -51,7 +56,7 @@ import Layout from '../layouts/Layout.astro';
             UNTOUCHABLE <br><span class="text-gradient">PRICES.</span>
         </h1>
         <p class="text-lg md:text-xl 3xl:text-3xl text-gray-300 max-w-2xl 3xl:max-w-5xl mx-auto mb-10 3xl:mb-20 font-medium leading-relaxed">
-            Atlanta’s best prices, guaranteed. Open late every night on Peachtree St for all your vape, glass, and accessory needs.
+            Midtown Atlanta’s best prices, guaranteed. Serving Georgia Tech, Old Fourth Ward, and Downtown. Open late every night on Peachtree St.
         </p>
         <div class="flex flex-wrap justify-center gap-4 3xl:gap-8">
             <a href="#optin" class="vibe-gradient px-10 py-5 3xl:px-16 3xl:py-8 rounded-full font-black text-white text-lg 3xl:text-2xl hover:shadow-cyan-500/30 shadow-xl transition-all hover:-translate-y-1">CLAIM YOUR 10% CODE</a>
@@ -92,7 +97,7 @@ import Layout from '../layouts/Layout.astro';
             <article class="bg-charcoal rounded-3xl p-8 3xl:p-16 border-t-2 border-teal-glow hover:bg-black transition-all hover:scale-[1.02] cursor-default group">
                 <div class="text-teal-glow text-3xl 3xl:text-5xl mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-bolt"></i></div>
                 <h3 class="text-2xl 3xl:text-4xl font-black mb-2 uppercase">Vapes & Disposables</h3>
-                <p class="text-gray-300 text-sm 3xl:text-xl mb-6 leading-relaxed">Geek Bar Pulse, Lost Mary, Raz, and more. We stock the newest flavors before anyone else downtown.</p>
+                <p class="text-gray-300 text-sm 3xl:text-xl mb-6 leading-relaxed">Geek Bar Pulse, Lost Mary, Raz, and more. We stock the newest flavors before anyone else in Midtown.</p>
                 <div class="text-xs 3xl:text-sm font-black text-teal-glow uppercase tracking-widest">Authorized Dealer</div>
             </article>
 
