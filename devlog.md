@@ -16,3 +16,9 @@
 - **Handover Documentation:**
   - Created `agents.md` for project context and future AI agent instructions.
   - Created `devlog.md` (this file) for change tracking.
+
+## [2026-03-31] - Performance Optimization (PSI Fixes)
+- **Google Maps Lazy Loading:** Implemented "Click-to-Load" pattern for the map to eliminate 350KB+ of unused JS on initial load.
+- **Font Optimization:** Added `&display=swap` and preloaded the primary Inter font file to reduce LCP element delay.
+- **Non-Blocking CSS:** Deferred FontAwesome loading to remove it from the critical rendering path.
+- **Resource Hints:** Added preloads and optimized preconnects for faster asset discovery.
