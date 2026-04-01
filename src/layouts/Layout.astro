@@ -112,6 +112,18 @@ const { title, description } = Astro.props;
 			font-size: clamp(3.5rem, 12vw, 12rem);
 			@apply font-black tracking-tighter leading-[0.9] mb-6;
 		}
+		.hot-card {
+			@apply bg-charcoal rounded-3xl p-6 3xl:p-10 border border-white/5 hover:border-purple-vibe/50 transition-all hover:-translate-y-2 relative overflow-hidden;
+		}
+		.category-pill {
+			@apply px-6 py-2 rounded-full text-sm font-bold uppercase tracking-widest border border-white/10 hover:bg-white/10 transition-colors cursor-pointer;
+		}
+		.category-pill.active {
+			@apply bg-white text-black border-white;
+		}
+		.event-row {
+			@apply flex flex-col md:flex-row items-start md:items-center justify-between p-6 3xl:p-10 border-b border-white/5 hover:bg-white/5 transition-colors;
+		}
 	}
 
 	#age-gate { transition: opacity 0.5s ease; }

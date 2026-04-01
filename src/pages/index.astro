@@ -16,9 +16,9 @@ import Layout from '../layouts/Layout.astro';
             <p class="text-gray-300 mb-8 font-medium text-sm 3xl:text-base">You must be at least 21 years old to enter. Untouchable Smoke Shop strictly verifies IDs in-store.</p>
             <div class="flex flex-col gap-4">
                 <button id="verify-age-btn" class="vibe-gradient py-4 3xl:py-6 px-8 rounded-xl font-bold text-white text-lg 3xl:text-2xl transition-transform hover:scale-105 active:scale-95 shadow-lg shadow-cyan-500/20" aria-label="Confirm I am 21 or older">
-                    I am 21+ Years Old
+                    I AM 21+ YEARS OLD
                 </button>
-                <button onclick="window.location.href='https://google.com'" class="text-gray-400 hover:text-white transition-colors 3xl:text-lg" aria-label="Exit because I am under 21">
+                <button onclick="window.location.href='https://google.com'" class="text-gray-400 hover:text-white transition-colors 3xl:text-lg uppercase tracking-widest font-bold text-sm" aria-label="Exit because I am under 21">
                     I am under 21
                 </button>
             </div>
@@ -39,10 +39,10 @@ import Layout from '../layouts/Layout.astro';
             <span class="font-extrabold text-xl 3xl:text-3xl tracking-tighter uppercase">Untouchable <span class="text-bright-cyan">Smoke</span></span>
         </div>
         <div class="hidden md:flex gap-8 3xl:gap-16 text-gray-400">
-            <a href="#vapes" class="nav-link">Vapes</a>
-            <a href="#glass" class="nav-link">Glass</a>
+            <a href="#hot-list" class="nav-link">Hot List</a>
+            <a href="#calendar" class="nav-link">Calendar</a>
             <a href="#reviews" class="nav-link">Reviews</a>
-            <a href="#location-map" class="nav-link text-bright-cyan border-b border-teal-glow">Peachtree St</a>
+            <a href="#location-map" class="nav-link text-bright-cyan border-b border-teal-glow">Location</a>
         </div>
         <a href="#optin" class="bg-white text-black py-2.5 px-6 3xl:px-10 rounded-full text-[10px] 3xl:text-sm font-black hover:bg-bright-cyan hover:text-white transition-all uppercase tracking-widest" aria-label="Get 10% discount">Get 10% Off</a>
     </nav>
@@ -53,14 +53,14 @@ import Layout from '../layouts/Layout.astro';
         <div class="glow-blur top-40 -right-20 w-96 h-96 3xl:w-[800px] 3xl:h-[800px] bg-green-glow opacity-10"></div>
         
         <h1 class="hero-title">
-            UNTOUCHABLE <br><span class="text-gradient">PRICES.</span>
+            MIDNIGHT <br><span class="text-gradient">VIBES.</span>
         </h1>
         <p class="text-lg md:text-xl 3xl:text-3xl text-gray-300 max-w-2xl 3xl:max-w-5xl mx-auto mb-10 3xl:mb-20 font-medium leading-relaxed">
-            Midtown Atlanta’s best prices, guaranteed. Serving Georgia Tech, Old Fourth Ward, and Downtown. Open late every night on Peachtree St.
+            Atlanta's premier late-night smoke shop. Exclusive drops, premium glass, and the best prices in Midtown. Open until 2 AM on weekends.
         </p>
         <div class="flex flex-wrap justify-center gap-4 3xl:gap-8">
-            <a href="#optin" class="vibe-gradient px-10 py-5 3xl:px-16 3xl:py-8 rounded-full font-black text-white text-lg 3xl:text-2xl hover:shadow-cyan-500/30 shadow-xl transition-all hover:-translate-y-1">CLAIM YOUR 10% CODE</a>
-            <a href="#location-map" class="glass-morphism px-10 py-5 3xl:px-16 3xl:py-8 rounded-full font-black text-lg 3xl:text-2xl border border-white/10 uppercase tracking-wider hover:bg-white/5 transition-all">Visit Us Now</a>
+            <a href="#hot-list" class="vibe-gradient px-10 py-5 3xl:px-16 3xl:py-8 rounded-full font-black text-white text-lg 3xl:text-2xl hover:shadow-cyan-500/30 shadow-xl transition-all hover:-translate-y-1">SHOP THE HOT LIST</a>
+            <a href="#calendar" class="glass-morphism px-10 py-5 3xl:px-16 3xl:py-8 rounded-full font-black text-lg 3xl:text-2xl border border-white/10 uppercase tracking-wider hover:bg-white/5 transition-all">VIEW EVENTS</a>
         </div>
     </header>
 
@@ -84,36 +84,127 @@ import Layout from '../layouts/Layout.astro';
         </div>
     </section>
 
-    <!-- INVENTORY -->
-    <section id="vapes" class="py-20 3xl:py-40 px-6 max-w-[1800px] mx-auto">
-        <div class="flex justify-between items-end mb-12 3xl:mb-24">
+    <!-- HOT LIST -->
+    <section id="hot-list" class="py-20 3xl:py-40 px-6 max-w-[1800px] mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 3xl:mb-24 gap-6">
             <div>
-                <h2 class="text-4xl 3xl:text-7xl font-black tracking-tighter mb-2 uppercase italic">Inventory Drop</h2>
-                <p class="text-gray-300 3xl:text-2xl">Premium hardware at 533 Peachtree.</p>
+                <h2 class="text-4xl 3xl:text-7xl font-black tracking-tighter mb-2 uppercase italic">The <span class="text-purple-vibe">Hot List</span></h2>
+                <p class="text-gray-300 3xl:text-2xl">What's trending at 533 Peachtree right now.</p>
+            </div>
+            <div class="flex gap-2 overflow-x-auto pb-2 w-full md:w-auto" id="category-filters">
+                <button class="category-pill active" data-filter="all">All</button>
+                <button class="category-pill" data-filter="vapes">Vapes</button>
+                <button class="category-pill" data-filter="glass">Glass</button>
             </div>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 3xl:gap-12">
-            <article class="bg-charcoal rounded-3xl p-8 3xl:p-16 border-t-2 border-teal-glow hover:bg-black transition-all hover:scale-[1.02] cursor-default group">
-                <div class="text-teal-glow text-3xl 3xl:text-5xl mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-bolt"></i></div>
-                <h3 class="text-2xl 3xl:text-4xl font-black mb-2 uppercase">Vapes & Disposables</h3>
-                <p class="text-gray-300 text-sm 3xl:text-xl mb-6 leading-relaxed">Geek Bar Pulse, Lost Mary, Raz, and more. We stock the newest flavors before anyone else in Midtown.</p>
-                <div class="text-xs 3xl:text-sm font-black text-teal-glow uppercase tracking-widest">Authorized Dealer</div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 3xl:gap-12" id="product-grid">
+            <!-- Product 1 -->
+            <article class="hot-card group" data-category="vapes">
+                <div class="absolute top-6 right-6 bg-teal-glow text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">In Stock</div>
+                <div class="text-teal-glow text-3xl 3xl:text-5xl mb-6"><i class="fa-solid fa-bolt"></i></div>
+                <h3 class="text-2xl 3xl:text-4xl font-black mb-2 uppercase">Geek Bar Pulse</h3>
+                <p class="text-gray-400 text-sm 3xl:text-xl mb-6">The most requested disposable in ATL. Dual mesh coil, full screen display.</p>
+                <div class="flex justify-between items-center mt-auto">
+                    <span class="text-xl font-black text-white">$24.99</span>
+                    <button class="text-xs font-bold uppercase tracking-widest text-teal-glow hover:text-white transition-colors">Get Offer <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                </div>
             </article>
 
-            <article id="glass" class="bg-charcoal rounded-3xl p-8 3xl:p-16 border-t-2 border-bright-cyan hover:bg-black transition-all hover:scale-[1.02] cursor-default group">
-                <div class="text-bright-cyan text-3xl 3xl:text-5xl mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-fire"></i></div>
-                <h3 class="text-2xl 3xl:text-4xl font-black mb-2 uppercase">Premium Glass</h3>
-                <p class="text-gray-300 text-sm 3xl:text-xl mb-6 leading-relaxed">Scientific rigs, artisan beakers, and travel pieces. High quality without the Midtown price hike.</p>
-                <div class="text-xs 3xl:text-sm font-black text-bright-cyan uppercase tracking-widest">New Arrivals Daily</div>
+            <!-- Product 2 -->
+            <article class="hot-card group" data-category="glass">
+                <div class="absolute top-6 right-6 bg-purple-vibe text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">New</div>
+                <div class="text-purple-vibe text-3xl 3xl:text-5xl mb-6"><i class="fa-solid fa-fire"></i></div>
+                <h3 class="text-2xl 3xl:text-4xl font-black mb-2 uppercase">Artisan Beakers</h3>
+                <p class="text-gray-400 text-sm 3xl:text-xl mb-6">Hand-blown, thick glass. Perfect for your daily driver.</p>
+                <div class="flex justify-between items-center mt-auto">
+                    <span class="text-xl font-black text-white">From $45</span>
+                    <button class="text-xs font-bold uppercase tracking-widest text-purple-vibe hover:text-white transition-colors">Get Offer <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                </div>
             </article>
 
-            <article class="bg-charcoal rounded-3xl p-8 3xl:p-16 border-t-2 border-electric-blue hover:bg-black transition-all hover:scale-[1.02] cursor-default group">
-                <div class="text-electric-blue text-3xl 3xl:text-5xl mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-gem"></i></div>
-                <h3 class="text-2xl 3xl:text-4xl font-black mb-2 uppercase">Accessories</h3>
-                <p class="text-gray-300 text-sm 3xl:text-xl mb-6 leading-relaxed">Raw papers, luxury grinders, and cleaning supplies. Everything you need for the ultimate session.</p>
-                <div class="text-xs 3xl:text-sm font-black text-blue-400 uppercase tracking-widest">Wholesale Prices</div>
+            <!-- Product 3 -->
+            <article class="hot-card group" data-category="vapes">
+                <div class="absolute top-6 right-6 bg-red-500 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">Low Stock</div>
+                <div class="text-red-500 text-3xl 3xl:text-5xl mb-6"><i class="fa-solid fa-wind"></i></div>
+                <h3 class="text-2xl 3xl:text-4xl font-black mb-2 uppercase">Lost Mary MT15000</h3>
+                <p class="text-gray-400 text-sm 3xl:text-xl mb-6">Turbo mode enabled. Selling out fast this weekend.</p>
+                <div class="flex justify-between items-center mt-auto">
+                    <span class="text-xl font-black text-white">$22.99</span>
+                    <button class="text-xs font-bold uppercase tracking-widest text-red-500 hover:text-white transition-colors">Remind Me <i class="fa-solid fa-bell ml-1"></i></button>
+                </div>
             </article>
+        </div>
+    </section>
+
+    <!-- PEACHTREE PULSE CALENDAR -->
+    <section id="calendar" class="py-20 3xl:py-40 px-6 max-w-[1800px] mx-auto">
+        <div class="bg-charcoal/50 rounded-[40px] border border-white/5 overflow-hidden">
+            <div class="p-8 md:p-12 3xl:p-20 border-b border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <h2 class="text-4xl 3xl:text-7xl font-black tracking-tighter mb-2 uppercase italic">Peachtree <span class="text-electric-blue">Pulse</span></h2>
+                    <p class="text-gray-300 3xl:text-2xl">Upcoming events and drops.</p>
+                </div>
+                <a href="sms:+14708736088?body=I'm%20interested%20in%20collaborating%20on%20an%20event!" class="glass-morphism px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-white/10 transition-colors flex items-center gap-2">
+                    <i class="fa-solid fa-comment-sms text-electric-blue"></i> DM us to collaborate
+                </a>
+            </div>
+            
+            <div class="flex flex-col">
+                <!-- Event 1 -->
+                <div class="event-row group">
+                    <div class="flex items-center gap-6 mb-4 md:mb-0">
+                        <div class="w-16 h-16 rounded-2xl bg-purple-vibe/20 text-purple-vibe flex flex-col items-center justify-center border border-purple-vibe/30 shrink-0">
+                            <span class="text-xs font-bold uppercase">Oct</span>
+                            <span class="text-xl font-black leading-none">24</span>
+                        </div>
+                        <div>
+                            <div class="text-[10px] font-black text-purple-vibe uppercase tracking-widest mb-1">Art Show</div>
+                            <h3 class="text-xl md:text-2xl font-black uppercase">Local Glass Blowers Showcase</h3>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">
+                        <div class="text-sm text-gray-400 font-bold"><i class="fa-regular fa-clock mr-2"></i>8PM - 12AM</div>
+                        <button class="text-electric-blue hover:text-white transition-colors"><i class="fa-solid fa-arrow-right text-xl"></i></button>
+                    </div>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="event-row group">
+                    <div class="flex items-center gap-6 mb-4 md:mb-0">
+                        <div class="w-16 h-16 rounded-2xl bg-teal-glow/20 text-teal-glow flex flex-col items-center justify-center border border-teal-glow/30 shrink-0">
+                            <span class="text-xs font-bold uppercase">Oct</span>
+                            <span class="text-xl font-black leading-none">31</span>
+                        </div>
+                        <div>
+                            <div class="text-[10px] font-black text-teal-glow uppercase tracking-widest mb-1">Stock Drop</div>
+                            <h3 class="text-xl md:text-2xl font-black uppercase">Halloween Exclusive Vapes</h3>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">
+                        <div class="text-sm text-gray-400 font-bold"><i class="fa-regular fa-clock mr-2"></i>All Day</div>
+                        <button class="text-electric-blue hover:text-white transition-colors"><i class="fa-solid fa-arrow-right text-xl"></i></button>
+                    </div>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="event-row group">
+                    <div class="flex items-center gap-6 mb-4 md:mb-0">
+                        <div class="w-16 h-16 rounded-2xl bg-bright-cyan/20 text-bright-cyan flex flex-col items-center justify-center border border-bright-cyan/30 shrink-0">
+                            <span class="text-xs font-bold uppercase">Nov</span>
+                            <span class="text-xl font-black leading-none">05</span>
+                        </div>
+                        <div>
+                            <div class="text-[10px] font-black text-bright-cyan uppercase tracking-widest mb-1">Concert Night</div>
+                            <h3 class="text-xl md:text-2xl font-black uppercase">Pre-Game Pop Up</h3>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">
+                        <div class="text-sm text-gray-400 font-bold"><i class="fa-regular fa-clock mr-2"></i>6PM - 9PM</div>
+                        <button class="text-electric-blue hover:text-white transition-colors"><i class="fa-solid fa-arrow-right text-xl"></i></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -261,7 +352,7 @@ import Layout from '../layouts/Layout.astro';
             </div>
         </div>
         <div class="max-w-[1800px] mx-auto pt-10 border-t border-white/5 text-center text-[10px] 3xl:text-sm text-gray-400 font-bold uppercase tracking-widest">
-            <p>&copy; 2024 Untouchable Smoke Shop. Powered by <a href="https://www.sayitaintseo.com" target="_blank" rel="noopener" class="text-gray-300 hover:text-bright-cyan transition-colors underline underline-offset-4 decoration-teal-glow/30">Say It Ain't SEO</a>.</p>
+            <p>&copy; 2026 Untouchable Smoke Shop. Powered by <a href="https://www.sayitaintseo.com" target="_blank" rel="noopener" class="text-gray-300 hover:text-bright-cyan transition-colors underline underline-offset-4 decoration-teal-glow/30">Say It Ain't SEO</a>.</p>
         </div>
     </footer>
 
@@ -322,6 +413,36 @@ import Layout from '../layouts/Layout.astro';
         }
 
         loadMapBtn?.addEventListener('click', loadInteractiveMap);
+
+        // Category Filtering
+        const filterBtns = document.querySelectorAll('.category-pill');
+        const products = document.querySelectorAll('.hot-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                products.forEach(product => {
+                    const el = product as HTMLElement;
+                    if (filter === 'all' || el.getAttribute('data-category') === filter) {
+                        el.style.display = 'block';
+                        setTimeout(() => {
+                            el.style.opacity = '1';
+                            el.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        el.style.opacity = '0';
+                        el.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            el.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
 
         document.getElementById('sms-form')?.addEventListener('submit', (event) => {
             event.preventDefault();

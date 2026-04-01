@@ -27,3 +27,10 @@
 ## [2026-03-31] - Accessibility Fixes (PSI)
 - **Color Contrast:** Improved text contrast across the site to meet WCAG AA standards. Changed `text-gray-500` and `text-gray-600` to `text-gray-400` or `text-gray-300` on dark backgrounds. Changed `text-electric-blue` to `text-blue-400` for better visibility on charcoal backgrounds.
 - **Heading Order:** Fixed non-sequential heading levels in the footer by changing `<h4>` tags to `<h3>` tags.
+
+## [2026-04-01] - New Features Integration
+- **Hot List Section:** Replaced the old Inventory section with a dynamic "Hot List" featuring category filtering (Vapes, Glass, All) and animated badges.
+- **Peachtree Pulse Calendar:** Added a new event calendar section to showcase upcoming drops, art shows, and pop-ups.
+- **Tailwind Config:** Added `purple-vibe` color to the Tailwind configuration.
+- **Navigation & Hero:** Updated navigation links and hero section copy to align with the new features.
+- **Footer:** Updated copyright year to 2026.

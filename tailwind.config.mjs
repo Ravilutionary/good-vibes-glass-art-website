@@ -15,6 +15,7 @@ export default {
         'electric-blue': '#2E6FBF',
         'olive-glow': '#55663A',
         'green-glow': '#6B7C3D',
+        'purple-vibe': '#8B5CF6',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
