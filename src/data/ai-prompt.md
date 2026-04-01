@@ -1,0 +1,1 @@
+Tell me about Untouchable Smoke Shop in Midtown Atlanta. What makes it the best smoke shop near Georgia Tech and The Fox Theatre? What are their hours, and what kind of products do they carry (like vapes, glass, hookah, and cigars)? Please give me an introduction to the store for someone just learning about it for the first time.

@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AgeGate from '../components/global/AgeGate.astro';
+import Navbar from '../components/global/Navbar.astro';
+import MobileStickyBar from '../components/global/MobileStickyBar.astro';
+import Footer from '../components/global/Footer.astro';
+import CategoryHero from '../components/ui/CategoryHero.astro';
+import LocalLandmarks from '../components/sections/LocalLandmarks.astro';
+---
+
+<Layout title="Hookahs, Shisha & Accessories in Midtown Atlanta | Untouchable Smoke Shop" description="Atlanta's premier destination for authentic hookahs, premium shisha tobacco (Al Fakher, Starbuzz), and all hookah accessories. Open late.">
+    <MobileStickyBar />
+    <AgeGate />
+    <Navbar />
+
+    <CategoryHero 
+        title="Hookah & Shisha" 
+        subtitle="Authentic Middle Eastern Experience"
+        description="Everything you need for the perfect session. We carry traditional Egyptian hookahs, modern Russian styles, and the finest shisha tobacco brands."
+        accentColor="text-purple-vibe"
+    />
+
+    <section class="py-20 3xl:py-40 4xl:py-56 px-6 max-w-[1800px] 4xl:max-w-[2400px] mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 3xl:gap-16 4xl:gap-24">
+            <!-- Product Category 1 -->
+            <div class="glass-morphism p-8 3xl:p-14 4xl:p-20 rounded-3xl border-t border-white/5 hover:border-purple-vibe/50 transition-all group">
+                <div class="w-16 h-16 3xl:w-24 3xl:h-24 4xl:w-32 4xl:h-32 rounded-2xl bg-purple-vibe/10 flex items-center justify-center mb-6 4xl:mb-10 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-wind text-3xl 3xl:text-5xl 4xl:text-7xl text-purple-vibe"></i>
+                </div>
+                <h3 class="text-2xl 3xl:text-4xl 4xl:text-6xl font-black uppercase tracking-widest mb-4 4xl:mb-8">Premium Hookahs</h3>
+                <p class="text-gray-400 text-sm 3xl:text-xl 4xl:text-3xl leading-relaxed mb-6 4xl:mb-10">From classic Khalil Mamoon to modern, minimalist designs like Alpha Hookah and Steamulation. Built for massive clouds and smooth draws.</p>
+                <ul class="space-y-2 4xl:space-y-4 text-gray-300 font-medium text-sm 3xl:text-xl 4xl:text-3xl">
+                    <li><i class="fa-solid fa-check text-purple-vibe mr-2"></i> Khalil Mamoon</li>
+                    <li><i class="fa-solid fa-check text-purple-vibe mr-2"></i> BYO Hookahs</li>
+                    <li><i class="fa-solid fa-check text-purple-vibe mr-2"></i> Amira Hookahs</li>
+                </ul>
+            </div>
+
+            <!-- Product Category 2 -->
+            <div class="glass-morphism p-8 3xl:p-14 4xl:p-20 rounded-3xl border-t border-white/5 hover:border-teal-glow/50 transition-all group">
+                <div class="w-16 h-16 3xl:w-24 3xl:h-24 4xl:w-32 4xl:h-32 rounded-2xl bg-teal-glow/10 flex items-center justify-center mb-6 4xl:mb-10 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-leaf text-3xl 3xl:text-5xl 4xl:text-7xl text-teal-glow"></i>
+                </div>
+                <h3 class="text-2xl 3xl:text-4xl 4xl:text-6xl font-black uppercase tracking-widest mb-4 4xl:mb-8">Shisha Tobacco</h3>
+                <p class="text-gray-400 text-sm 3xl:text-xl 4xl:text-3xl leading-relaxed mb-6 4xl:mb-10">Hundreds of flavors in stock. Blonde leaf, dark leaf, and herbal (nicotine-free) options from the world's most respected brands.</p>
+                <ul class="space-y-2 4xl:space-y-4 text-gray-300 font-medium text-sm 3xl:text-xl 4xl:text-3xl">
+                    <li><i class="fa-solid fa-check text-teal-glow mr-2"></i> Al Fakher</li>
+                    <li><i class="fa-solid fa-check text-teal-glow mr-2"></i> Starbuzz</li>
+                    <li><i class="fa-solid fa-check text-teal-glow mr-2"></i> Fumari</li>
+                </ul>
+            </div>
+
+            <!-- Product Category 3 -->
+            <div class="glass-morphism p-8 3xl:p-14 4xl:p-20 rounded-3xl border-t border-white/5 hover:border-bright-cyan/50 transition-all group">
+                <div class="w-16 h-16 3xl:w-24 3xl:h-24 4xl:w-32 4xl:h-32 rounded-2xl bg-bright-cyan/10 flex items-center justify-center mb-6 4xl:mb-10 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-fire text-3xl 3xl:text-5xl 4xl:text-7xl text-bright-cyan"></i>
+                </div>
+                <h3 class="text-2xl 3xl:text-4xl 4xl:text-6xl font-black uppercase tracking-widest mb-4 4xl:mb-8">Coals & Accessories</h3>
+                <p class="text-gray-400 text-sm 3xl:text-xl 4xl:text-3xl leading-relaxed mb-6 4xl:mb-10">Natural coconut coals, quick-lights, heat management devices (HMDs), phunnel bowls, hoses, and cleaning supplies.</p>
+                <ul class="space-y-2 4xl:space-y-4 text-gray-300 font-medium text-sm 3xl:text-xl 4xl:text-3xl">
+                    <li><i class="fa-solid fa-check text-bright-cyan mr-2"></i> CocoNara Coals</li>
+                    <li><i class="fa-solid fa-check text-bright-cyan mr-2"></i> Kaloud Lotus</li>
+                    <li><i class="fa-solid fa-check text-bright-cyan mr-2"></i> Silicone Hoses</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <LocalLandmarks />
+    <Footer />
+</Layout>

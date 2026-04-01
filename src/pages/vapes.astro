@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AgeGate from '../components/global/AgeGate.astro';
+import Navbar from '../components/global/Navbar.astro';
+import MobileStickyBar from '../components/global/MobileStickyBar.astro';
+import Footer from '../components/global/Footer.astro';
+import CategoryHero from '../components/ui/CategoryHero.astro';
+import LocalLandmarks from '../components/sections/LocalLandmarks.astro';
+---
+
+<Layout title="Premium Disposable Vapes & E-Juice in Midtown Atlanta | Untouchable Smoke Shop" description="Shop the largest selection of disposable vapes, e-juices, and pod systems in Downtown/Midtown Atlanta. Geek Bar, Elf Bar, and more. Open late until 2 AM.">
+    <MobileStickyBar />
+    <AgeGate />
+    <Navbar />
+
+    <CategoryHero 
+        title="Vapes & E-Juice" 
+        subtitle="The Best Selection in Midtown"
+        description="From the latest high-puff disposables to premium e-liquids and advanced pod systems, we stock the most sought-after brands. 100% authentic, guaranteed."
+        accentColor="text-bright-cyan"
+    />
+
+    <section class="py-20 3xl:py-40 4xl:py-56 px-6 max-w-[1800px] 4xl:max-w-[2400px] mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 3xl:gap-16 4xl:gap-24">
+            <!-- Product Category 1 -->
+            <div class="glass-morphism p-8 3xl:p-14 4xl:p-20 rounded-3xl border-t border-white/5 hover:border-bright-cyan/50 transition-all group">
+                <div class="w-16 h-16 3xl:w-24 3xl:h-24 4xl:w-32 4xl:h-32 rounded-2xl bg-bright-cyan/10 flex items-center justify-center mb-6 4xl:mb-10 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-bolt text-3xl 3xl:text-5xl 4xl:text-7xl text-bright-cyan"></i>
+                </div>
+                <h3 class="text-2xl 3xl:text-4xl 4xl:text-6xl font-black uppercase tracking-widest mb-4 4xl:mb-8">Disposable Vapes</h3>
+                <p class="text-gray-400 text-sm 3xl:text-xl 4xl:text-3xl leading-relaxed mb-6 4xl:mb-10">We carry the hottest disposables on the market, including Geek Bar Pulse, Elf Bar, Lost Mary, and more. Massive puff counts and intense flavors.</p>
+                <ul class="space-y-2 4xl:space-y-4 text-gray-300 font-medium text-sm 3xl:text-xl 4xl:text-3xl">
+                    <li><i class="fa-solid fa-check text-bright-cyan mr-2"></i> Geek Bar Pulse</li>
+                    <li><i class="fa-solid fa-check text-bright-cyan mr-2"></i> Lost Mary</li>
+                    <li><i class="fa-solid fa-check text-bright-cyan mr-2"></i> Raz TN9000</li>
+                </ul>
+            </div>
+
+            <!-- Product Category 2 -->
+            <div class="glass-morphism p-8 3xl:p-14 4xl:p-20 rounded-3xl border-t border-white/5 hover:border-purple-vibe/50 transition-all group">
+                <div class="w-16 h-16 3xl:w-24 3xl:h-24 4xl:w-32 4xl:h-32 rounded-2xl bg-purple-vibe/10 flex items-center justify-center mb-6 4xl:mb-10 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-droplet text-3xl 3xl:text-5xl 4xl:text-7xl text-purple-vibe"></i>
+                </div>
+                <h3 class="text-2xl 3xl:text-4xl 4xl:text-6xl font-black uppercase tracking-widest mb-4 4xl:mb-8">Premium E-Juice</h3>
+                <p class="text-gray-400 text-sm 3xl:text-xl 4xl:text-3xl leading-relaxed mb-6 4xl:mb-10">A massive wall of premium e-liquids. Freebase and salt nic options available in every flavor profile imaginable.</p>
+                <ul class="space-y-2 4xl:space-y-4 text-gray-300 font-medium text-sm 3xl:text-xl 4xl:text-3xl">
+                    <li><i class="fa-solid fa-check text-purple-vibe mr-2"></i> Naked 100</li>
+                    <li><i class="fa-solid fa-check text-purple-vibe mr-2"></i> Vapetasia</li>
+                    <li><i class="fa-solid fa-check text-purple-vibe mr-2"></i> Pod Juice</li>
+                </ul>
+            </div>
+
+            <!-- Product Category 3 -->
+            <div class="glass-morphism p-8 3xl:p-14 4xl:p-20 rounded-3xl border-t border-white/5 hover:border-teal-glow/50 transition-all group">
+                <div class="w-16 h-16 3xl:w-24 3xl:h-24 4xl:w-32 4xl:h-32 rounded-2xl bg-teal-glow/10 flex items-center justify-center mb-6 4xl:mb-10 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-microchip text-3xl 3xl:text-5xl 4xl:text-7xl text-teal-glow"></i>
+                </div>
+                <h3 class="text-2xl 3xl:text-4xl 4xl:text-6xl font-black uppercase tracking-widest mb-4 4xl:mb-8">Pod Systems & Mods</h3>
+                <p class="text-gray-400 text-sm 3xl:text-xl 4xl:text-3xl leading-relaxed mb-6 4xl:mb-10">Hardware for every level of vaper. From sleek, discreet pod systems to high-wattage box mods and sub-ohm tanks.</p>
+                <ul class="space-y-2 4xl:space-y-4 text-gray-300 font-medium text-sm 3xl:text-xl 4xl:text-3xl">
+                    <li><i class="fa-solid fa-check text-teal-glow mr-2"></i> SMOK</li>
+                    <li><i class="fa-solid fa-check text-teal-glow mr-2"></i> Vaporesso</li>
+                    <li><i class="fa-solid fa-check text-teal-glow mr-2"></i> Voopoo</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <LocalLandmarks />
+    <Footer />
+</Layout>

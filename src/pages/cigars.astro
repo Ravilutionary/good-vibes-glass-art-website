@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AgeGate from '../components/global/AgeGate.astro';
+import Navbar from '../components/global/Navbar.astro';
+import MobileStickyBar from '../components/global/MobileStickyBar.astro';
+import Footer from '../components/global/Footer.astro';
+import CategoryHero from '../components/ui/CategoryHero.astro';
+import LocalLandmarks from '../components/sections/LocalLandmarks.astro';
+---
+
+<Layout title="Premium Cigars & Humidor in Midtown Atlanta | Untouchable Smoke Shop" description="Step into our walk-in humidor for the finest selection of premium hand-rolled cigars in Downtown Atlanta. Arturo Fuente, Padron, Macanudo, and more.">
+    <MobileStickyBar />
+    <AgeGate />
+    <Navbar />
+
+    <CategoryHero 
+        title="Premium Cigars" 
+        subtitle="Walk-In Humidor & Accessories"
+        description="Experience our meticulously maintained walk-in humidor. We stock a curated selection of the world's finest hand-rolled cigars for every palate and occasion."
+        accentColor="text-electric-blue"
+    />
+
+    <section class="py-20 3xl:py-40 4xl:py-56 px-6 max-w-[1800px] 4xl:max-w-[2400px] mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 3xl:gap-16 4xl:gap-24">
+            <!-- Product Category 1 -->
+            <div class="glass-morphism p-8 3xl:p-14 4xl:p-20 rounded-3xl border-t border-white/5 hover:border-electric-blue/50 transition-all group">
+                <div class="w-16 h-16 3xl:w-24 3xl:h-24 4xl:w-32 4xl:h-32 rounded-2xl bg-electric-blue/10 flex items-center justify-center mb-6 4xl:mb-10 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-smoking text-3xl 3xl:text-5xl 4xl:text-7xl text-electric-blue"></i>
+                </div>
+                <h3 class="text-2xl 3xl:text-4xl 4xl:text-6xl font-black uppercase tracking-widest mb-4 4xl:mb-8">Hand-Rolled Cigars</h3>
+                <p class="text-gray-400 text-sm 3xl:text-xl 4xl:text-3xl leading-relaxed mb-6 4xl:mb-10">From mild Connecticut wrappers to full-bodied Maduros. We carry the most respected names in the cigar industry, kept at perfect humidity.</p>
+                <ul class="space-y-2 4xl:space-y-4 text-gray-300 font-medium text-sm 3xl:text-xl 4xl:text-3xl">
+                    <li><i class="fa-solid fa-check text-electric-blue mr-2"></i> Arturo Fuente</li>
+                    <li><i class="fa-solid fa-check text-electric-blue mr-2"></i> Padrón</li>
+                    <li><i class="fa-solid fa-check text-electric-blue mr-2"></i> Romeo y Julieta</li>
+                </ul>
+            </div>
+
+            <!-- Product Category 2 -->
+            <div class="glass-morphism p-8 3xl:p-14 4xl:p-20 rounded-3xl border-t border-white/5 hover:border-purple-vibe/50 transition-all group">
+                <div class="w-16 h-16 3xl:w-24 3xl:h-24 4xl:w-32 4xl:h-32 rounded-2xl bg-purple-vibe/10 flex items-center justify-center mb-6 4xl:mb-10 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-box-open text-3xl 3xl:text-5xl 4xl:text-7xl text-purple-vibe"></i>
+                </div>
+                <h3 class="text-2xl 3xl:text-4xl 4xl:text-6xl font-black uppercase tracking-widest mb-4 4xl:mb-8">Cigarillos & Wraps</h3>
+                <p class="text-gray-400 text-sm 3xl:text-xl 4xl:text-3xl leading-relaxed mb-6 4xl:mb-10">A massive selection of machine-made cigars, cigarillos, blunt wraps, and rolling papers in every flavor and size.</p>
+                <ul class="space-y-2 4xl:space-y-4 text-gray-300 font-medium text-sm 3xl:text-xl 4xl:text-3xl">
+                    <li><i class="fa-solid fa-check text-purple-vibe mr-2"></i> Backwoods</li>
+                    <li><i class="fa-solid fa-check text-purple-vibe mr-2"></i> Swisher Sweets</li>
+                    <li><i class="fa-solid fa-check text-purple-vibe mr-2"></i> RAW Papers</li>
+                </ul>
+            </div>
+
+            <!-- Product Category 3 -->
+            <div class="glass-morphism p-8 3xl:p-14 4xl:p-20 rounded-3xl border-t border-white/5 hover:border-teal-glow/50 transition-all group">
+                <div class="w-16 h-16 3xl:w-24 3xl:h-24 4xl:w-32 4xl:h-32 rounded-2xl bg-teal-glow/10 flex items-center justify-center mb-6 4xl:mb-10 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-scissors text-3xl 3xl:text-5xl 4xl:text-7xl text-teal-glow"></i>
+                </div>
+                <h3 class="text-2xl 3xl:text-4xl 4xl:text-6xl font-black uppercase tracking-widest mb-4 4xl:mb-8">Humidors & Accessories</h3>
+                <p class="text-gray-400 text-sm 3xl:text-xl 4xl:text-3xl leading-relaxed mb-6 4xl:mb-10">Everything you need to enjoy and preserve your cigars. Desktop humidors, travel cases, premium cutters, and torch lighters.</p>
+                <ul class="space-y-2 4xl:space-y-4 text-gray-300 font-medium text-sm 3xl:text-xl 4xl:text-3xl">
+                    <li><i class="fa-solid fa-check text-teal-glow mr-2"></i> Xikar Cutters</li>
+                    <li><i class="fa-solid fa-check text-teal-glow mr-2"></i> Torch Lighters</li>
+                    <li><i class="fa-solid fa-check text-teal-glow mr-2"></i> Boveda Packs</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <LocalLandmarks />
+    <Footer />
+</Layout>
