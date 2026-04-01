@@ -1,0 +1,31 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+---
+<section class="py-20 3xl:py-40 4xl:py-56 px-6 max-w-[1800px] 4xl:max-w-[2400px] mx-auto border-t border-white/5 relative">
+    <div class="glow-blur absolute top-0 left-1/2 -translate-x-1/2 w-full h-64 bg-teal-glow opacity-5 pointer-events-none"></div>
+    <div class="mb-12 3xl:mb-24 4xl:mb-32 relative z-10">
+        <SectionHeader title="Your Go-To Smoke Shop" accentText="Near:" accentColor="text-teal-glow" alignment="center" subtitle="Proudly serving the Midtown and Downtown Atlanta community with free retail parking." />
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 3xl:gap-8 4xl:gap-12 relative z-10">
+        <div class="glass-morphism p-6 3xl:p-10 4xl:p-14 rounded-2xl text-center hover:-translate-y-2 transition-transform border-t border-white/5 hover:border-teal-glow/30">
+            <i class="fa-solid fa-masks-theater text-3xl 3xl:text-5xl 4xl:text-7xl text-purple-vibe mb-4 4xl:mb-8"></i>
+            <h3 class="font-black text-sm 3xl:text-xl 4xl:text-3xl uppercase tracking-widest">The Fox Theatre</h3>
+            <p class="text-gray-400 text-xs 3xl:text-base 4xl:text-xl mt-2">Steps away</p>
+        </div>
+        <div class="glass-morphism p-6 3xl:p-10 4xl:p-14 rounded-2xl text-center hover:-translate-y-2 transition-transform border-t border-white/5 hover:border-teal-glow/30">
+            <i class="fa-solid fa-hospital text-3xl 3xl:text-5xl 4xl:text-7xl text-bright-cyan mb-4 4xl:mb-8"></i>
+            <h3 class="font-black text-sm 3xl:text-xl 4xl:text-3xl uppercase tracking-widest">Emory Hospital</h3>
+            <p class="text-gray-400 text-xs 3xl:text-base 4xl:text-xl mt-2">Midtown</p>
+        </div>
+        <div class="glass-morphism p-6 3xl:p-10 4xl:p-14 rounded-2xl text-center hover:-translate-y-2 transition-transform border-t border-white/5 hover:border-teal-glow/30">
+            <i class="fa-solid fa-graduation-cap text-3xl 3xl:text-5xl 4xl:text-7xl text-teal-glow mb-4 4xl:mb-8"></i>
+            <h3 class="font-black text-sm 3xl:text-xl 4xl:text-3xl uppercase tracking-widest">GSU & GA Tech</h3>
+            <p class="text-gray-400 text-xs 3xl:text-base 4xl:text-xl mt-2">Student discounts</p>
+        </div>
+        <div class="glass-morphism p-6 3xl:p-10 4xl:p-14 rounded-2xl text-center hover:-translate-y-2 transition-transform border-t border-white/5 hover:border-teal-glow/30">
+            <i class="fa-solid fa-building text-3xl 3xl:text-5xl 4xl:text-7xl text-electric-blue mb-4 4xl:mb-8"></i>
+            <h3 class="font-black text-sm 3xl:text-xl 4xl:text-3xl uppercase tracking-widest">Renaissance</h3>
+            <p class="text-gray-400 text-xs 3xl:text-base 4xl:text-xl mt-2">Atlanta Midtown</p>
+        </div>
+    </div>
+</section>

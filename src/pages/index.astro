@@ -2,21 +2,20 @@
 import Layout from '../layouts/Layout.astro';
 import AgeGate from '../components/global/AgeGate.astro';
 import Navbar from '../components/global/Navbar.astro';
+import MobileStickyBar from '../components/global/MobileStickyBar.astro';
 import Footer from '../components/global/Footer.astro';
 import Hero from '../components/sections/Hero.astro';
 import Stats from '../components/sections/Stats.astro';
 import HotList from '../components/sections/HotList.astro';
 import Calendar from '../components/sections/Calendar.astro';
 import LocationMap from '../components/sections/LocationMap.astro';
+import LocalLandmarks from '../components/sections/LocalLandmarks.astro';
 import Reviews from '../components/sections/Reviews.astro';
 import VIPForm from '../components/sections/VIPForm.astro';
 ---
 
 <Layout title="Untouchable Smoke Shop | Atlanta's #1 Midnight Spot (Midtown ATL)" description="Untouchable Smoke Shop in Midtown Atlanta offers the best prices on vapes, glass, and accessories near Georgia Tech. Located at 533 Peachtree St NE, open late until 2 AM.">
-    <!-- FLOATING MOBILE CALL BUTTON -->
-    <a href="tel:4708736088" class="fixed bottom-6 right-6 4xl:bottom-12 4xl:right-12 z-[60] md:hidden 4xl:flex vibe-gradient w-16 h-16 4xl:w-24 4xl:h-24 rounded-full flex items-center justify-center shadow-2xl shadow-cyan-500/40 animate-bounce" aria-label="Call Shop Now">
-        <i class="fa-solid fa-phone text-white text-2xl 4xl:text-4xl"></i>
-    </a>
+    <MobileStickyBar />
 
     <AgeGate />
     <Navbar />
@@ -26,6 +25,7 @@ import VIPForm from '../components/sections/VIPForm.astro';
     <HotList />
     <Calendar />
     <LocationMap />
+    <LocalLandmarks />
     <Reviews />
     <VIPForm />
 
