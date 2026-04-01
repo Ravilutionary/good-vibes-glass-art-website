@@ -1,0 +1,67 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+---
+<section id="optin" class="py-32 3xl:py-64 4xl:py-80 px-6">
+    <div class="max-w-4xl 3xl:max-w-7xl 4xl:max-w-[2000px] mx-auto vibe-gradient p-[1px] rounded-[40px] 4xl:rounded-[60px] shadow-2xl shadow-cyan-500/20">
+        <div class="bg-deep-black rounded-[39px] 4xl:rounded-[59px] p-8 md:p-16 3xl:p-32 4xl:p-48 text-center relative overflow-hidden">
+            <div class="glow-blur -bottom-20 -left-20 w-64 h-64 3xl:w-[600px] 3xl:h-[600px] 4xl:w-[1000px] 4xl:h-[1000px] bg-bright-cyan !opacity-10"></div>
+            
+            <div class="mb-10 3xl:mb-20 4xl:mb-28">
+                <SectionHeader title="Get the" accentText="VIP" accentColor="text-bright-cyan" subtitle="Be the first to know about new glass drops and flash sales. Plus, 10% off your next visit." alignment="center" />
+            </div>
+
+            <form id="sms-form" class="max-w-md 3xl:max-w-2xl 4xl:max-w-4xl mx-auto space-y-4 4xl:space-y-8 relative z-10">
+                <div class="visually-hidden-hp" aria-hidden="true">
+                    <label for="hp_full_name">Full Name</label>
+                    <input type="text" id="hp_full_name" name="hp_full_name" tabindex="-1" autocomplete="off">
+                </div>
+                <div class="flex flex-col md:flex-row gap-4 4xl:gap-8 relative">
+                    <input type="tel" id="phone-input" placeholder="Mobile Number" required class="flex-1 bg-white/5 border border-white/10 rounded-2xl 4xl:rounded-3xl px-6 py-4 3xl:py-8 3xl:px-10 4xl:py-10 4xl:px-12 text-white 3xl:text-2xl 4xl:text-4xl focus:outline-none focus:border-teal-glow transition-all placeholder:text-gray-600 font-bold tracking-widest">
+                    <button type="submit" id="submit-btn" class="vibe-gradient px-8 py-4 3xl:px-12 3xl:py-8 4xl:px-16 4xl:py-10 rounded-2xl 4xl:rounded-3xl font-black text-white 3xl:text-2xl 4xl:text-4xl whitespace-nowrap hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center justify-center min-w-[140px] 4xl:min-w-[200px]">
+                        <span id="btn-text">SIGN ME UP</span>
+                        <i id="btn-spinner" class="fa-solid fa-circle-notch fa-spin hidden"></i>
+                    </button>
+                </div>
+                <p id="error-message" class="text-[10px] 3xl:text-sm 4xl:text-xl text-red-500 font-bold uppercase tracking-widest hidden text-center">Please enter a valid 10-digit phone number.</p>
+                <p class="text-[10px] 3xl:text-sm 4xl:text-xl text-gray-400 text-center uppercase tracking-widest font-bold">21+ Only. Msg/Data rates apply.</p>
+            </form>
+            <div id="success-message" class="hidden mt-8 4xl:mt-12 text-teal-glow font-black text-xl 3xl:text-4xl 4xl:text-6xl animate-bounce italic tracking-widest">WELCOME. CHECK YOUR TEXTS.</div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.getElementById('sms-form')?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const phoneInput = document.getElementById('phone-input') as HTMLInputElement | null;
+        const hpField = document.getElementById('hp_full_name') as HTMLInputElement | null;
+        const errorMsg = document.getElementById('error-message');
+        const submitBtn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnSpinner = document.getElementById('btn-spinner');
+        const success = document.getElementById('success-message');
+
+        if (!hpField || hpField.value.length > 0) return;
+        const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+        
+        if (!phoneInput || !phoneRegex.test(phoneInput.value)) {
+            phoneInput?.classList.add('error-shake');
+            errorMsg?.classList.remove('hidden');
+            setTimeout(() => phoneInput?.classList.remove('error-shake'), 400);
+            return;
+        }
+
+        errorMsg?.classList.add('hidden');
+        btnText?.classList.add('hidden');
+        btnSpinner?.classList.remove('hidden');
+        if (submitBtn) {
+            submitBtn.style.pointerEvents = 'none';
+            submitBtn.style.opacity = '0.7';
+        }
+
+        setTimeout(() => {
+            document.getElementById('sms-form')?.classList.add('hidden');
+            success?.classList.remove('hidden');
+        }, 1500);
+    });
+</script>

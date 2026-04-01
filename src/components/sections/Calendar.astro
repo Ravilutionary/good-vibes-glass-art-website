@@ -1,0 +1,69 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+---
+<section id="calendar" class="py-20 3xl:py-40 4xl:py-56 px-6 max-w-[1800px] 4xl:max-w-[2400px] mx-auto">
+    <div class="bg-charcoal/50 rounded-[40px] 4xl:rounded-[60px] border border-white/5 overflow-hidden">
+        <div class="p-8 md:p-12 3xl:p-20 4xl:p-28 border-b border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <SectionHeader title="Peachtree" accentText="Pulse" accentColor="text-electric-blue" subtitle="Upcoming events and drops." />
+            <a href="sms:+14708736088?body=I'm%20interested%20in%20collaborating%20on%20an%20event!" class="glass-morphism px-6 py-3 4xl:px-10 4xl:py-6 rounded-full text-sm 4xl:text-2xl font-bold uppercase tracking-widest hover:bg-white/10 transition-colors flex items-center gap-2 4xl:gap-4">
+                <i class="fa-solid fa-comment-sms text-electric-blue"></i> DM us to collaborate
+            </a>
+        </div>
+        
+        <div class="flex flex-col">
+            <!-- Event 1 -->
+            <div class="event-row group 4xl:p-12">
+                <div class="flex items-center gap-6 4xl:gap-10 mb-4 md:mb-0">
+                    <div class="w-16 h-16 4xl:w-24 4xl:h-24 rounded-2xl 4xl:rounded-3xl bg-purple-vibe/20 text-purple-vibe flex flex-col items-center justify-center border border-purple-vibe/30 shrink-0">
+                        <span class="text-xs 4xl:text-lg font-bold uppercase">Oct</span>
+                        <span class="text-xl 4xl:text-4xl font-black leading-none">24</span>
+                    </div>
+                    <div>
+                        <div class="text-[10px] 4xl:text-base font-black text-purple-vibe uppercase tracking-widest mb-1 4xl:mb-2">Art Show</div>
+                        <h3 class="text-xl md:text-2xl 4xl:text-5xl font-black uppercase">Local Glass Blowers Showcase</h3>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6 4xl:gap-10 w-full md:w-auto justify-between md:justify-end">
+                    <div class="text-sm 4xl:text-2xl text-gray-400 font-bold"><i class="fa-regular fa-clock mr-2"></i>8PM - 12AM</div>
+                    <button class="text-electric-blue hover:text-white transition-colors"><i class="fa-solid fa-arrow-right text-xl 4xl:text-4xl"></i></button>
+                </div>
+            </div>
+
+            <!-- Event 2 -->
+            <div class="event-row group 4xl:p-12">
+                <div class="flex items-center gap-6 4xl:gap-10 mb-4 md:mb-0">
+                    <div class="w-16 h-16 4xl:w-24 4xl:h-24 rounded-2xl 4xl:rounded-3xl bg-teal-glow/20 text-teal-glow flex flex-col items-center justify-center border border-teal-glow/30 shrink-0">
+                        <span class="text-xs 4xl:text-lg font-bold uppercase">Oct</span>
+                        <span class="text-xl 4xl:text-4xl font-black leading-none">31</span>
+                    </div>
+                    <div>
+                        <div class="text-[10px] 4xl:text-base font-black text-teal-glow uppercase tracking-widest mb-1 4xl:mb-2">Stock Drop</div>
+                        <h3 class="text-xl md:text-2xl 4xl:text-5xl font-black uppercase">Halloween Exclusive Vapes</h3>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6 4xl:gap-10 w-full md:w-auto justify-between md:justify-end">
+                    <div class="text-sm 4xl:text-2xl text-gray-400 font-bold"><i class="fa-regular fa-clock mr-2"></i>All Day</div>
+                    <button class="text-electric-blue hover:text-white transition-colors"><i class="fa-solid fa-arrow-right text-xl 4xl:text-4xl"></i></button>
+                </div>
+            </div>
+
+            <!-- Event 3 -->
+            <div class="event-row group 4xl:p-12">
+                <div class="flex items-center gap-6 4xl:gap-10 mb-4 md:mb-0">
+                    <div class="w-16 h-16 4xl:w-24 4xl:h-24 rounded-2xl 4xl:rounded-3xl bg-bright-cyan/20 text-bright-cyan flex flex-col items-center justify-center border border-bright-cyan/30 shrink-0">
+                        <span class="text-xs 4xl:text-lg font-bold uppercase">Nov</span>
+                        <span class="text-xl 4xl:text-4xl font-black leading-none">05</span>
+                    </div>
+                    <div>
+                        <div class="text-[10px] 4xl:text-base font-black text-bright-cyan uppercase tracking-widest mb-1 4xl:mb-2">Concert Night</div>
+                        <h3 class="text-xl md:text-2xl 4xl:text-5xl font-black uppercase">Pre-Game Pop Up</h3>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6 4xl:gap-10 w-full md:w-auto justify-between md:justify-end">
+                    <div class="text-sm 4xl:text-2xl text-gray-400 font-bold"><i class="fa-regular fa-clock mr-2"></i>6PM - 9PM</div>
+                    <button class="text-electric-blue hover:text-white transition-colors"><i class="fa-solid fa-arrow-right text-xl 4xl:text-4xl"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

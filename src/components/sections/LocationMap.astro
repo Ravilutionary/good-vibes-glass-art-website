@@ -1,0 +1,74 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+---
+<section id="location-map" class="py-20 3xl:py-40 4xl:py-56 px-6 max-w-[1800px] 4xl:max-w-[2400px] mx-auto overflow-hidden">
+    <div class="grid lg:grid-cols-2 gap-12 3xl:gap-24 4xl:gap-32 items-center">
+        <div class="space-y-8 4xl:space-y-12">
+            <SectionHeader title="Pull Up to" accentText="Peachtree" accentColor="text-bright-cyan" subtitle="Located in the heart of Atlanta. Look for the neon glow at 533 Peachtree St NE. We're the midnight destination for the city's premium smoke needs." />
+            <div class="flex flex-col gap-4 4xl:gap-8">
+                <a href="https://maps.app.goo.gl/DBnPu5MiW5beXzQg4" target="_blank" class="vibe-gradient px-8 py-5 4xl:px-12 4xl:py-8 rounded-2xl 4xl:rounded-3xl font-black text-white text-center hover:scale-105 transition-all shadow-lg flex items-center justify-center gap-3 4xl:gap-6 text-lg 3xl:text-2xl 4xl:text-4xl">
+                    <i class="fa-solid fa-diamond-turn-right"></i> GET DIRECTIONS
+                </a>
+                <div class="flex gap-4 items-center text-gray-400 font-bold uppercase tracking-widest text-xs 3xl:text-lg 4xl:text-2xl">
+                    <i class="fa-solid fa-clock text-teal-glow"></i> Open until Midnight (2AM Weekends)
+                </div>
+            </div>
+        </div>
+
+        <div class="relative aspect-video lg:aspect-square rounded-[40px] 4xl:rounded-[60px] overflow-hidden border border-white/10 shadow-2xl shadow-teal-glow/5 group">
+            <!-- Static Map Placeholder -->
+            <div id="map-placeholder" class="absolute inset-0 bg-charcoal flex flex-col items-center justify-center text-center p-6 transition-opacity duration-500">
+                <div class="absolute inset-0 opacity-40 grayscale group-hover:opacity-60 transition-opacity">
+                    <img 
+                        src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=60" 
+                        alt="Map Background" 
+                        class="w-full h-full object-cover"
+                        referrerpolicy="no-referrer"
+                    />
+                </div>
+                <div class="relative z-10">
+                    <div class="w-20 h-20 4xl:w-32 4xl:h-32 vibe-gradient rounded-full flex items-center justify-center mb-6 4xl:mb-10 mx-auto shadow-xl shadow-cyan-500/40 group-hover:scale-110 transition-transform cursor-pointer" id="load-map-btn">
+                        <i class="fa-solid fa-location-dot text-white text-3xl 4xl:text-6xl"></i>
+                    </div>
+                    <h3 class="text-xl 4xl:text-4xl font-black uppercase mb-2 4xl:mb-4">Interactive Map</h3>
+                    <p class="text-gray-400 text-sm 4xl:text-xl font-bold uppercase tracking-widest">Click to load live directions</p>
+                </div>
+            </div>
+            <!-- Interactive Iframe (Hidden by default) -->
+            <div id="map-container" class="absolute inset-0 opacity-0 pointer-events-none transition-opacity duration-700 h-full w-full">
+                <!-- Iframe will be injected here -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Lazy Load Map
+    const loadMapBtn = document.getElementById('load-map-btn');
+    const mapPlaceholder = document.getElementById('map-placeholder');
+    const mapContainer = document.getElementById('map-container');
+
+    function loadInteractiveMap() {
+        if (!mapContainer || !mapPlaceholder) return;
+        
+        const iframe = document.createElement('iframe');
+        iframe.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3316.8290263673757!2d-84.38883622415664!3d33.76949397326514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5047b744d21f3%3A0xe67d60505b380b2a!2sUntouchable%20Smoke%20Shop!5e0!3m2!1sen!2sus!4v1711660000000!5m2!1sen!2sus";
+        iframe.width = "100%";
+        iframe.height = "100%";
+        iframe.style.border = "0";
+        iframe.allowFullscreen = true;
+        iframe.loading = "lazy";
+        iframe.title = "Google Maps location of Untouchable Smoke Shop";
+        iframe.className = "map-frame";
+        
+        mapContainer.appendChild(iframe);
+        mapPlaceholder.style.opacity = '0';
+        setTimeout(() => {
+            mapPlaceholder.style.display = 'none';
+            mapContainer.style.opacity = '1';
+            mapContainer.classList.remove('pointer-events-none');
+        }, 500);
+    }
+
+    loadMapBtn?.addEventListener('click', loadInteractiveMap);
+</script>

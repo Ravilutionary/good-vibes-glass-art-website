@@ -1,0 +1,23 @@
+---
+interface Props {
+    title: string;
+    accentText?: string;
+    accentColor?: string;
+    subtitle?: string;
+    alignment?: 'left' | 'center';
+}
+
+const { 
+    title, 
+    accentText, 
+    accentColor = 'text-bright-cyan', 
+    subtitle, 
+    alignment = 'left' 
+} = Astro.props;
+---
+<div class={alignment === 'center' ? 'text-center' : ''}>
+    <h2 class="text-4xl 3xl:text-7xl 4xl:text-8xl font-black tracking-tighter mb-2 4xl:mb-4 uppercase italic">
+        {title} {accentText && <span class={accentColor}>{accentText}</span>}
+    </h2>
+    {subtitle && <p class="text-gray-300 3xl:text-2xl 4xl:text-4xl font-medium leading-relaxed max-w-3xl 4xl:max-w-5xl">{subtitle}</p>}
+</div>

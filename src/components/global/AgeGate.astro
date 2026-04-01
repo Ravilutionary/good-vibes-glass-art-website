@@ -1,0 +1,47 @@
+---
+---
+<div id="age-gate" class="fixed inset-0 z-[100] bg-deep-black flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="age-gate-title">
+    <div class="max-w-md 3xl:max-w-xl 4xl:max-w-3xl w-full glass-morphism p-8 3xl:p-12 4xl:p-16 rounded-3xl text-center border-teal-glow/30 border-2 shadow-2xl shadow-teal-glow/10">
+        <div class="text-4xl 3xl:text-6xl 4xl:text-8xl mb-4 text-teal-glow animate-pulse"><i class="fa-solid fa-id-card" aria-hidden="true"></i></div>
+        <h2 id="age-gate-title" class="text-3xl 3xl:text-5xl 4xl:text-7xl font-extrabold mb-4 uppercase tracking-tighter">Identity Check</h2>
+        <p class="text-gray-300 mb-8 font-medium text-sm 3xl:text-base 4xl:text-2xl">You must be at least 21 years old to enter. Untouchable Smoke Shop strictly verifies IDs in-store.</p>
+        <div class="flex flex-col gap-4 4xl:gap-8">
+            <button id="verify-age-btn" class="vibe-gradient py-4 3xl:py-6 4xl:py-8 px-8 rounded-xl font-bold text-white text-lg 3xl:text-2xl 4xl:text-4xl transition-transform hover:scale-105 active:scale-95 shadow-lg shadow-cyan-500/20" aria-label="Confirm I am 21 or older">
+                I AM 21+ YEARS OLD
+            </button>
+            <button onclick="window.location.href='https://google.com'" class="text-gray-400 hover:text-white transition-colors 3xl:text-lg 4xl:text-2xl uppercase tracking-widest font-bold text-sm" aria-label="Exit because I am under 21">
+                I am under 21
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const STORE_CONFIG = {
+        id: 'untouchable_v9_standard_map',
+        phone: '4708736088'
+    };
+
+    function verifyAge() {
+        const gate = document.getElementById('age-gate');
+        if (gate) {
+            gate.style.opacity = '0';
+            setTimeout(() => {
+                gate.style.display = 'none';
+                document.body.classList.remove('overflow-hidden');
+            }, 500);
+            localStorage.setItem(`${STORE_CONFIG.id}_verified`, 'true');
+        }
+    }
+
+    // Initialize Age Gate
+    if(localStorage.getItem(`${STORE_CONFIG.id}_verified`) === 'true') {
+        const gate = document.getElementById('age-gate');
+        if (gate) gate.style.display = 'none';
+    } else {
+        document.body.classList.add('overflow-hidden');
+    }
+
+    // Event Listeners
+    document.getElementById('verify-age-btn')?.addEventListener('click', verifyAge);
+</script>
