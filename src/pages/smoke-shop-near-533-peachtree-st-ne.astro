@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/global/Navbar.astro';
+import Footer from '../components/global/Footer.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import LocationMap from '../components/sections/LocationMap.astro';
+---
+
+<Layout 
+  title="Smoke Shop Near 533 Peachtree St NE | Untouchable Smoke Shop"
+  description="Looking for a smoke shop near 533 Peachtree St NE? Untouchable Smoke Shop offers the best selection of vapes, glass, and cigars in Midtown Atlanta."
+>
+  <Navbar />
+  
+  <main class="pt-32 pb-20 px-6 max-w-[1800px] mx-auto">
+    <div class="text-center max-w-4xl mx-auto mb-16">
+      <SectionHeader 
+        title="Your Local Smoke Shop at" 
+        accentText="533 Peachtree St NE" 
+        accentColor="text-bright-cyan" 
+        subtitle="Conveniently located in the heart of Midtown Atlanta. We are your premier destination for top-tier brands and untouchable prices."
+        alignment="center"
+      />
+    </div>
+    
+    <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+      <div class="bg-charcoal/50 p-8 rounded-3xl border border-white/5">
+        <h2 class="text-3xl font-black uppercase mb-6 text-white">Why Choose Us?</h2>
+        <ul class="space-y-4 text-gray-300 text-lg">
+          <li class="flex items-start gap-3">
+            <i class="fa-solid fa-check text-bright-cyan mt-1"></i>
+            <span><strong>100% Authentic Products:</strong> We only stock the real deal. No fakes, no compromises.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fa-solid fa-check text-bright-cyan mt-1"></i>
+            <span><strong>Free Retail Parking:</strong> Skip the hassle of finding parking in Midtown.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fa-solid fa-check text-bright-cyan mt-1"></i>
+            <span><strong>Late Night Hours:</strong> Open until 2 AM on weekends to serve your late-night needs.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fa-solid fa-check text-bright-cyan mt-1"></i>
+            <span><strong>Expert Staff:</strong> Our knowledgeable team is here to help you find exactly what you need.</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+        <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=60" alt="Midtown Atlanta" class="w-full h-full object-cover" referrerpolicy="no-referrer" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-8">
+          <h3 class="text-3xl font-black text-white uppercase">In the Heart of the City</h3>
+        </div>
+      </div>
+    </div>
+    
+    <LocationMap />
+    
+  </main>
+  
+  <Footer />
+</Layout>

@@ -1,0 +1,97 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/global/Navbar.astro';
+import Footer from '../../components/global/Footer.astro';
+import SectionHeader from '../../components/ui/SectionHeader.astro';
+import { formatDate } from '../../lib/utils';
+
+export async function getStaticPaths() {
+  const events = await getCollection('events');
+  return events.map(event => ({
+    params: { slug: event.slug },
+    props: { event },
+  }));
+}
+
+const { event } = Astro.props;
+const { Content } = await event.render();
+
+const displayDate = event.data.endDate 
+  ? `${formatDate(event.data.date)} - ${formatDate(event.data.endDate)}`
+  : formatDate(event.data.date);
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": event.data.title,
+  "startDate": event.data.date.toISOString(),
+  "endDate": event.data.endDate ? event.data.endDate.toISOString() : event.data.date.toISOString(),
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": event.data.venue,
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Atlanta",
+      "addressRegion": "GA"
+    }
+  },
+  "description": `Join us for ${event.data.title} at ${event.data.venue}. Stop by Untouchable Smoke Shop nearby!`
+};
+---
+
+<Layout 
+  title={`${event.data.title} | Events Near Untouchable Smoke Shop Atlanta`}
+  description={`Attending ${event.data.title} at ${event.data.venue}? Visit Untouchable Smoke Shop at 533 Peachtree St NE for the best pre-game and post-game essentials.`}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  
+  <Navbar />
+  
+  <main class="pt-32 pb-20 px-6 max-w-[1200px] mx-auto min-h-[60vh]">
+    <div class="mb-8">
+      <a href="/midtown-atlanta-events" class="text-bright-cyan hover:underline font-bold uppercase tracking-widest text-sm">
+        <i class="fa-solid fa-arrow-left mr-2"></i> Back to Events
+      </a>
+    </div>
+    
+    <div class="bg-charcoal/30 rounded-3xl p-8 md:p-12 border border-white/5">
+      <div class="flex flex-wrap gap-4 mb-6">
+        <span class="bg-bright-cyan/20 text-bright-cyan px-4 py-2 rounded-full font-bold uppercase tracking-widest text-sm">
+          {event.data.category}
+        </span>
+        <span class="bg-white/10 text-white px-4 py-2 rounded-full font-bold uppercase tracking-widest text-sm">
+          <i class="fa-regular fa-calendar mr-2"></i> {displayDate}
+        </span>
+        {event.data.time && (
+          <span class="bg-white/10 text-white px-4 py-2 rounded-full font-bold uppercase tracking-widest text-sm">
+            <i class="fa-regular fa-clock mr-2"></i> {event.data.time}
+          </span>
+        )}
+      </div>
+      
+      <h1 class="text-4xl md:text-6xl font-black uppercase mb-6">{event.data.title}</h1>
+      
+      <div class="flex items-center gap-3 text-xl text-gray-300 mb-10 font-bold">
+        <i class="fa-solid fa-location-dot text-teal-glow"></i>
+        <span>{event.data.venue}</span>
+      </div>
+      
+      <div class="prose prose-invert prose-lg max-w-none prose-a:text-bright-cyan hover:prose-a:text-white mb-12">
+        <Content />
+      </div>
+      
+      <div class="bg-deep-black p-8 rounded-2xl border border-bright-cyan/20 text-center">
+        <h3 class="text-2xl font-black uppercase mb-4 text-white">Walking Distance from Untouchable Smoke Shop</h3>
+        <p class="text-gray-400 mb-6">We are located at 533 Peachtree St NE, right in the heart of Midtown Atlanta. Stop by before or after the event!</p>
+        <a href="https://maps.app.goo.gl/DBnPu5MiW5beXzQg4" target="_blank" class="inline-block vibe-gradient px-8 py-4 rounded-full font-black text-white uppercase tracking-widest hover:scale-105 transition-transform">
+          Get Directions
+        </a>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>

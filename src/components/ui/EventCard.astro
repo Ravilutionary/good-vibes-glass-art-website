@@ -1,0 +1,45 @@
+---
+import { formatDate } from '../../lib/utils';
+
+interface Props {
+  title: string;
+  date: Date;
+  endDate?: Date;
+  venue: string;
+  category: string;
+  time?: string;
+  slug: string;
+}
+
+const { title, date, endDate, venue, category, time, slug } = Astro.props;
+
+const displayDate = endDate 
+  ? `${formatDate(date)} - ${formatDate(endDate)}`
+  : formatDate(date);
+---
+
+<a href={`/events/${slug}`} class="block group">
+  <div class="bg-charcoal/50 rounded-2xl border border-white/5 p-6 hover:border-bright-cyan/50 transition-all hover:-translate-y-1">
+    <div class="flex justify-between items-start mb-4">
+      <span class="text-xs font-bold uppercase tracking-widest text-bright-cyan bg-bright-cyan/10 px-3 py-1 rounded-full">
+        {category}
+      </span>
+      <span class="text-sm text-gray-400 font-bold">
+        {displayDate}
+      </span>
+    </div>
+    <h3 class="text-xl font-black uppercase mb-2 group-hover:text-bright-cyan transition-colors">{title}</h3>
+    <div class="flex flex-col gap-2 text-sm text-gray-400">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-location-dot w-4 text-center"></i>
+        <span>{venue}</span>
+      </div>
+      {time && (
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-clock w-4 text-center"></i>
+          <span>{time}</span>
+        </div>
+      )}
+    </div>
+  </div>
+</a>

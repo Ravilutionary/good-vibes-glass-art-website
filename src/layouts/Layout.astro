@@ -109,7 +109,7 @@ const { title, description } = Astro.props;
 			@apply hover:text-white transition-colors uppercase tracking-widest text-[10px] 3xl:text-xs font-bold;
 		}
 		.hero-title {
-			font-size: clamp(3.5rem, 12vw, 12rem);
+			font-size: clamp(2.25rem, 9vw, 12rem);
 			@apply font-black tracking-tighter leading-[0.9] mb-6;
 		}
 		.hot-card {
@@ -155,5 +155,14 @@ const { title, description } = Astro.props;
 	/* Map Styles */
 	.map-frame {
 		@apply grayscale invert contrast-125 opacity-80 transition-all duration-700 hover:grayscale-0 hover:invert-0 hover:opacity-100;
+	}
+
+	/* Hide scrollbar for horizontal scrolling elements */
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+	.no-scrollbar {
+		-ms-overflow-style: none;  /* IE and Edge */
+		scrollbar-width: none;  /* Firefox */
 	}
 </style>

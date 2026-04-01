@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/global/Navbar.astro';
+import Footer from '../components/global/Footer.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import EventCard from '../components/ui/EventCard.astro';
+
+const allEvents = await getCollection('events');
+// Sort by date
+const events = allEvents.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+---
+
+<Layout 
+  title="Midtown Atlanta Events Near 533 Peachtree St NE"
+  description="Find nearby Midtown Atlanta events, Fox Theatre shows, and Peachtree Street traffic near 533 Peachtree St NE. Stop by Untouchable Smoke Shop while you're in the area."
+>
+  <Navbar />
+  
+  <main class="pt-32 pb-20 px-6 max-w-[1800px] mx-auto">
+    <div class="text-center max-w-4xl mx-auto mb-16">
+      <SectionHeader 
+        title="Midtown Atlanta" 
+        accentText="Events" 
+        accentColor="text-bright-cyan" 
+        subtitle="Planning a night out in Midtown? Check out the hottest upcoming events near Peachtree Street and the Fox Theatre. Don't forget to visit Untouchable Smoke Shop for your pre-game essentials."
+        alignment="center"
+      />
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {events.map(event => (
+        <EventCard 
+          title={event.data.title}
+          date={event.data.date}
+          endDate={event.data.endDate}
+          venue={event.data.venue}
+          category={event.data.category}
+          time={event.data.time}
+          slug={event.slug}
+        />
+      ))}
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>

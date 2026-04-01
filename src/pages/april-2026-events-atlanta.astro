@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/global/Navbar.astro';
+import Footer from '../components/global/Footer.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import EventCard from '../components/ui/EventCard.astro';
+
+const allEvents = await getCollection('events');
+// Filter for April 2026 events
+const events = allEvents.filter(event => {
+  const d = new Date(event.data.date);
+  return d.getMonth() === 3 && d.getFullYear() === 2026; // Month is 0-indexed, 3 = April
+}).sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+---
+
+<Layout 
+  title="April 2026 Atlanta Events Near Our Shop | Untouchable Smoke Shop"
+  description="Explore April 2026 events near our shop in Midtown Atlanta and plan your visit around local foot traffic."
+>
+  <Navbar />
+  
+  <main class="pt-32 pb-20 px-6 max-w-[1800px] mx-auto">
+    <div class="text-center max-w-4xl mx-auto mb-16">
+      <SectionHeader 
+        title="April 2026" 
+        accentText="Events" 
+        accentColor="text-electric-blue" 
+        subtitle="Spring is here and Atlanta is buzzing. Check out the top events happening this April near Untouchable Smoke Shop."
+        alignment="center"
+      />
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {events.map(event => (
+        <EventCard 
+          title={event.data.title}
+          date={event.data.date}
+          endDate={event.data.endDate}
+          venue={event.data.venue}
+          category={event.data.category}
+          time={event.data.time}
+          slug={event.slug}
+        />
+      ))}
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>

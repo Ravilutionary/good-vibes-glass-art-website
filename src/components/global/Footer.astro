@@ -6,9 +6,10 @@ const encodedPrompt = encodeURIComponent(aiPrompt.trim());
 const aiLinks = [
     {
         name: "Gemini",
-        url: `https://gemini.google.com/app?q=${encodedPrompt}`,
+        url: `https://gemini.google.com/app`,
         icon: "fa-solid fa-wand-magic-sparkles",
-        color: "bg-gradient-to-r from-blue-500 to-purple-500 text-white border-transparent"
+        color: "bg-gradient-to-r from-blue-500 to-purple-500 text-white border-transparent",
+        id: "gemini-ai-link"
     },
     {
         name: "ChatGPT",
@@ -112,6 +113,7 @@ const aiLinks = [
                         href={ai.url} 
                         target="_blank" 
                         rel="noopener noreferrer"
+                        id={ai.id}
                         class={`flex items-center justify-center sm:justify-start gap-3 4xl:gap-5 px-4 py-3 4xl:px-8 4xl:py-5 rounded-xl border ${ai.color} hover:opacity-90 hover:-translate-y-1 transition-all shadow-lg w-full sm:w-[160px] 3xl:w-[220px] 4xl:w-[280px]`}
                         aria-label={`Ask ${ai.name} about us`}
                     >
@@ -127,4 +129,28 @@ const aiLinks = [
     <div class="max-w-[1800px] 4xl:max-w-[2400px] mx-auto pt-10 4xl:pt-16 border-t border-white/5 text-center text-[10px] 3xl:text-sm 4xl:text-xl text-gray-400 font-bold uppercase tracking-widest">
         <p>&copy; 2026 Untouchable Smoke Shop. Powered by <a href="https://www.sayitaintseo.com" target="_blank" rel="noopener" class="text-gray-300 hover:text-bright-cyan transition-colors underline underline-offset-4 decoration-teal-glow/30">Say It Ain't SEO</a>.</p>
     </div>
+
+    <!-- Toast Notification -->
+    <div id="copy-toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-bright-cyan text-deep-black px-6 py-3 rounded-full font-bold uppercase tracking-widest shadow-2xl transition-all duration-300 transform translate-y-20 opacity-0 z-[100] pointer-events-none flex items-center gap-3">
+        <i class="fa-solid fa-check-circle text-xl"></i>
+        <span>Prompt copied! Paste in Gemini.</span>
+    </div>
 </footer>
+
+<script define:vars={{ promptText: aiPrompt.trim() }}>
+    const geminiLink = document.getElementById('gemini-ai-link');
+    const toast = document.getElementById('copy-toast');
+    
+    if (geminiLink && toast) {
+        geminiLink.addEventListener('click', (e) => {
+            navigator.clipboard.writeText(promptText).then(() => {
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                }, 3000);
+            }).catch(err => {
+                console.error('Failed to copy prompt: ', err);
+            });
+        });
+    }
+</script>
