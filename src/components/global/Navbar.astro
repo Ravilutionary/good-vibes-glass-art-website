@@ -1,9 +1,10 @@
 ---
 ---
 <!-- GLOBAL TRUST BANNER -->
-<div class="vibe-gradient text-white text-[10px] md:text-xs 3xl:text-sm 4xl:text-lg font-black py-2 3xl:py-3 4xl:py-4 sticky top-0 z-50 uppercase tracking-widest shadow-lg overflow-hidden flex justify-center" role="alert">
-    <!-- Mobile/Tablet Marquee -->
-    <div class="flex lg:hidden whitespace-nowrap animate-marquee hover:[animation-play-state:paused] items-center w-max">
+<header class="sticky top-0 z-50 flex flex-col w-full">
+<div class="vibe-gradient text-white text-[10px] md:text-xs 3xl:text-sm 4xl:text-lg font-black py-2 3xl:py-3 4xl:py-4 uppercase tracking-widest shadow-lg overflow-hidden flex justify-center" role="alert">
+    <!-- Mobile Marquee -->
+    <div class="flex md:hidden whitespace-nowrap animate-marquee hover:[animation-play-state:paused] items-center w-max">
         <!-- Triplicated content for seamless infinite scrolling -->
         {Array(3).fill(0).map(() => (
             <div class="flex items-center gap-4 pr-4">
@@ -19,8 +20,8 @@
         ))}
     </div>
 
-    <!-- Desktop Static -->
-    <div class="hidden lg:flex items-center justify-center gap-4 w-full max-w-[1800px] px-6">
+    <!-- Desktop/Tablet Static -->
+    <div class="hidden md:flex items-center justify-center gap-4 w-full max-w-[1800px] px-6">
         <span class="bg-white text-black px-2 py-0.5 rounded-sm animate-pulse shadow-lg shrink-0">🚗 FREE RETAIL PARKING</span>
         <span class="opacity-50 shrink-0">|</span>
         <span class="shrink-0">🔞 STRICTLY 21+ ONLY</span>
@@ -32,7 +33,7 @@
 </div>
 
 <!-- NAVIGATION -->
-<nav class="p-6 3xl:p-10 4xl:p-14 border-b border-white/5 bg-black/50 backdrop-blur-md sticky top-[32px] md:top-[36px] 3xl:top-[44px] 4xl:top-[56px] z-40" role="navigation" aria-label="Main Navigation">
+<nav class="p-6 3xl:p-10 4xl:p-14 border-b border-white/5 bg-black/50 backdrop-blur-md" role="navigation" aria-label="Main Navigation">
     <div class="max-w-[1800px] 4xl:max-w-[2400px] mx-auto flex justify-between items-center">
         <div class="flex items-center gap-2 3xl:gap-4 4xl:gap-6">
             <div class="w-10 h-10 3xl:w-14 3xl:h-14 4xl:w-20 4xl:h-20 vibe-gradient rounded-lg flex items-center justify-center shadow-lg shadow-teal-glow/20 shrink-0">
@@ -40,15 +41,27 @@
             </div>
             <span class="font-extrabold text-lg md:text-xl 3xl:text-3xl 4xl:text-5xl tracking-tighter uppercase whitespace-nowrap">Untouchable <span class="text-bright-cyan">Smoke</span></span>
         </div>
-        <div class="hidden md:flex gap-8 3xl:gap-16 4xl:gap-24 text-gray-400 4xl:text-2xl">
+        <div class="hidden md:flex gap-8 3xl:gap-16 4xl:gap-24 text-gray-400 4xl:text-2xl items-center">
             <a href="/" class="nav-link">Home</a>
-            <a href="/vapes" class="nav-link">Vapes</a>
-            <a href="/glass" class="nav-link">Glass</a>
-            <a href="/hookah" class="nav-link">Hookah</a>
-            <a href="/cigars" class="nav-link">Cigars</a>
+            
+            <!-- Products Dropdown -->
+            <div class="relative group py-4">
+                <button class="nav-link flex items-center gap-1 focus:outline-none" aria-haspopup="true" aria-expanded="false">
+                    Products <i class="fa-solid fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
+                </button>
+                <div class="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-48 bg-deep-black border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 flex flex-col overflow-hidden z-50">
+                    <a href="/vapes" class="px-6 py-3 hover:bg-white/10 hover:text-bright-cyan transition-colors text-sm font-bold text-gray-200">Vapes</a>
+                    <a href="/glass" class="px-6 py-3 hover:bg-white/10 hover:text-bright-cyan transition-colors text-sm font-bold text-gray-200">Glass</a>
+                    <a href="/hookah" class="px-6 py-3 hover:bg-white/10 hover:text-bright-cyan transition-colors text-sm font-bold text-gray-200">Hookah</a>
+                    <a href="/cigars" class="px-6 py-3 hover:bg-white/10 hover:text-bright-cyan transition-colors text-sm font-bold text-gray-200">Cigars</a>
+                </div>
+            </div>
+
+            <a href="/midtown-atlanta-events" class="nav-link">Events</a>
+            <a href="/blog" class="nav-link">Blog</a>
             <a href="/#location-map" class="nav-link text-bright-cyan border-b border-teal-glow">Location</a>
         </div>
-        <a href="/#optin" class="hidden md:inline-block bg-white text-black py-2.5 px-6 3xl:px-10 4xl:py-4 4xl:px-14 rounded-full text-[10px] 3xl:text-sm 4xl:text-xl font-black hover:bg-bright-cyan hover:text-white transition-all uppercase tracking-widest" aria-label="Get 15% discount">Get 15% Off</a>
+        <a href="/#optin" class="hidden md:inline-block bg-white text-black py-2.5 px-6 3xl:px-10 4xl:py-4 4xl:px-14 rounded-full text-[10px] 3xl:text-sm 4xl:text-xl font-black hover:bg-bright-cyan hover:text-white transition-all uppercase tracking-widest" aria-label="Join the Inner Circle">Join the Inner Circle</a>
         
         <!-- Hamburger Button -->
         <button id="mobile-menu-btn" class="md:hidden text-white text-2xl focus:outline-none" aria-label="Toggle Menu">
@@ -56,20 +69,33 @@
         </button>
     </div>
 </nav>
+</header>
 
 <!-- Mobile Menu Overlay -->
 <div id="mobile-menu" class="fixed inset-0 bg-deep-black/95 backdrop-blur-xl z-[100] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center">
     <button id="close-menu-btn" class="absolute top-6 right-6 text-white text-3xl focus:outline-none" aria-label="Close Menu">
         <i class="fa-solid fa-xmark"></i>
     </button>
-    <div class="flex flex-col gap-8 text-center text-2xl font-black uppercase tracking-widest">
+    <div class="flex flex-col gap-8 text-center text-2xl font-bold w-full px-8 overflow-y-auto max-h-[85vh]">
         <a href="/" class="mobile-link hover:text-bright-cyan transition-colors">Home</a>
-        <a href="/vapes" class="mobile-link hover:text-bright-cyan transition-colors">Vapes</a>
-        <a href="/glass" class="mobile-link hover:text-bright-cyan transition-colors">Glass</a>
-        <a href="/hookah" class="mobile-link hover:text-bright-cyan transition-colors">Hookah</a>
-        <a href="/cigars" class="mobile-link hover:text-bright-cyan transition-colors">Cigars</a>
+        
+        <!-- Mobile Products Accordion -->
+        <div class="flex flex-col items-center w-full">
+            <button id="mobile-products-btn" class="flex items-center justify-center gap-2 hover:text-bright-cyan transition-colors w-full py-2">
+                Products <i class="fa-solid fa-chevron-down text-sm transition-transform" id="mobile-products-icon"></i>
+            </button>
+            <div id="mobile-products-menu" class="hidden flex-col gap-6 mt-6 w-full bg-white/5 rounded-2xl py-6 border border-white/10">
+                <a href="/vapes" class="mobile-link text-xl text-gray-300 hover:text-bright-cyan transition-colors">Vapes</a>
+                <a href="/glass" class="mobile-link text-xl text-gray-300 hover:text-bright-cyan transition-colors">Glass</a>
+                <a href="/hookah" class="mobile-link text-xl text-gray-300 hover:text-bright-cyan transition-colors">Hookah</a>
+                <a href="/cigars" class="mobile-link text-xl text-gray-300 hover:text-bright-cyan transition-colors">Cigars</a>
+            </div>
+        </div>
+
+        <a href="/midtown-atlanta-events" class="mobile-link hover:text-bright-cyan transition-colors">Events</a>
+        <a href="/blog" class="mobile-link hover:text-bright-cyan transition-colors">Blog</a>
         <a href="/#location-map" class="mobile-link text-bright-cyan">Location</a>
-        <a href="/#optin" class="mobile-link mt-8 bg-white text-black py-4 px-10 rounded-full text-lg hover:bg-bright-cyan hover:text-white transition-all">Get 15% Off</a>
+        <a href="/#optin" class="mobile-link mt-8 bg-white text-black py-4 px-10 rounded-full text-lg hover:bg-bright-cyan hover:text-white transition-all mx-auto">Join the Inner Circle</a>
     </div>
 </div>
 
@@ -81,20 +107,37 @@
 
     if (mobileMenuBtn && closeMenuBtn && mobileMenu) {
         mobileMenuBtn.addEventListener('click', () => {
+            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+            document.body.style.paddingRight = `${scrollbarWidth}px`;
             mobileMenu.classList.remove('translate-x-full');
             document.body.style.overflow = 'hidden';
         });
 
-        closeMenuBtn.addEventListener('click', () => {
+        const closeMenu = () => {
             mobileMenu.classList.add('translate-x-full');
             document.body.style.overflow = '';
-        });
+            setTimeout(() => {
+                document.body.style.paddingRight = '';
+            }, 300); // match transition duration
+        };
+
+        closeMenuBtn.addEventListener('click', closeMenu);
 
         mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('translate-x-full');
-                document.body.style.overflow = '';
-            });
+            link.addEventListener('click', closeMenu);
         });
+
+        // Mobile Products Accordion Toggle
+        const mobileProductsBtn = document.getElementById('mobile-products-btn');
+        const mobileProductsMenu = document.getElementById('mobile-products-menu');
+        const mobileProductsIcon = document.getElementById('mobile-products-icon');
+
+        if (mobileProductsBtn && mobileProductsMenu && mobileProductsIcon) {
+            mobileProductsBtn.addEventListener('click', () => {
+                mobileProductsMenu.classList.toggle('hidden');
+                mobileProductsMenu.classList.toggle('flex');
+                mobileProductsIcon.classList.toggle('rotate-180');
+            });
+        }
     }
 </script>

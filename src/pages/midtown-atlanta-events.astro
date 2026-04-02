@@ -28,7 +28,7 @@ const events = allEvents.sort((a, b) => a.data.date.valueOf() - b.data.date.valu
       />
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="all-events-grid">
       {events.map(event => (
         <EventCard 
           title={event.data.title}

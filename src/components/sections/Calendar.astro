@@ -4,11 +4,11 @@ import SectionHeader from '../ui/SectionHeader.astro';
 import { formatDate } from '../../lib/utils';
 
 const allEvents = await getCollection('events');
-// Get the next 3 upcoming events
+// Get a larger batch of upcoming events at build time so the client has a buffer
 const upcomingEvents = allEvents
-  .filter(event => event.data.date >= new Date('2026-04-01')) // Assuming current date is April 1, 2026
+  .filter(event => event.data.date >= new Date(Date.now() - 86400000 * 2)) // Buffer of 2 days in the past to account for timezones
   .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf())
-  .slice(0, 3);
+  .slice(0, 10);
 
 const colors = ['text-purple-vibe', 'text-teal-glow', 'text-bright-cyan'];
 const bgColors = ['bg-purple-vibe/20', 'bg-teal-glow/20', 'bg-bright-cyan/20'];
@@ -20,23 +20,23 @@ const borderColors = ['border-purple-vibe/30', 'border-teal-glow/30', 'border-br
             <SectionHeader title="Peachtree" accentText="Pulse" accentColor="text-electric-blue" subtitle="Upcoming events and drops." />
             <div class="flex flex-col gap-4">
                 <a href="/midtown-atlanta-events" class="vibe-gradient px-6 py-3 4xl:px-10 4xl:py-6 rounded-full text-sm 4xl:text-2xl font-bold uppercase tracking-widest hover:scale-105 transition-transform text-white text-center">
-                    View All Events
+                    See the Lineup
                 </a>
                 <a href="sms:+14708736088?body=I'm%20interested%20in%20collaborating%20on%20an%20event!" class="glass-morphism px-6 py-3 4xl:px-10 4xl:py-6 rounded-full text-sm 4xl:text-2xl font-bold uppercase tracking-widest hover:bg-white/10 transition-colors flex items-center gap-2 4xl:gap-4 justify-center">
-                    <i class="fa-solid fa-comment-sms text-electric-blue"></i> DM us to collaborate
+                    <i class="fa-solid fa-comment-sms text-electric-blue"></i> Pitch an Event
                 </a>
             </div>
         </div>
         
-        <div class="flex flex-col">
+        <div class="flex flex-col" id="pulse-events-container">
             {upcomingEvents.map((event, index) => {
                 const colorIndex = index % colors.length;
                 const d = new Date(event.data.date);
-                const month = d.toLocaleDateString('en-US', { month: 'short' });
-                const day = d.toLocaleDateString('en-US', { day: '2-digit' });
+                const month = d.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' });
+                const day = d.toLocaleDateString('en-US', { day: '2-digit', timeZone: 'UTC' });
                 
                 return (
-                    <a href={`/events/${event.slug}`} class="event-row group 4xl:p-12 block hover:bg-white/5 transition-colors">
+                    <a href={`/events/${event.slug}`} data-event-date={event.data.date.toISOString()} class="event-row group 4xl:p-12 hidden hover:bg-white/5 transition-colors">
                         <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 w-full">
                             <div class="flex items-center gap-6 4xl:gap-10 mb-4 md:mb-0">
                                 <div class={`w-16 h-16 4xl:w-24 4xl:h-24 rounded-2xl 4xl:rounded-3xl ${bgColors[colorIndex]} ${colors[colorIndex]} flex flex-col items-center justify-center border ${borderColors[colorIndex]} shrink-0`}>
@@ -62,3 +62,33 @@ const borderColors = ['border-purple-vibe/30', 'border-teal-glow/30', 'border-br
         </div>
     </div>
 </section>
+
+<script>
+    function filterPulseEvents() {
+        const rows = document.querySelectorAll('#pulse-events-container .event-row');
+        const now = new Date();
+        // Set to start of today in local time to keep events visible until the day is over
+        now.setHours(0, 0, 0, 0); 
+
+        let visibleCount = 0;
+        rows.forEach(row => {
+            const dateStr = row.getAttribute('data-event-date');
+            if (!dateStr) return;
+            
+            const eventDate = new Date(dateStr);
+            
+            // If the event is today or in the future, and we haven't shown 3 yet
+            if (eventDate >= now && visibleCount < 3) {
+                row.classList.remove('hidden');
+                row.classList.add('block');
+                visibleCount++;
+            } else {
+                row.classList.add('hidden');
+                row.classList.remove('block');
+            }
+        });
+    }
+
+    // Run immediately on load
+    filterPulseEvents();
+</script>

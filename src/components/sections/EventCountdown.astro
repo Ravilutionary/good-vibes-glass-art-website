@@ -1,0 +1,136 @@
+---
+// Strategic Promo Countdown Component
+// Handles Pre-Sale (Countdown + SMS Capture), Active Sale, and Post-Sale (Auto-Hide)
+---
+
+<section id="promo-section" class="py-16 md:py-24 border-b border-white/5 bg-deep-black relative overflow-hidden hidden" aria-label="4/20 Mega Sale">
+  <!-- Background Glow -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-full h-full bg-gradient-to-r from-teal-glow/20 to-purple-vibe/20 blur-[120px] pointer-events-none"></div>
+  
+  <div class="max-w-[1400px] mx-auto px-6 relative z-10 flex flex-col xl:flex-row items-center justify-between gap-12">
+    
+    <!-- Copy & Offer -->
+    <div class="text-center xl:text-left flex-1 max-w-3xl">
+      <!-- State 1: Pre-Sale -->
+      <div id="promo-pre-sale">
+        <div class="inline-block bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-6 backdrop-blur-md">
+          <p class="text-bright-cyan font-bold uppercase tracking-widest text-xs">The Drop is Coming</p>
+        </div>
+        <h2 class="text-4xl md:text-6xl 4xl:text-7xl font-black uppercase tracking-tighter text-white mb-6 leading-tight">
+          The 4/20 <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-glow to-bright-cyan">Mega Sale</span>
+        </h2>
+        <p class="text-gray-300 text-lg md:text-xl mb-8 max-w-2xl mx-auto xl:mx-0 leading-relaxed">
+          Our biggest sale of the year begins soon. <strong class="text-white">4/20 Bundle: Any 4 select accessories for $20.</strong> Sign up to get the VIP discount code the second the timer hits zero.
+        </p>
+        
+        <!-- Data Capture -->
+        <form class="flex flex-col sm:flex-row gap-4 justify-center xl:justify-start w-full max-w-xl mx-auto xl:mx-0" onsubmit="event.preventDefault(); this.innerHTML = `<div class='text-bright-cyan font-black text-2xl py-3 uppercase tracking-widest'>You're In. Watch your phone on 4/20.</div>`;">
+          <input type="tel" placeholder="Enter mobile number" class="px-6 py-4 rounded-full bg-black/50 border border-white/10 text-white focus:outline-none focus:border-bright-cyan w-full text-lg backdrop-blur-md font-medium" required pattern="[0-9]{10}" title="10 digit phone number" />
+          <button type="submit" class="vibe-gradient px-8 py-4 rounded-full font-black text-white uppercase tracking-widest hover:scale-105 transition-transform whitespace-nowrap text-lg shadow-[0_0_20px_rgba(30,149,212,0.3)]">
+            Get Notified
+          </button>
+        </form>
+      </div>
+
+      <!-- State 2: Active Sale -->
+      <div id="promo-active-sale" class="hidden">
+        <div class="inline-block bg-bright-cyan/20 border border-bright-cyan/50 rounded-full px-4 py-1.5 mb-6 backdrop-blur-md animate-pulse">
+          <p class="text-bright-cyan font-bold uppercase tracking-widest text-xs">Live Now In-Store</p>
+        </div>
+        <h2 class="text-4xl md:text-6xl 4xl:text-7xl font-black uppercase tracking-tighter text-white mb-6 leading-tight">
+          4/20 <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-glow to-bright-cyan">Bundle Sale</span> is Active!
+        </h2>
+        <p class="text-gray-300 text-xl md:text-2xl mb-8 max-w-2xl mx-auto xl:mx-0 font-bold">
+          Any 4 select accessories for just $20.
+        </p>
+        <a href="#location-map" class="inline-block vibe-gradient px-12 py-5 rounded-full font-black text-white uppercase tracking-widest hover:scale-105 transition-transform shadow-[0_0_30px_rgba(30,149,212,0.5)] text-lg">
+          Get The Location
+        </a>
+      </div>
+    </div>
+
+    <!-- Countdown Timer -->
+    <div id="promo-timer-container" class="flex items-center justify-center gap-2 sm:gap-4 md:gap-8 bg-black/40 p-6 sm:p-8 md:p-10 rounded-[2rem] border border-white/10 backdrop-blur-xl shadow-2xl w-full xl:w-auto">
+      <div class="flex flex-col items-center w-16 sm:w-24">
+        <span class="days text-4xl sm:text-5xl md:text-7xl font-black text-white tabular-nums tracking-tighter">00</span>
+        <span class="text-[10px] sm:text-xs md:text-sm uppercase tracking-widest text-gray-500 font-bold mt-2">Days</span>
+      </div>
+      <span class="text-3xl sm:text-5xl md:text-7xl font-black text-teal-glow/30 mb-6 sm:mb-8">:</span>
+      <div class="flex flex-col items-center w-16 sm:w-24">
+        <span class="hours text-4xl sm:text-5xl md:text-7xl font-black text-white tabular-nums tracking-tighter">00</span>
+        <span class="text-[10px] sm:text-xs md:text-sm uppercase tracking-widest text-gray-500 font-bold mt-2">Hours</span>
+      </div>
+      <span class="text-3xl sm:text-5xl md:text-7xl font-black text-teal-glow/30 mb-6 sm:mb-8">:</span>
+      <div class="flex flex-col items-center w-16 sm:w-24">
+        <span class="minutes text-4xl sm:text-5xl md:text-7xl font-black text-white tabular-nums tracking-tighter">00</span>
+        <span class="text-[10px] sm:text-xs md:text-sm uppercase tracking-widest text-gray-500 font-bold mt-2">Mins</span>
+      </div>
+      <span class="text-3xl sm:text-5xl md:text-7xl font-black text-teal-glow/30 mb-6 sm:mb-8">:</span>
+      <div class="flex flex-col items-center w-16 sm:w-24">
+        <span class="seconds text-4xl sm:text-5xl md:text-7xl font-black text-teal-glow tabular-nums tracking-tighter">00</span>
+        <span class="text-[10px] sm:text-xs md:text-sm uppercase tracking-widest text-teal-glow/70 font-bold mt-2">Secs</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function initPromo() {
+    const section = document.getElementById('promo-section');
+    const preSale = document.getElementById('promo-pre-sale');
+    const activeSale = document.getElementById('promo-active-sale');
+    const timerContainer = document.getElementById('promo-timer-container');
+
+    if (!section || !preSale || !activeSale || !timerContainer) return;
+
+    // Target: April 20, 2026 00:00:00 Local Time
+    const targetDate = new Date('2026-04-20T00:00:00').getTime();
+    // End: April 22, 2026 00:00:00 Local Time (Hide after 4/21 ends)
+    const endDate = new Date('2026-04-22T00:00:00').getTime();
+
+    const daysEl = timerContainer.querySelector('.days');
+    const hoursEl = timerContainer.querySelector('.hours');
+    const minutesEl = timerContainer.querySelector('.minutes');
+    const secondsEl = timerContainer.querySelector('.seconds');
+
+    function update() {
+      const now = new Date().getTime();
+
+      if (now >= endDate) {
+        // Promo is completely over, hide section
+        section.style.display = 'none';
+        return;
+      }
+
+      // Show the section since it's within the valid date range
+      section.classList.remove('hidden');
+
+      if (now >= targetDate && now < endDate) {
+        // Sale is ACTIVE
+        preSale.classList.add('hidden');
+        timerContainer.classList.add('hidden');
+        activeSale.classList.remove('hidden');
+        return;
+      }
+
+      // Pre-sale Countdown
+      const distance = targetDate - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+      if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+      if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+      if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+    }
+
+    update(); // Initial call
+    setInterval(update, 1000);
+  }
+
+  // Run on load
+  initPromo();
+</script>

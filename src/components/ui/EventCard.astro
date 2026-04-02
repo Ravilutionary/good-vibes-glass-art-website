@@ -18,7 +18,7 @@ const displayDate = endDate
   : formatDate(date);
 ---
 
-<a href={`/events/${slug}`} class="block group">
+<a href={`/events/${slug}`} data-event-date={date.toISOString()} class="block group event-card-wrapper hidden">
   <div class="bg-charcoal/50 rounded-2xl border border-white/5 p-6 hover:border-bright-cyan/50 transition-all hover:-translate-y-1">
     <div class="flex justify-between items-start mb-4">
       <span class="text-xs font-bold uppercase tracking-widest text-bright-cyan bg-bright-cyan/10 px-3 py-1 rounded-full">
@@ -43,3 +43,30 @@ const displayDate = endDate
     </div>
   </div>
 </a>
+
+<script>
+  function filterAllEvents() {
+      const cards = document.querySelectorAll('.event-card-wrapper');
+      const now = new Date();
+      now.setHours(0, 0, 0, 0); // Start of today
+
+      cards.forEach(card => {
+          const dateStr = card.getAttribute('data-event-date');
+          if (!dateStr) return;
+          
+          const eventDate = new Date(dateStr);
+          
+          // If the event is today or in the future
+          if (eventDate >= now) {
+              card.classList.remove('hidden');
+              card.classList.add('block');
+          } else {
+              card.classList.add('hidden');
+              card.classList.remove('block');
+          }
+      });
+  }
+
+  // Run immediately on load
+  filterAllEvents();
+</script>

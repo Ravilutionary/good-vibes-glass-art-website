@@ -30,12 +30,30 @@
                 gate.style.display = 'none';
                 document.body.classList.remove('overflow-hidden');
             }, 500);
-            localStorage.setItem(`${STORE_CONFIG.id}_verified`, 'true');
+            
+            // Set expiration to 30 days from now
+            const expiry = new Date().getTime() + (30 * 24 * 60 * 60 * 1000);
+            localStorage.setItem(`${STORE_CONFIG.id}_verified`, JSON.stringify({ verified: true, expiry }));
         }
     }
 
     // Initialize Age Gate
-    if(localStorage.getItem(`${STORE_CONFIG.id}_verified`) === 'true') {
+    const storedData = localStorage.getItem(`${STORE_CONFIG.id}_verified`);
+    let isVerified = false;
+    
+    if (storedData) {
+        try {
+            const parsed = JSON.parse(storedData);
+            if (parsed.verified && parsed.expiry > new Date().getTime()) {
+                isVerified = true;
+            }
+        } catch (e) {
+            // Fallback for old boolean string
+            if (storedData === 'true') isVerified = true;
+        }
+    }
+
+    if(isVerified) {
         const gate = document.getElementById('age-gate');
         if (gate) gate.style.display = 'none';
     } else {

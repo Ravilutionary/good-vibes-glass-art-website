@@ -24,7 +24,21 @@ const brandsCollection = defineCollection({
   }),
 });
 
+const blogCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    date: z.date(),
+    author: z.string().optional(),
+    tags: z.array(z.string()),
+    description: z.string(),
+    image: z.string().optional(),
+    relatedPosts: z.array(reference('blog')).optional(),
+  }),
+});
+
 export const collections = {
   'events': eventsCollection,
   'brands': brandsCollection,
+  'blog': blogCollection,
 };

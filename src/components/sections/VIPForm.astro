@@ -10,22 +10,22 @@ import SectionHeader from '../ui/SectionHeader.astro';
                 <SectionHeader title="Unlock" accentText="15% Off" accentColor="text-bright-cyan" subtitle="Join the Untouchable VIP list. Get instant access to exclusive drops, secret sales, and a 15% discount code sent straight to your phone right now." alignment="center" />
             </div>
 
-            <form id="sms-form" class="max-w-md 3xl:max-w-2xl 4xl:max-w-4xl mx-auto space-y-4 4xl:space-y-8 relative z-10">
-                <div class="visually-hidden-hp" aria-hidden="true">
+            <form id="sms-form" class="max-w-xl md:max-w-2xl lg:max-w-3xl 3xl:max-w-4xl 4xl:max-w-5xl mx-auto space-y-4 4xl:space-y-8 relative z-10">
+                <div class="sr-only" aria-hidden="true">
                     <label for="hp_full_name">Full Name</label>
                     <input type="text" id="hp_full_name" name="hp_full_name" tabindex="-1" autocomplete="off">
                 </div>
                 <div class="flex flex-col md:flex-row gap-4 4xl:gap-8 relative">
                     <input type="tel" id="phone-input" placeholder="Mobile Number" required class="flex-1 bg-white/5 border border-white/10 rounded-2xl 4xl:rounded-3xl px-6 py-4 3xl:py-8 3xl:px-10 4xl:py-10 4xl:px-12 text-white 3xl:text-2xl 4xl:text-4xl focus:outline-none focus:border-teal-glow transition-all placeholder:text-gray-600 font-bold tracking-widest">
-                    <button type="submit" id="submit-btn" class="vibe-gradient px-8 py-4 3xl:px-12 3xl:py-8 4xl:px-16 4xl:py-10 rounded-2xl 4xl:rounded-3xl font-black text-white 3xl:text-2xl 4xl:text-4xl whitespace-nowrap hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center justify-center min-w-[140px] 4xl:min-w-[200px]">
-                        <span id="btn-text">SIGN ME UP</span>
+                    <button type="submit" id="submit-btn" class="vibe-gradient px-8 py-4 3xl:px-12 3xl:py-8 4xl:px-16 4xl:py-10 rounded-2xl 4xl:rounded-3xl font-black text-white text-sm sm:text-base 3xl:text-2xl 4xl:text-4xl whitespace-nowrap hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center justify-center shrink-0 min-w-[140px] 4xl:min-w-[200px]">
+                        <span id="btn-text">JOIN THE INNER CIRCLE</span>
                         <i id="btn-spinner" class="fa-solid fa-circle-notch fa-spin hidden"></i>
                     </button>
                 </div>
                 <p id="error-message" class="text-[10px] 3xl:text-sm 4xl:text-xl text-red-500 font-bold uppercase tracking-widest hidden text-center">Please enter a valid 10-digit phone number.</p>
                 <p class="text-[10px] 3xl:text-sm 4xl:text-xl text-gray-400 text-center uppercase tracking-widest font-bold">21+ Only. Msg/Data rates apply.</p>
             </form>
-            <div id="success-message" class="hidden mt-8 4xl:mt-12 text-teal-glow font-black text-xl 3xl:text-4xl 4xl:text-6xl animate-bounce italic tracking-widest">WELCOME. CHECK YOUR TEXTS.</div>
+            <div id="success-message" class="hidden mt-8 4xl:mt-12 text-teal-glow font-black text-xl 3xl:text-4xl 4xl:text-6xl animate-bounce italic tracking-widest">YOU'RE IN. CHECK YOUR TEXTS.</div>
         </div>
     </div>
 </section>

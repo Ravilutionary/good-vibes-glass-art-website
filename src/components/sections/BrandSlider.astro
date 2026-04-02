@@ -14,11 +14,11 @@ const brands = await getCollection('brands');
         {Array(3).fill(0).map(() => (
             <div class="flex items-center justify-around px-4 md:px-8 gap-6 md:gap-10">
                 {brands.map(brand => (
-                    <div class="flex items-center justify-center w-32 h-16 md:w-48 md:h-24 cursor-pointer group bg-white rounded-2xl p-3 md:p-6 shadow-lg hover:shadow-[0_0_25px_rgba(30,149,212,0.4)] hover:-translate-y-1 transition-all duration-300">
+                    <div class="flex items-center justify-center w-32 h-16 md:w-48 md:h-24 cursor-pointer group p-2 md:p-4 hover:-translate-y-1 transition-all duration-300">
                         <img 
                             src={brand.data.logo} 
                             alt={brand.data.name} 
-                            class="w-full h-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 mix-blend-multiply" 
+                            class="max-w-[100px] md:max-w-[140px] max-h-[40px] md:max-h-[60px] object-contain brightness-0 invert opacity-70 group-hover:opacity-100 group-hover:drop-shadow-[0_0_15px_rgba(30,149,212,0.8)] transition-all duration-300" 
                         />
                     </div>
                 ))}

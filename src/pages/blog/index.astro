@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/global/Navbar.astro';
+import Footer from '../../components/global/Footer.astro';
+import SectionHeader from '../../components/ui/SectionHeader.astro';
+import { formatDate } from '../../lib/utils';
+
+const posts = await getCollection('blog');
+posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Get unique tags
+const tags = [...new Set(posts.map((post) => post.data.tags).flat())];
+---
+
+<Layout 
+  title="Blog | Untouchable Smoke Shop Atlanta"
+  description="Read the latest news, guides, and tips from Untouchable Smoke Shop in Midtown Atlanta."
+>
+  <Navbar />
+  
+  <main class="pt-32 pb-20 px-6 max-w-[1200px] mx-auto min-h-[60vh]">
+    <SectionHeader title="Untouchable Blog" subtitle="News, Guides & Culture" />
+    
+    <div class="mb-12">
+      <h3 class="text-xl font-bold uppercase mb-4 text-white">Filter by Tag:</h3>
+      <div class="flex flex-wrap gap-3">
+        <a href="/blog" class="bg-bright-cyan text-deep-black px-4 py-2 rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 transition-transform">
+          All
+        </a>
+        {tags.map(tag => (
+          <a href={`/blog/tags/${tag}`} class="bg-white/10 text-white px-4 py-2 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-bright-cyan/20 hover:text-bright-cyan transition-colors">
+            {tag}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {posts.map(post => (
+        <a href={`/blog/${post.slug}`} class="bg-charcoal/30 rounded-3xl p-6 border border-white/5 hover:border-bright-cyan/30 transition-colors group flex flex-col h-full">
+          <div class="mb-4 text-sm text-gray-400 font-bold uppercase tracking-widest">
+            {formatDate(post.data.date)}
+          </div>
+          <h2 class="text-2xl font-black uppercase mb-3 group-hover:text-bright-cyan transition-colors line-clamp-2">
+            {post.data.title}
+          </h2>
+          <p class="text-gray-400 mb-6 line-clamp-3 flex-grow">
+            {post.data.description}
+          </p>
+          <div class="flex flex-wrap gap-2 mt-auto">
+            {post.data.tags.map(tag => (
+              <span class="text-xs font-bold uppercase tracking-widest text-teal-glow bg-teal-glow/10 px-2 py-1 rounded">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        </a>
+      ))}
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>
