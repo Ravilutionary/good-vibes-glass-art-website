@@ -19,32 +19,32 @@ import Layout from '../layouts/Layout.astro';
         <div class="bg-black/40 p-8 md:p-12 rounded-[2rem] border border-white/10 backdrop-blur-xl shadow-2xl relative overflow-hidden">
             <div class="glow-blur -top-20 -right-20 w-64 h-64 bg-teal-glow/20 pointer-events-none"></div>
             
-            <form id="vendor-form" class="relative z-10 space-y-6" onsubmit="event.preventDefault(); document.getElementById('vendor-form').classList.add('hidden'); document.getElementById('vendor-success').classList.remove('hidden');">
+            <form id="vendor-form" class="relative z-10 space-y-6" onsubmit="event.preventDefault(); /* TODO: Add fetch to Formspree here */ document.getElementById('vendor-form').classList.add('hidden'); document.getElementById('vendor-success').classList.remove('hidden');">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-2">
                         <label for="company" class="text-sm font-bold uppercase tracking-widest text-gray-400">Company Name</label>
-                        <input type="text" id="company" required class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-bright-cyan transition-all font-medium">
+                        <input type="text" id="company" name="company" required class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-bright-cyan transition-all font-medium">
                     </div>
                     <div class="space-y-2">
                         <label for="contact" class="text-sm font-bold uppercase tracking-widest text-gray-400">Contact Person</label>
-                        <input type="text" id="contact" required class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-bright-cyan transition-all font-medium">
+                        <input type="text" id="contact" name="contact" required class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-bright-cyan transition-all font-medium">
                     </div>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-2">
                         <label for="email" class="text-sm font-bold uppercase tracking-widest text-gray-400">Email Address</label>
-                        <input type="email" id="email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-bright-cyan transition-all font-medium">
+                        <input type="email" id="email" name="email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-bright-cyan transition-all font-medium">
                     </div>
                     <div class="space-y-2">
                         <label for="website" class="text-sm font-bold uppercase tracking-widest text-gray-400">Website / Catalog URL</label>
-                        <input type="url" id="website" required class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-bright-cyan transition-all font-medium">
+                        <input type="url" id="website" name="website" required class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-bright-cyan transition-all font-medium">
                     </div>
                 </div>
 
                 <div class="space-y-2">
                     <label for="pitch" class="text-sm font-bold uppercase tracking-widest text-gray-400">The Pitch (Why should we stock it?)</label>
-                    <textarea id="pitch" rows="4" required class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-bright-cyan transition-all font-medium resize-none"></textarea>
+                    <textarea id="pitch" name="pitch" rows="4" required class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-bright-cyan transition-all font-medium resize-none"></textarea>
                 </div>
 
                 <button type="submit" class="w-full vibe-gradient px-8 py-5 rounded-xl font-black text-white uppercase tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all text-lg shadow-[0_0_20px_rgba(30,149,212,0.3)] mt-4">

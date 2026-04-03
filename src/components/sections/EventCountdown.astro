@@ -24,8 +24,8 @@
         </p>
         
         <!-- Data Capture -->
-        <form class="flex flex-col sm:flex-row gap-4 justify-center xl:justify-start w-full max-w-xl mx-auto xl:mx-0" onsubmit="event.preventDefault(); this.innerHTML = `<div class='text-bright-cyan font-black text-2xl py-3 uppercase tracking-widest'>You're In. Watch your phone on 4/20.</div>`;">
-          <input type="tel" placeholder="Enter mobile number" class="px-6 py-4 rounded-full bg-black/50 border border-white/10 text-white focus:outline-none focus:border-bright-cyan w-full text-lg backdrop-blur-md font-medium" required pattern="[0-9]{10}" title="10 digit phone number" />
+        <form class="flex flex-col sm:flex-row gap-4 justify-center xl:justify-start w-full max-w-xl mx-auto xl:mx-0" onsubmit="event.preventDefault(); /* TODO: Add fetch to Formspree here */ this.innerHTML = `<div class='text-bright-cyan font-black text-2xl py-3 uppercase tracking-widest'>You're In. Watch your phone on 4/20.</div>`;">
+          <input type="tel" name="phone" placeholder="Enter mobile number" class="px-6 py-4 rounded-full bg-black/50 border border-white/10 text-white focus:outline-none focus:border-bright-cyan w-full text-lg backdrop-blur-md font-medium" required pattern="[0-9]{10}" title="10 digit phone number" />
           <button type="submit" class="vibe-gradient px-8 py-4 rounded-full font-black text-white uppercase tracking-widest hover:scale-105 transition-transform whitespace-nowrap text-lg shadow-[0_0_20px_rgba(30,149,212,0.3)]">
             Get Notified
           </button>
