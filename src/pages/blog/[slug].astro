@@ -14,7 +14,14 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content, headings } = await post.render();
+
+// Calculate reading time
+const wordCount = post.body.split(/\s+/).length;
+const readingTime = Math.ceil(wordCount / 200);
+
+// Filter headings for ToC (H2 and H3)
+const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
 
 // Fetch related posts if they exist
 let relatedPostsData = [];
@@ -44,66 +51,156 @@ const schema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   
+  <!-- Reading Progress Bar -->
+  <div class="fixed top-0 left-0 w-full h-1.5 bg-charcoal z-50">
+    <div id="progress-bar" class="h-full bg-gradient-to-r from-teal-glow to-bright-cyan w-0 transition-all duration-150 ease-out"></div>
+  </div>
+
   <Navbar />
   
-  <main class="pt-32 pb-20 px-6 max-w-[800px] mx-auto min-h-[60vh]">
-    <div class="mb-8">
-      <a href="/blog" class="text-bright-cyan hover:underline font-bold uppercase tracking-widest text-sm">
-        <i class="fa-solid fa-arrow-left mr-2"></i> Back to Blog
+  <main class="pt-32 pb-24 px-6 max-w-7xl mx-auto min-h-[60vh] relative">
+    <div class="mb-12 lg:mb-16">
+      <a href="/blog" class="inline-flex items-center text-gray-400 hover:text-bright-cyan font-bold uppercase tracking-widest text-sm transition-colors group">
+        <i class="fa-solid fa-arrow-left mr-3 group-hover:-translate-x-1 transition-transform"></i> Back to Blog
       </a>
     </div>
     
-    <article class="bg-charcoal/30 rounded-3xl p-8 md:p-12 border border-white/5">
-      <div class="flex flex-wrap gap-4 mb-6">
-        <span class="bg-white/10 text-white px-4 py-2 rounded-full font-bold uppercase tracking-widest text-sm">
-          <i class="fa-regular fa-calendar mr-2"></i> {formatDate(post.data.date)}
-        </span>
-        {post.data.author && (
-          <span class="bg-white/10 text-white px-4 py-2 rounded-full font-bold uppercase tracking-widest text-sm">
-            <i class="fa-solid fa-pen-nib mr-2"></i> {post.data.author}
-          </span>
-        )}
-      </div>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-16 items-start">
       
-      <h1 class="text-4xl md:text-5xl font-black uppercase mb-8">{post.data.title}</h1>
-      
-      <div class="flex flex-wrap gap-2 mb-10 pb-10 border-b border-white/10">
-        {post.data.tags.map(tag => (
-          <a href={`/blog/tags/${tag}`} class="text-sm font-bold uppercase tracking-widest text-teal-glow bg-teal-glow/10 px-3 py-1.5 rounded hover:bg-teal-glow/20 transition-colors">
-            #{tag}
-          </a>
-        ))}
-      </div>
-      
-      <div class="prose prose-invert prose-lg max-w-none 
-        prose-headings:uppercase prose-headings:font-black prose-headings:tracking-tight
-        prose-h1:text-4xl md:prose-h1:text-5xl prose-h1:text-white prose-h1:mb-8
-        prose-h2:text-2xl md:prose-h2:text-3xl prose-h2:text-teal-glow prose-h2:mt-12 prose-h2:mb-6
-        prose-h3:text-xl md:prose-h3:text-2xl prose-h3:text-bright-cyan prose-h3:mt-8 prose-h3:mb-4
-        prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6
-        prose-a:text-bright-cyan hover:prose-a:text-white prose-a:transition-colors
-        prose-strong:text-white prose-strong:font-bold
-        prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-6 prose-li:text-gray-300 prose-li:mb-2
-        prose-ol:list-decimal prose-ol:pl-6 prose-ol:mb-6
-        prose-blockquote:border-l-4 prose-blockquote:border-teal-glow prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-400 prose-blockquote:my-8
-        prose-img:rounded-2xl prose-img:shadow-lg prose-img:border prose-img:border-white/10 prose-img:my-10
-        prose-code:text-bright-cyan prose-code:bg-black/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
-        prose-pre:bg-black/50 prose-pre:border prose-pre:border-white/10 prose-pre:rounded-xl
-      ">
-        <Content />
-      </div>
-    </article>
+      <!-- Left Sidebar: Social Share (Desktop) -->
+      <aside class="hidden xl:flex flex-col gap-4 col-span-1 sticky top-32 items-center">
+        <span class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2" style="writing-mode: vertical-rl; transform: rotate(180deg);">Share</span>
+        <div class="w-px h-12 bg-white/10 mb-2"></div>
+        <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent('https://untouchablesmokeshop.com/blog/' + post.slug)}`} target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-charcoal border border-white/10 flex items-center justify-center text-gray-400 hover:text-bright-cyan hover:border-bright-cyan transition-all hover:-translate-y-1 shadow-lg" title="Share on Twitter">
+          <i class="fa-brands fa-twitter"></i>
+        </a>
+        <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://untouchablesmokeshop.com/blog/' + post.slug)}`} target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-charcoal border border-white/10 flex items-center justify-center text-gray-400 hover:text-bright-cyan hover:border-bright-cyan transition-all hover:-translate-y-1 shadow-lg" title="Share on Facebook">
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <button onclick="navigator.clipboard.writeText(window.location.href); alert('Link copied to clipboard!');" class="w-10 h-10 rounded-full bg-charcoal border border-white/10 flex items-center justify-center text-gray-400 hover:text-bright-cyan hover:border-bright-cyan transition-all hover:-translate-y-1 shadow-lg" title="Copy Link">
+          <i class="fa-solid fa-link"></i>
+        </button>
+      </aside>
 
+      <!-- Main Article Content -->
+      <article class="col-span-1 lg:col-span-8 xl:col-span-8">
+        
+        <header class="mb-12">
+          <div class="flex flex-wrap gap-2 mb-6">
+            {post.data.tags.map(tag => (
+              <a href={`/blog/tags/${tag}`} class="text-xs font-bold uppercase tracking-widest text-bright-cyan bg-bright-cyan/10 px-3 py-1.5 rounded-full hover:bg-bright-cyan hover:text-black transition-colors">
+                #{tag}
+              </a>
+            ))}
+          </div>
+          
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-[1.1] mb-8 text-white">
+            {post.data.title}
+          </h1>
+          
+          <div class="flex flex-wrap items-center gap-6 text-sm text-gray-400 font-medium border-y border-white/10 py-5">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-charcoal flex items-center justify-center border border-white/10">
+                <i class="fa-solid fa-pen-nib text-bright-cyan"></i>
+              </div>
+              <span class="text-white font-bold uppercase tracking-wider">{post.data.author || "Untouchable Crew"}</span>
+            </div>
+            <div class="flex items-center gap-2 uppercase tracking-wider">
+              <i class="fa-regular fa-calendar text-teal-glow"></i> {formatDate(post.data.date)}
+            </div>
+            <div class="flex items-center gap-2 uppercase tracking-wider">
+              <i class="fa-regular fa-clock text-teal-glow"></i> {readingTime} min read
+            </div>
+          </div>
+        </header>
+
+        {post.data.image && (
+          <div class="w-full aspect-video rounded-3xl overflow-hidden mb-12 border border-white/10 relative shadow-2xl">
+            <div class="absolute inset-0 bg-gradient-to-t from-deep-black/60 to-transparent z-10"></div>
+            <img src={post.data.image} alt={post.data.title} class="w-full h-full object-cover" />
+          </div>
+        )}
+
+        <div class="prose prose-invert prose-lg max-w-none 
+          prose-headings:uppercase prose-headings:font-black prose-headings:tracking-tight
+          prose-h1:text-4xl md:prose-h1:text-5xl prose-h1:text-white prose-h1:mb-8
+          prose-h2:text-3xl md:prose-h2:text-4xl prose-h2:text-white prose-h2:mt-16 prose-h2:mb-6 prose-h2:pb-4 prose-h2:border-b prose-h2:border-white/10
+          prose-h3:text-xl md:prose-h3:text-2xl prose-h3:text-bright-cyan prose-h3:mt-8 prose-h3:mb-4
+          prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6
+          prose-a:text-bright-cyan hover:prose-a:text-white prose-a:transition-colors prose-a:underline-offset-4
+          prose-strong:text-white prose-strong:font-bold
+          prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-6 prose-li:text-gray-300 prose-li:mb-2 prose-li:marker:text-teal-glow
+          prose-ol:list-decimal prose-ol:pl-6 prose-ol:mb-6 prose-li:marker:text-teal-glow
+          prose-blockquote:border-l-4 prose-blockquote:border-teal-glow prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-400 prose-blockquote:my-8 prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:pr-4 prose-blockquote:rounded-r-lg
+          prose-img:rounded-2xl prose-img:shadow-2xl prose-img:border prose-img:border-white/10 prose-img:my-12
+          prose-code:text-bright-cyan prose-code:bg-charcoal prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none prose-code:border prose-code:border-white/10
+          prose-pre:bg-charcoal prose-pre:border prose-pre:border-white/10 prose-pre:rounded-xl prose-pre:shadow-xl
+          first-of-type:prose-h1:hidden
+        ">
+          <Content />
+        </div>
+
+        <!-- Author Bio / CTA Block -->
+        <div class="mt-20 pt-12 border-t border-white/10 flex flex-col md:flex-row gap-8 items-center md:items-start bg-gradient-to-br from-charcoal to-deep-black p-8 md:p-10 rounded-3xl border border-white/5 shadow-2xl relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-64 h-64 bg-teal-glow/10 rounded-full blur-[80px] pointer-events-none"></div>
+          <div class="w-24 h-24 rounded-full bg-gradient-to-br from-teal-glow to-bright-cyan p-1 flex-shrink-0 relative z-10">
+            <div class="w-full h-full bg-charcoal rounded-full flex items-center justify-center text-3xl">
+              <i class="fa-solid fa-user-astronaut text-white"></i>
+            </div>
+          </div>
+          <div class="relative z-10 text-center md:text-left">
+            <h4 class="text-2xl font-black uppercase mb-3 text-white">{post.data.author || "Untouchable Crew"}</h4>
+            <p class="text-gray-400 mb-6 leading-relaxed">We are Midtown Atlanta's premier destination for premium glass, top-tier vapes, and authentic cigars. Drop by the shop to experience the culture firsthand.</p>
+            <a href="/#location" class="inline-flex items-center bg-white text-black font-bold uppercase tracking-widest text-sm px-8 py-4 rounded-full hover:bg-teal-glow hover:text-white transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(0,229,255,0.4)]">
+              Visit The Shop <i class="fa-solid fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Right Sidebar: Table of Contents -->
+      {tocHeadings.length > 0 && (
+        <aside class="hidden lg:block lg:col-span-4 xl:col-span-3 sticky top-32">
+          <div class="pl-8 border-l border-white/10 relative">
+            <div class="absolute left-[-1px] top-0 w-[2px] h-8 bg-gradient-to-b from-teal-glow to-transparent"></div>
+            <h3 class="text-xs font-bold uppercase tracking-widest mb-6 text-gray-500">On This Page</h3>
+            <nav>
+              <ul class="space-y-4 max-h-[60vh] overflow-y-auto no-scrollbar pr-4">
+                {tocHeadings.map(h => (
+                  <li class={h.depth === 3 ? "pl-4" : ""}>
+                    <a href={`#${h.slug}`} class="text-gray-400 hover:text-bright-cyan transition-colors text-sm font-medium block leading-relaxed relative group">
+                      <span class="absolute -left-[37px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-bright-cyan opacity-0 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_rgba(0,229,255,0.8)]"></span>
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        </aside>
+      )}
+    </div>
+
+    <!-- Related Posts -->
     {relatedPostsData.length > 0 && (
-      <div class="mt-16">
-        <h3 class="text-2xl font-black uppercase mb-8 text-white">Related Posts</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="mt-24 pt-16 border-t border-white/10">
+        <div class="flex items-center justify-between mb-10">
+          <h3 class="text-3xl font-black uppercase text-white">Keep Reading</h3>
+          <a href="/blog" class="hidden md:inline-flex items-center text-bright-cyan hover:text-white font-bold uppercase tracking-widest text-sm transition-colors">
+            View All <i class="fa-solid fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {relatedPostsData.map(relatedPost => (
-            <a href={`/blog/${relatedPost.slug}`} class="bg-charcoal/30 rounded-2xl p-6 border border-white/5 hover:border-bright-cyan/30 transition-colors group">
-              <h4 class="text-xl font-black uppercase mb-2 group-hover:text-bright-cyan transition-colors line-clamp-2">
+            <a href={`/blog/${relatedPost.slug}`} class="bg-charcoal/40 rounded-3xl p-8 border border-white/5 hover:border-bright-cyan/50 transition-all hover:-translate-y-2 group relative overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-teal-glow/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div class="flex items-center gap-3 mb-4 text-xs font-bold uppercase tracking-widest text-gray-500">
+                <span><i class="fa-regular fa-calendar mr-1"></i> {formatDate(relatedPost.data.date)}</span>
+              </div>
+              <h4 class="text-xl font-black uppercase mb-3 text-white group-hover:text-bright-cyan transition-colors line-clamp-2 leading-snug">
                 {relatedPost.data.title}
               </h4>
-              <p class="text-gray-400 text-sm line-clamp-2">
+              <p class="text-gray-400 text-sm line-clamp-3 leading-relaxed">
                 {relatedPost.data.description}
               </p>
             </a>
@@ -114,4 +211,17 @@ const schema = {
   </main>
   
   <Footer />
+
+  <!-- Reading Progress Script -->
+  <script is:inline>
+    document.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      const progressBar = document.getElementById('progress-bar');
+      if (progressBar) {
+        progressBar.style.width = scrolled + '%';
+      }
+    });
+  </script>
 </Layout>
