@@ -65,10 +65,10 @@ const schema = {
       </a>
     </div>
     
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-16 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-start">
       
       <!-- Left Sidebar: Social Share (Desktop) -->
-      <aside class="hidden xl:flex flex-col gap-4 col-span-1 sticky top-32 items-center">
+      <aside class="hidden xl:flex flex-col gap-4 col-span-1 xl:col-start-1 sticky top-40 items-center">
         <span class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2" style="writing-mode: vertical-rl; transform: rotate(180deg);">Share</span>
         <div class="w-px h-12 bg-white/10 mb-2"></div>
         <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent('https://untouchablesmokeshop.com/blog/' + post.slug)}`} target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-charcoal border border-white/10 flex items-center justify-center text-gray-400 hover:text-bright-cyan hover:border-bright-cyan transition-all hover:-translate-y-1 shadow-lg" title="Share on Twitter">
@@ -83,7 +83,7 @@ const schema = {
       </aside>
 
       <!-- Main Article Content -->
-      <article class="col-span-1 lg:col-span-8 xl:col-span-8">
+      <article class="col-span-1 lg:col-span-8 xl:col-span-7 xl:col-start-3">
         
         <header class="mb-12">
           <div class="flex flex-wrap gap-2 mb-6">
@@ -122,7 +122,7 @@ const schema = {
         )}
 
         <div class="prose prose-invert prose-lg max-w-none 
-          prose-headings:uppercase prose-headings:font-black prose-headings:tracking-tight
+          prose-headings:uppercase prose-headings:font-black prose-headings:tracking-tight prose-headings:scroll-mt-40
           prose-h1:text-4xl md:prose-h1:text-5xl prose-h1:text-white prose-h1:mb-8
           prose-h2:text-3xl md:prose-h2:text-4xl prose-h2:text-white prose-h2:mt-16 prose-h2:mb-6 prose-h2:pb-4 prose-h2:border-b prose-h2:border-white/10
           prose-h3:text-xl md:prose-h3:text-2xl prose-h3:text-bright-cyan prose-h3:mt-8 prose-h3:mb-4
@@ -160,17 +160,22 @@ const schema = {
 
       <!-- Right Sidebar: Table of Contents -->
       {tocHeadings.length > 0 && (
-        <aside class="hidden lg:block lg:col-span-4 xl:col-span-3 sticky top-32">
-          <div class="pl-8 border-l border-white/10 relative">
-            <div class="absolute left-[-1px] top-0 w-[2px] h-8 bg-gradient-to-b from-teal-glow to-transparent"></div>
-            <h3 class="text-xs font-bold uppercase tracking-widest mb-6 text-gray-500">On This Page</h3>
+        <aside class="hidden lg:block lg:col-span-4 xl:col-span-3 xl:col-start-10 sticky top-40">
+          <div class="bg-gradient-to-b from-charcoal/80 to-deep-black/80 backdrop-blur-xl rounded-3xl p-6 xl:p-8 border border-white/10 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-teal-glow to-bright-cyan"></div>
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-teal-glow/10 rounded-full blur-[50px] pointer-events-none"></div>
+            
+            <h3 class="text-sm font-black uppercase tracking-widest mb-6 text-white flex items-center gap-3">
+              <i class="fa-solid fa-location-crosshairs text-bright-cyan"></i> Navigation
+            </h3>
+            
             <nav>
-              <ul class="space-y-4 max-h-[60vh] overflow-y-auto no-scrollbar pr-4">
+              <ul class="space-y-4 max-h-[60vh] overflow-y-auto no-scrollbar relative z-10">
                 {tocHeadings.map(h => (
-                  <li class={h.depth === 3 ? "pl-4" : ""}>
-                    <a href={`#${h.slug}`} class="text-gray-400 hover:text-bright-cyan transition-colors text-sm font-medium block leading-relaxed relative group">
-                      <span class="absolute -left-[37px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-bright-cyan opacity-0 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_rgba(0,229,255,0.8)]"></span>
-                      {h.text}
+                  <li class={h.depth === 3 ? "pl-5" : ""}>
+                    <a href={`#${h.slug}`} class="text-gray-400 hover:text-white transition-all duration-300 text-sm font-medium flex items-start gap-3 group/link">
+                      <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-charcoal border border-gray-500 group-hover/link:border-bright-cyan group-hover/link:bg-bright-cyan group-hover/link:shadow-[0_0_8px_rgba(0,229,255,0.8)] transition-all flex-shrink-0"></span>
+                      <span class="group-hover/link:translate-x-1 transition-transform leading-relaxed">{h.text}</span>
                     </a>
                   </li>
                 ))}
