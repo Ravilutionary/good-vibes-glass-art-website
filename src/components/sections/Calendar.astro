@@ -10,20 +10,20 @@ const upcomingEvents = allEvents
   .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf())
   .slice(0, 10);
 
-const colors = ['text-purple-vibe', 'text-teal-glow', 'text-bright-cyan'];
+const colors = ['text-purple-300', 'text-teal-300', 'text-cyan-300'];
 const bgColors = ['bg-purple-vibe/20', 'bg-teal-glow/20', 'bg-bright-cyan/20'];
 const borderColors = ['border-purple-vibe/30', 'border-teal-glow/30', 'border-bright-cyan/30'];
 ---
 <section id="calendar" class="py-20 3xl:py-40 4xl:py-56 px-6 max-w-[1800px] 4xl:max-w-[2400px] mx-auto">
     <div class="bg-charcoal/50 rounded-[40px] 4xl:rounded-[60px] border border-white/5 overflow-hidden">
         <div class="p-8 md:p-12 3xl:p-20 4xl:p-28 border-b border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <SectionHeader title="Peachtree" accentText="Pulse" accentColor="text-electric-blue" subtitle="Upcoming events and drops." />
+            <SectionHeader title="Peachtree" accentText="Pulse" accentColor="text-blue-400" subtitle="Upcoming events and drops." />
             <div class="flex flex-col gap-4">
                 <a href="/midtown-atlanta-events" class="vibe-gradient px-6 py-3 4xl:px-10 4xl:py-6 rounded-full text-sm 4xl:text-2xl font-bold uppercase tracking-widest hover:scale-105 transition-transform text-white text-center">
                     See the Lineup
                 </a>
                 <a href="sms:+14708736088?body=I'm%20interested%20in%20collaborating%20on%20an%20event!" class="glass-morphism px-6 py-3 4xl:px-10 4xl:py-6 rounded-full text-sm 4xl:text-2xl font-bold uppercase tracking-widest hover:bg-white/10 transition-colors flex items-center gap-2 4xl:gap-4 justify-center">
-                    <i class="fa-solid fa-comment-sms text-electric-blue"></i> Pitch an Event
+                    <i class="fa-solid fa-comment-sms text-blue-400"></i> Pitch an Event
                 </a>
             </div>
         </div>
