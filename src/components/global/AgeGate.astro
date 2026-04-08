@@ -2,7 +2,11 @@
 ---
 <div id="age-gate" class="fixed inset-0 z-[100] bg-deep-black flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="age-gate-title">
     <div class="max-w-md 3xl:max-w-xl 4xl:max-w-3xl w-full glass-morphism p-8 3xl:p-12 4xl:p-16 rounded-3xl text-center border-teal-glow/30 border-2 shadow-2xl shadow-teal-glow/10">
-        <div class="text-4xl 3xl:text-6xl 4xl:text-8xl mb-4 text-teal-glow animate-pulse"><i class="fa-solid fa-id-card" aria-hidden="true"></i></div>
+        <div class="text-4xl 3xl:text-6xl 4xl:text-8xl mb-4 text-teal-glow animate-pulse">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor" class="w-[1em] h-[1em] inline-block" aria-hidden="true">
+                <path d="M0 128C0 92.7 28.7 64 64 64H512c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128zM352 256a64 64 0 1 0 -128 0 64 64 0 1 0 128 0zm-89.6 80c-47.1 0-86.4 34.2-94.4 80H408c-8-45.8-47.3-80-94.4-80H262.4zM144 208a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"/>
+            </svg>
+        </div>
         <h2 id="age-gate-title" class="text-3xl 3xl:text-5xl 4xl:text-7xl font-extrabold mb-4 uppercase tracking-tighter">Identity Check</h2>
         <p class="text-gray-300 mb-8 font-medium text-sm 3xl:text-base 4xl:text-2xl">You must be at least 21 years old to enter. Untouchable Smoke Shop strictly verifies IDs in-store.</p>
         <div class="flex flex-col gap-4 4xl:gap-8">
@@ -28,36 +32,14 @@
             gate.style.opacity = '0';
             setTimeout(() => {
                 gate.style.display = 'none';
-                document.body.classList.remove('overflow-hidden');
+                document.documentElement.classList.remove('age-unverified');
+                document.documentElement.classList.add('age-verified');
             }, 500);
             
             // Set expiration to 30 days from now
             const expiry = new Date().getTime() + (30 * 24 * 60 * 60 * 1000);
             localStorage.setItem(`${STORE_CONFIG.id}_verified`, JSON.stringify({ verified: true, expiry }));
         }
-    }
-
-    // Initialize Age Gate
-    const storedData = localStorage.getItem(`${STORE_CONFIG.id}_verified`);
-    let isVerified = false;
-    
-    if (storedData) {
-        try {
-            const parsed = JSON.parse(storedData);
-            if (parsed.verified && parsed.expiry > new Date().getTime()) {
-                isVerified = true;
-            }
-        } catch (e) {
-            // Fallback for old boolean string
-            if (storedData === 'true') isVerified = true;
-        }
-    }
-
-    if(isVerified) {
-        const gate = document.getElementById('age-gate');
-        if (gate) gate.style.display = 'none';
-    } else {
-        document.body.classList.add('overflow-hidden');
     }
 
     // Event Listeners

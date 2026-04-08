@@ -22,14 +22,14 @@ const { title, description } = Astro.props;
 		<meta property="og:url" content="https://untouchablesmokeshop.com/" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content="https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=1200&q=80" />
+		<meta property="og:image" content="/images/shop.jpg" />
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
 		<meta property="twitter:url" content="https://untouchablesmokeshop.com/" />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content="https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=1200&q=80" />
+		<meta property="twitter:image" content="/images/shop.jpg" />
 		
 		<!-- PERFORMANCE: Resource Hints -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,14 +39,12 @@ const { title, description } = Astro.props;
 		<!-- Preload Critical Font -->
 		<link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2" as="font" type="font/woff2" crossorigin>
 
-		<!-- Defer Google Fonts -->
-		<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'" crossorigin="anonymous">
-		<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" crossorigin="anonymous"></noscript>
+		<!-- Google Fonts (Synchronous for LCP) -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
 		
 		<!-- Defer FontAwesome to prevent render blocking -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'" referrerpolicy="no-referrer" crossorigin="anonymous">
-		<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer" crossorigin="anonymous"></noscript>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'">
+		<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
 
 		<!-- DYNAMIC LOCATION SCHEMA -->
 		<script type="application/ld+json" is:inline>
@@ -54,7 +52,7 @@ const { title, description } = Astro.props;
 		  "@context": "https://schema.org",
 		  "@type": "SmokeShop",
 		  "name": "Untouchable Smoke Shop",
-		  "image": "https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=1200&q=80",
+		  "image": "/images/shop.jpg",
 		  "telephone": "+1-470-873-6088",
 		  "email": "untouchablesmoke533@gmail.com",
 		  "url": "https://untouchablesmokeshop.com/",
@@ -78,6 +76,33 @@ const { title, description } = Astro.props;
 		  ],
 		  "areaServed": { "@type": "City", "name": "Atlanta" }
 		}
+		</script>
+
+		<!-- AGE GATE CHECK (Run immediately to prevent flashing) -->
+		<script is:inline>
+			(function() {
+				const STORE_CONFIG = {
+					id: 'untouchable_v9_standard_map',
+					phone: '4708736088'
+				};
+				const storedData = localStorage.getItem(`${STORE_CONFIG.id}_verified`);
+				let isVerified = false;
+				if (storedData) {
+					try {
+						const parsed = JSON.parse(storedData);
+						if (parsed.verified && parsed.expiry > new Date().getTime()) {
+							isVerified = true;
+						}
+					} catch (e) {
+						if (storedData === 'true') isVerified = true;
+					}
+				}
+				if (isVerified) {
+					document.documentElement.classList.add('age-verified');
+				} else {
+					document.documentElement.classList.add('age-unverified');
+				}
+			})();
 		</script>
 	</head>
 	<body class="bg-deep-black text-white overflow-x-hidden antialiased selection:bg-teal-glow selection:text-white">
@@ -122,6 +147,14 @@ const { title, description } = Astro.props;
 		.event-row {
 			@apply flex flex-col md:flex-row items-start md:items-center justify-between p-6 3xl:p-10 border-b border-white/5 hover:bg-white/5 transition-colors;
 		}
+	}
+	
+	/* Age Gate Display Logic */
+	html.age-verified #age-gate {
+		display: none !important;
+	}
+	html.age-unverified body {
+		overflow: hidden !important;
 	}
 
 	#age-gate { transition: opacity 0.5s ease; }

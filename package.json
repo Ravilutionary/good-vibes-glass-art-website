@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev --port 3000 --host 0.0.0.0",
-    "start": "astro dev --port 3000 --host 0.0.0.0",
+    "start": "HOST=0.0.0.0 PORT=3000 node ./dist/server/entry.mjs",
     "build": "astro build",
     "preview": "astro preview --port 3000 --host 0.0.0.0",
     "lint": "astro check",
@@ -14,6 +14,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.8",
     "@astrojs/mdx": "^5.0.3",
+    "@astrojs/node": "^9.0.2",
     "@astrojs/tailwind": "^5.1.5",
     "@google/genai": "^1.29.0",
     "@tailwindcss/typography": "^0.5.19",
