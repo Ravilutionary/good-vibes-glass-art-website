@@ -26,8 +26,13 @@ export default {
         'float': 'float 8s ease-in-out infinite',
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'marquee': 'marquee 20s linear infinite',
+        'fade-cycle': 'fade-cycle 12s ease-in-out infinite',
       },
       keyframes: {
+        'fade-cycle': {
+          '0%, 20%': { opacity: '1', transform: 'translateY(0)' },
+          '25%, 100%': { opacity: '0', transform: 'translateY(10px)' },
+        },
         float: {
           '0%, 100%': { transform: 'translateY(0) scale(1)' },
           '50%': { transform: 'translateY(-20px) scale(1.05)' },

@@ -3,21 +3,20 @@
 <!-- GLOBAL TRUST BANNER -->
 <header class="sticky top-0 z-50 flex flex-col w-full">
 <div class="vibe-gradient text-white text-[10px] md:text-xs 3xl:text-sm 4xl:text-lg font-black py-2 3xl:py-3 4xl:py-4 uppercase tracking-widest shadow-lg overflow-hidden flex justify-center" role="alert">
-    <!-- Mobile Marquee -->
-    <div class="flex md:hidden whitespace-nowrap animate-marquee hover:[animation-play-state:paused] items-center w-max">
-        <!-- Triplicated content for seamless infinite scrolling -->
-        {Array(3).fill(0).map(() => (
-            <div class="flex items-center gap-4 pr-4">
-                <span class="bg-white text-black px-2 py-0.5 rounded-sm animate-pulse shadow-lg shrink-0">🚗 FREE RETAIL PARKING</span>
-                <span class="opacity-50 shrink-0">|</span>
-                <span class="shrink-0">🔞 STRICTLY 21+ ONLY</span>
-                <span class="opacity-50 shrink-0">|</span>
-                <span class="shrink-0">VALID ID REQUIRED</span>
-                <span class="opacity-50 shrink-0">|</span>
-                <span class="shrink-0">OPEN UNTIL 2AM FRI/SAT</span>
-                <span class="opacity-50 shrink-0">|</span>
-            </div>
-        ))}
+    <!-- Mobile Fade Cycle -->
+    <div class="flex md:hidden items-center justify-center w-full relative h-4 overflow-hidden" role="alert">
+        <div class="flex items-center justify-center gap-2 animate-fade-cycle">
+            <span class="bg-white text-black px-2 py-0.5 rounded-sm shadow-lg shrink-0">🚗 FREE RETAIL PARKING</span>
+        </div>
+        <div class="absolute inset-0 flex items-center justify-center gap-2 animate-fade-cycle [animation-delay:3s] opacity-0">
+            <span class="shrink-0">🔞 STRICTLY 21+ ONLY</span>
+        </div>
+        <div class="absolute inset-0 flex items-center justify-center gap-2 animate-fade-cycle [animation-delay:6s] opacity-0">
+            <span class="shrink-0">VALID ID REQUIRED</span>
+        </div>
+        <div class="absolute inset-0 flex items-center justify-center gap-2 animate-fade-cycle [animation-delay:9s] opacity-0">
+            <span class="shrink-0">OPEN UNTIL 2AM FRI/SAT</span>
+        </div>
     </div>
 
     <!-- Desktop/Tablet Static -->
