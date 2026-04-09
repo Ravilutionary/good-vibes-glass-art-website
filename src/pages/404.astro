@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/global/Navbar.astro';
+import Footer from '../components/global/Footer.astro';
+---
+
+<Layout 
+    title="Page Not Found | Untouchable Smoke Shop" 
+    description="Oops! The page you are looking for does not exist. Return to Untouchable Smoke Shop in Midtown Atlanta for the best vapes, glass, and cigars."
+>
+    <Navbar />
+    
+    <main class="min-h-[70vh] flex flex-col items-center justify-center px-6 text-center pt-32 pb-24">
+        <div class="text-9xl font-black text-transparent bg-clip-text bg-gradient-to-br from-teal-glow to-bright-cyan mb-6 animate-pulse">
+            404
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight mb-6">
+            Page Not Found
+        </h1>
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">
+            Looks like you took a wrong turn. The page you're looking for has gone up in smoke.
+        </p>
+        <a href="/" class="vibe-gradient px-10 py-5 rounded-full font-black text-white text-lg hover:scale-105 transition-transform shadow-lg shadow-cyan-500/20 uppercase tracking-widest">
+            Back to Homepage
+        </a>
+    </main>
+
+    <Footer />
+</Layout>
