@@ -3,19 +3,19 @@
 <!-- GLOBAL TRUST BANNER -->
 <header class="sticky top-0 z-50 flex flex-col w-full">
 <div class="vibe-gradient text-white text-[10px] md:text-xs 3xl:text-sm 4xl:text-lg font-black py-2 3xl:py-3 4xl:py-4 uppercase tracking-widest shadow-lg overflow-hidden flex justify-center" role="alert">
-    <!-- Mobile Fade Cycle -->
+    <!-- Mobile Fade Cycle (JS-Driven for cross-browser stability) -->
     <div class="flex md:hidden items-center justify-center w-full relative h-6 overflow-hidden" role="alert">
-        <div class="absolute inset-0 flex items-center justify-center gap-2 animate-fade-cycle border-transparent opacity-0" style="animation-delay: 0s;">
-            <span class="bg-white text-black px-2 py-0.5 rounded-sm shadow-lg shrink-0 whitespace-nowrap text-[10px]">🚗 FREE RETAIL PARKING</span>
+        <div class="trust-msg absolute inset-0 flex items-center justify-center transition-all duration-700 opacity-100 translate-y-0">
+            <span class="bg-white text-black px-2 py-0.5 rounded-sm shadow-lg whitespace-nowrap text-[10px] font-bold">🚗 FREE RETAIL PARKING</span>
         </div>
-        <div class="absolute inset-0 flex items-center justify-center gap-2 animate-fade-cycle border-transparent opacity-0" style="animation-delay: 3s;">
-            <span class="shrink-0 whitespace-nowrap text-[10px]">🔞 STRICTLY 21+ ONLY</span>
+        <div class="trust-msg absolute inset-0 flex items-center justify-center transition-all duration-700 opacity-0 translate-y-2">
+            <span class="whitespace-nowrap text-[10px] font-bold">🔞 STRICTLY 21+ ONLY</span>
         </div>
-        <div class="absolute inset-0 flex items-center justify-center gap-2 animate-fade-cycle border-transparent opacity-0" style="animation-delay: 6s;">
-            <span class="shrink-0 whitespace-nowrap text-[10px]">VALID ID REQUIRED</span>
+        <div class="trust-msg absolute inset-0 flex items-center justify-center transition-all duration-700 opacity-0 translate-y-2">
+            <span class="whitespace-nowrap text-[10px] font-bold">VALID ID REQUIRED</span>
         </div>
-        <div class="absolute inset-0 flex items-center justify-center gap-2 animate-fade-cycle border-transparent opacity-0" style="animation-delay: 9s;">
-            <span class="shrink-0 whitespace-nowrap text-[10px]">OPEN UNTIL 2AM FRI/SAT</span>
+        <div class="trust-msg absolute inset-0 flex items-center justify-center transition-all duration-700 opacity-0 translate-y-2">
+            <span class="whitespace-nowrap text-[10px] font-bold">OPEN UNTIL 2AM FRI/SAT</span>
         </div>
     </div>
 
@@ -73,6 +73,36 @@
     </div>
 </nav>
 </header>
+
+<script>
+    // Bulletproof JS-driven ticker for mobile trust banner
+    const msgs = document.querySelectorAll('.trust-msg');
+    if (msgs.length > 0) {
+        let currentMsg = 0;
+        setInterval(() => {
+            // Fade out current message upwards
+            msgs[currentMsg].classList.remove('opacity-100', 'translate-y-0');
+            msgs[currentMsg].classList.add('opacity-0', '-translate-y-2');
+            
+            // Calculate next index
+            let nextMsg = (currentMsg + 1) % msgs.length;
+            
+            // Reset next message to start below the view (instantly)
+            msgs[nextMsg].style.transitionDuration = '0ms';
+            msgs[nextMsg].classList.remove('-translate-y-2');
+            msgs[nextMsg].classList.add('translate-y-2');
+            
+            // Enable transitions and show new message after a tiny reflow delay
+            setTimeout(() => {
+                msgs[nextMsg].style.transitionDuration = '';
+                msgs[nextMsg].classList.remove('opacity-0', 'translate-y-2');
+                msgs[nextMsg].classList.add('opacity-100', 'translate-y-0');
+            }, 50);
+            
+            currentMsg = nextMsg;
+        }, 3000);
+    }
+</script>
 
 <!-- Mobile Menu Overlay -->
 <div id="mobile-menu" class="fixed inset-0 bg-deep-black/95 backdrop-blur-xl z-[100] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center">
