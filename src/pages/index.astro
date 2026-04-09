@@ -23,13 +23,11 @@ import VIPForm from '../components/sections/VIPForm.astro';
     <AgeGate />
     <Navbar />
 
-    <div class="min-h-[calc(100svh-120px)] md:min-h-[calc(100svh-140px)] flex flex-col justify-between overflow-hidden">
-        <div class="flex-1 flex flex-col justify-center">
+    <div class="min-h-[calc(100svh-120px)] md:min-h-[calc(100svh-140px)] flex flex-col justify-between w-full">
+        <div class="flex-1 flex flex-col justify-center relative w-full">
             <Hero />
         </div>
-        <div>
-            <BrandSlider />
-        </div>
+        <BrandSlider />
     </div>
     
     <EventCountdown />

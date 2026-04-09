@@ -9,7 +9,7 @@ const brands = await getCollection('brands');
     <div class="absolute inset-y-0 left-0 w-16 md:w-48 bg-gradient-to-r from-deep-black to-transparent z-10 pointer-events-none"></div>
     <div class="absolute inset-y-0 right-0 w-16 md:w-48 bg-gradient-to-l from-deep-black to-transparent z-10 pointer-events-none"></div>
     
-    <div class="flex whitespace-nowrap animate-marquee hover:[animation-play-state:paused] items-center w-max py-4">
+    <div class="flex whitespace-nowrap animate-marquee items-center w-max py-4 will-change-transform">
         <!-- Triplicated content for seamless infinite scrolling -->
         {Array(3).fill(0).map(() => (
             <div class="flex items-center justify-around px-4 md:px-8 gap-6 md:gap-10">
