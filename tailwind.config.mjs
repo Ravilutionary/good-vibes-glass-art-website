@@ -10,17 +10,15 @@ export default {
         '4xl': '2560px',
       },
       colors: {
-        'deep-black': '#050505',
-        'charcoal': '#111111',
-        'teal-glow': '#0F9B8C',
-        'bright-cyan': '#1E95D4',
-        'electric-blue': '#2E6FBF',
-        'olive-glow': '#55663A',
-        'green-glow': '#6B7C3D',
-        'purple-vibe': '#8B5CF6',
+        'gv-black': '#0F0F0F',
+        'gv-blue': '#0D2C54',
+        'gv-green': '#8BC34A',
+        'gv-red': '#E53935',
+        'gv-yellow': '#FDD835',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
+        display: ['Eczar', 'serif'],
       },
       animation: {
         'float': 'float 8s ease-in-out infinite',

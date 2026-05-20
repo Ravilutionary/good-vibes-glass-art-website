@@ -4,10 +4,10 @@ import SectionHeader from '../ui/SectionHeader.astro';
 <section id="location-map" class="py-20 3xl:py-40 4xl:py-56 px-6 max-w-[1800px] 4xl:max-w-[2400px] mx-auto overflow-hidden">
     <div class="grid lg:grid-cols-2 gap-12 3xl:gap-24 4xl:gap-32 items-center">
         <div class="space-y-8 4xl:space-y-12">
-            <SectionHeader title="Pull Up to" accentText="Peachtree" accentColor="text-bright-cyan" subtitle="Located in the heart of Atlanta. Look for the neon glow at 533 Peachtree St NE. We're the premier destination for the city's premium smoke needs." />
+            <SectionHeader title="Pull Up to" accentText="Cleveland Ave" accentColor="text-gv-green" subtitle="Located in the heart of Loveland at 1421 N Cleveland Ave. Stop giving your money to out-of-town corporate chains—support Loveland's locally owned premium smoke destination." />
             
             <div class="flex flex-col sm:flex-row gap-4 4xl:gap-8">
-                <a href="https://maps.app.goo.gl/DBnPu5MiW5beXzQg4" target="_blank" rel="noopener noreferrer" class="vibe-gradient px-8 py-5 4xl:px-12 4xl:py-8 rounded-2xl 4xl:rounded-3xl font-black text-white text-center hover:scale-105 transition-all shadow-lg flex-1 flex items-center justify-center gap-3 4xl:gap-6 text-lg 3xl:text-2xl 4xl:text-4xl">
+                <a href="https://www.google.com/maps/place/Good+Vibes+Glass+Art/@40.4078391,-105.0775039,611m/data=!3m2!1e3!4b1!4m6!3m5!1s0x87695301dc4c9c57:0xb35633c43517c9c3!8m2!3d40.407835!4d-105.074929!16s%2Fg%2F1hm4n5lpk" target="_blank" rel="noopener noreferrer" class="vibe-gradient px-8 py-5 4xl:px-12 4xl:py-8 rounded-2xl 4xl:rounded-3xl font-black text-white text-center hover:scale-105 transition-all shadow-lg flex-1 flex items-center justify-center gap-3 4xl:gap-6 text-lg 3xl:text-2xl 4xl:text-4xl">
                     <i class="fa-solid fa-diamond-turn-right"></i> GET THE LOCATION
                 </a>
                 <button id="copy-address-btn" class="bg-white/5 border border-white/10 px-8 py-5 4xl:px-12 4xl:py-8 rounded-2xl 4xl:rounded-3xl font-black text-white text-center hover:bg-white/10 transition-all shadow-lg flex-1 flex items-center justify-center gap-3 4xl:gap-6 text-lg 3xl:text-2xl 4xl:text-4xl">
@@ -16,27 +16,27 @@ import SectionHeader from '../ui/SectionHeader.astro';
             </div>
 
             <div class="flex gap-4 items-center text-gray-400 font-bold uppercase tracking-widest text-xs 3xl:text-lg 4xl:text-2xl">
-                <i class="fa-solid fa-clock text-teal-glow"></i> Open until Midnight (2AM Weekends)
+                <i class="fa-solid fa-clock text-gv-green"></i> Open until 9PM (8PM Sundays)
             </div>
         </div>
 
-        <div class="relative aspect-video lg:aspect-square rounded-[40px] 4xl:rounded-[60px] overflow-hidden border border-white/10 shadow-2xl shadow-teal-glow/5 group">
+        <div class="relative aspect-video lg:aspect-square rounded-[40px] 4xl:rounded-[60px] overflow-hidden border border-white/10 shadow-2xl shadow-gv-green/5 group">
             <iframe 
-                src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=533%20Peachtree%20St%20NE,%20Atlanta,%20GA%2030308+(Untouchable%20Smoke%20Shop)&t=&z=17&ie=UTF8&iwloc=B&output=embed" 
+                src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=1421%20N%20Cleveland%20Ave,%20Loveland,%20CO%2080538+(Good%20Vibes%20Glass%20Art)&t=&z=17&ie=UTF8&iwloc=B&output=embed" 
                 width="100%" 
                 height="100%" 
                 style="border:0;" 
                 allowfullscreen="" 
                 loading="eager" 
                 referrerpolicy="no-referrer" 
-                title="Google Maps location of Untouchable Smoke Shop"
+                title="Google Maps location of Good Vibes Glass Art"
                 class="w-full h-full"
             ></iframe>
         </div>
     </div>
 
     <!-- Toast Notification for Copy -->
-    <div id="map-copy-toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-bright-cyan text-deep-black px-6 py-3 rounded-full font-bold uppercase tracking-widest shadow-2xl transition-all duration-300 transform translate-y-20 opacity-0 z-[100] pointer-events-none flex items-center gap-3">
+    <div id="map-copy-toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-gv-green text-deep-black px-6 py-3 rounded-full font-bold uppercase tracking-widest shadow-2xl transition-all duration-300 transform translate-y-20 opacity-0 z-[100] pointer-events-none flex items-center gap-3">
         <i class="fa-solid fa-check-circle text-xl"></i>
         <span>Address copied!</span>
     </div>
@@ -45,7 +45,7 @@ import SectionHeader from '../ui/SectionHeader.astro';
 <script>
     const copyBtn = document.getElementById('copy-address-btn');
     const toast = document.getElementById('map-copy-toast');
-    const address = "533 Peachtree St NE unit b, Atlanta, GA 30308";
+    const address = "1421 N Cleveland Ave, Loveland, CO 80538";
 
     if (copyBtn && toast) {
         copyBtn.addEventListener('click', () => {

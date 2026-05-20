@@ -19,17 +19,17 @@ const { title, description } = Astro.props;
 		
 		<!-- Open Graph / Social Meta Tags -->
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://untouchablesmokeshop.com/" />
+		<meta property="og:url" content="https://goodvibesglassart.com/" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content="/images/shop.jpg" />
+		<meta property="og:image" content="/ll.webp" />
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content="https://untouchablesmokeshop.com/" />
+		<meta property="twitter:url" content="https://goodvibesglassart.com/" />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content="/images/shop.jpg" />
+		<meta property="twitter:image" content="/ll.webp" />
 		
 		<!-- PERFORMANCE: Resource Hints -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,7 +40,7 @@ const { title, description } = Astro.props;
 		<link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2" as="font" type="font/woff2" crossorigin>
 
 		<!-- Google Fonts (Synchronous for LCP) -->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Eczar:wght@400;500;600;700;800&display=swap">
 		
 		<!-- Defer FontAwesome to prevent render blocking -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'">
@@ -51,30 +51,28 @@ const { title, description } = Astro.props;
 		{
 		  "@context": "https://schema.org",
 		  "@type": "SmokeShop",
-		  "name": "Untouchable Smoke Shop",
-		  "image": "/images/shop.jpg",
-		  "telephone": "+1-470-873-6088",
-		  "email": "untouchablesmoke533@gmail.com",
-		  "url": "https://untouchablesmokeshop.com/",
+		  "name": "Good Vibes Glass Art",
+		  "image": "/ll.webp",
+		  "telephone": "+1-970-619-8002",
+		  "url": "https://goodvibesglassart.com/",
 		  "address": {
 			"@type": "PostalAddress",
-			"streetAddress": "533 Peachtree St NE unit b",
-			"addressLocality": "Atlanta",
-			"addressRegion": "GA",
-			"postalCode": "30308",
+			"streetAddress": "1421 N Cleveland Ave",
+			"addressLocality": "Loveland",
+			"addressRegion": "CO",
+			"postalCode": "80538",
 			"addressCountry": "US"
 		  },
 		  "geo": {
 			"@type": "GeoCoordinates",
-			"latitude": 33.7695,
-			"longitude": -84.3865
+			"latitude": 40.407835,
+			"longitude": -105.074929
 		  },
 		  "openingHoursSpecification": [
-			{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"], "opens": "10:00", "closes": "00:00" },
-			{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Friday", "Saturday"], "opens": "10:00", "closes": "02:00" },
-			{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday"], "opens": "10:00", "closes": "00:00" }
+			{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "09:00", "closes": "21:00" },
+			{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday"], "opens": "10:00", "closes": "20:00" }
 		  ],
-		  "areaServed": { "@type": "City", "name": "Atlanta" }
+		  "areaServed": { "@type": "City", "name": "Loveland" }
 		}
 		</script>
 
@@ -82,8 +80,8 @@ const { title, description } = Astro.props;
 		<script is:inline>
 			(function() {
 				const STORE_CONFIG = {
-					id: 'untouchable_v9_standard_map',
-					phone: '4708736088'
+					id: 'good_vibes_v1',
+					phone: '9706198002'
 				};
 				const storedData = localStorage.getItem(`${STORE_CONFIG.id}_verified`);
 				let isVerified = false;
@@ -105,7 +103,7 @@ const { title, description } = Astro.props;
 			})();
 		</script>
 	</head>
-	<body class="bg-deep-black text-white overflow-x-hidden antialiased selection:bg-teal-glow selection:text-deep-black">
+	<body class="bg-gv-black text-white overflow-x-hidden antialiased selection:bg-gv-green selection:text-gv-black font-sans">
 		<slot />
 	</body>
 </html>
@@ -117,13 +115,13 @@ const { title, description } = Astro.props;
 
 	@layer components {
 		.glass-morphism {
-			@apply bg-charcoal/60 backdrop-blur-xl border border-white/10 transition-all duration-300;
+			@apply bg-gv-blue/60 backdrop-blur-xl border border-white/10 transition-all duration-300;
 		}
 		.vibe-gradient {
-			@apply bg-gradient-to-br from-teal-glow via-bright-cyan to-electric-blue;
+			@apply bg-gradient-to-br from-gv-blue via-gv-green to-gv-yellow;
 		}
 		.text-gradient {
-			@apply bg-gradient-to-r from-teal-glow to-bright-cyan bg-clip-text text-transparent;
+			@apply bg-gradient-to-r from-gv-green to-gv-yellow bg-clip-text text-transparent;
 		}
 		.glow-blur {
 			@apply absolute rounded-full opacity-15 blur-[120px] pointer-events-none;
@@ -133,10 +131,10 @@ const { title, description } = Astro.props;
 		}
 		.hero-title {
 			font-size: clamp(2.25rem, 6.5vw, 8rem);
-			@apply font-black tracking-tighter leading-[0.9] mb-4;
+			@apply font-display font-black tracking-tight leading-[0.9] mb-4;
 		}
 		.hot-card {
-			@apply bg-charcoal rounded-3xl p-6 3xl:p-10 border border-white/5 hover:border-purple-vibe/50 transition-all hover:-translate-y-2 relative overflow-hidden;
+			@apply bg-gv-black/80 rounded-3xl p-6 3xl:p-10 border border-white/5 hover:border-gv-green/50 transition-all hover:-translate-y-2 relative overflow-hidden;
 		}
 		.category-pill {
 			@apply px-6 py-2 rounded-full text-sm font-bold uppercase tracking-widest border border-white/10 hover:bg-white/10 transition-colors cursor-pointer;
@@ -160,7 +158,7 @@ const { title, description } = Astro.props;
 	#age-gate { transition: opacity 0.5s ease; }
 	
 	:focus-visible {
-		@apply outline-none ring-2 ring-bright-cyan ring-offset-4 ring-offset-deep-black;
+		@apply outline-none ring-2 ring-gv-green ring-offset-4 ring-offset-gv-black;
 	}
 
 	.error-shake {
