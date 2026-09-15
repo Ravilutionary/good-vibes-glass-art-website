@@ -1,35 +1,37 @@
 ---
 import SectionHeader from '../ui/SectionHeader.astro';
+import { STORE_CONFIG } from '../../config/store';
+const { address, googleMapsUrl, googleMapsEmbedUrl, hours, name } = STORE_CONFIG;
 ---
 <section id="location-map" class="py-20 3xl:py-40 4xl:py-56 px-6 max-w-[1800px] 4xl:max-w-[2400px] mx-auto overflow-hidden">
     <div class="grid lg:grid-cols-2 gap-12 3xl:gap-24 4xl:gap-32 items-center">
         <div class="space-y-8 4xl:space-y-12">
-            <SectionHeader title="Pull Up to" accentText="Cleveland Ave" accentColor="text-gv-green" subtitle="Located in the heart of Loveland at 1421 N Cleveland Ave. Stop giving your money to out-of-town corporate chains—support Loveland's locally owned premium smoke destination." />
+            <SectionHeader title="Pull Up to" accentText={address.street.split(' ').slice(1).join(' ')} accentColor="text-gv-green" subtitle={`Located in the heart of ${address.city} at ${address.street}. Stop giving your money to out-of-town corporate chains—support ${address.city}'s locally owned premium smoke destination.`} />
             
             <div class="flex flex-col sm:flex-row gap-4 4xl:gap-8">
-                <a href="https://www.google.com/maps/place/Good+Vibes+Glass+Art/@40.4078391,-105.0775039,611m/data=!3m2!1e3!4b1!4m6!3m5!1s0x87695301dc4c9c57:0xb35633c43517c9c3!8m2!3d40.407835!4d-105.074929!16s%2Fg%2F1hm4n5lpk" target="_blank" rel="noopener noreferrer" class="vibe-gradient px-8 py-5 4xl:px-12 4xl:py-8 rounded-2xl 4xl:rounded-3xl font-black text-white text-center hover:scale-105 transition-all shadow-lg flex-1 flex items-center justify-center gap-3 4xl:gap-6 text-lg 3xl:text-2xl 4xl:text-4xl">
-                    <i class="fa-solid fa-diamond-turn-right"></i> GET THE LOCATION
+                <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" class="vibe-gradient px-8 py-5 4xl:px-12 4xl:py-8 rounded-2xl 4xl:rounded-3xl font-black text-white text-center hover:scale-105 transition-all shadow-lg flex-1 flex items-center justify-center gap-3 4xl:gap-6 text-lg 3xl:text-2xl 4xl:text-4xl">
+                    <i class="fa-solid fa-diamond-turn-right" aria-hidden="true"></i> GET THE LOCATION
                 </a>
                 <button id="copy-address-btn" class="bg-white/5 border border-white/10 px-8 py-5 4xl:px-12 4xl:py-8 rounded-2xl 4xl:rounded-3xl font-black text-white text-center hover:bg-white/10 transition-all shadow-lg flex-1 flex items-center justify-center gap-3 4xl:gap-6 text-lg 3xl:text-2xl 4xl:text-4xl">
-                    <i class="fa-solid fa-copy"></i> COPY ADDRESS
+                    <i class="fa-solid fa-copy" aria-hidden="true"></i> COPY ADDRESS
                 </button>
             </div>
 
             <div class="flex gap-4 items-center text-gray-400 font-bold uppercase tracking-widest text-xs 3xl:text-lg 4xl:text-2xl">
-                <i class="fa-solid fa-clock text-gv-green"></i> Open until 9PM (8PM Sundays)
+                <i class="fa-solid fa-clock text-gv-green" aria-hidden="true"></i> {hours.shortNotice}
             </div>
         </div>
 
         <div class="relative aspect-video lg:aspect-square rounded-[40px] 4xl:rounded-[60px] overflow-hidden border border-white/10 shadow-2xl shadow-gv-green/5 group">
             <iframe 
-                src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=1421%20N%20Cleveland%20Ave,%20Loveland,%20CO%2080538+(Good%20Vibes%20Glass%20Art)&t=&z=17&ie=UTF8&iwloc=B&output=embed" 
+                src={googleMapsEmbedUrl} 
                 width="100%" 
                 height="100%" 
                 style="border:0;" 
                 allowfullscreen="" 
-                loading="eager" 
+                loading="lazy" 
                 referrerpolicy="no-referrer" 
-                title="Google Maps location of Good Vibes Glass Art"
+                title={`Google Maps location of ${name}`}
                 class="w-full h-full"
             ></iframe>
         </div>
@@ -37,19 +39,18 @@ import SectionHeader from '../ui/SectionHeader.astro';
 
     <!-- Toast Notification for Copy -->
     <div id="map-copy-toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-gv-green text-deep-black px-6 py-3 rounded-full font-bold uppercase tracking-widest shadow-2xl transition-all duration-300 transform translate-y-20 opacity-0 z-[100] pointer-events-none flex items-center gap-3">
-        <i class="fa-solid fa-check-circle text-xl"></i>
+        <i class="fa-solid fa-check-circle text-xl" aria-hidden="true"></i>
         <span>Address copied!</span>
     </div>
 </section>
 
-<script>
+<script is:inline define:vars={{ fullAddress: address.formatted }}>
     const copyBtn = document.getElementById('copy-address-btn');
     const toast = document.getElementById('map-copy-toast');
-    const address = "1421 N Cleveland Ave, Loveland, CO 80538";
 
     if (copyBtn && toast) {
         copyBtn.addEventListener('click', () => {
-            navigator.clipboard.writeText(address).then(() => {
+            navigator.clipboard.writeText(fullAddress).then(() => {
                 toast.classList.remove('translate-y-20', 'opacity-0');
                 setTimeout(() => {
                     toast.classList.add('translate-y-20', 'opacity-0');

@@ -1,31 +1,20 @@
 ---
 import SectionHeader from '../ui/SectionHeader.astro';
+import { STORE_CONFIG } from '../../config/store';
+const { landmarks, address } = STORE_CONFIG;
 ---
 <section class="py-20 3xl:py-40 4xl:py-56 px-6 max-w-[1800px] 4xl:max-w-[2400px] mx-auto border-t border-white/5 relative">
     <div class="glow-blur absolute top-0 left-1/2 -translate-x-1/2 w-full h-64 bg-teal-glow opacity-5 pointer-events-none"></div>
     <div class="mb-12 3xl:mb-24 4xl:mb-32 relative z-10">
-        <SectionHeader title="Your Go-To Smoke Shop" accentText="Near:" accentColor="text-gv-green" alignment="center" subtitle="Proudly serving the Loveland community with local expertise." />
+        <SectionHeader title="Your Go-To Smoke Shop" accentText="Near:" accentColor="text-gv-green" alignment="center" subtitle={`Proudly serving the ${address.city} community with local expertise.`} />
     </div>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 3xl:gap-8 4xl:gap-12 relative z-10">
-        <div class="glass-morphism p-6 3xl:p-10 4xl:p-14 rounded-2xl text-center hover:-translate-y-2 transition-transform border-t border-white/5 hover:border-gv-green/30">
-            <i class="fa-solid fa-water text-3xl 3xl:text-5xl 4xl:text-7xl text-gv-blue mb-4 4xl:mb-8"></i>
-            <h3 class="font-black text-sm 3xl:text-xl 4xl:text-3xl uppercase tracking-widest">Lake Loveland</h3>
-            <p class="text-gray-400 text-xs 3xl:text-base 4xl:text-xl mt-2">Local favorite</p>
-        </div>
-        <div class="glass-morphism p-6 3xl:p-10 4xl:p-14 rounded-2xl text-center hover:-translate-y-2 transition-transform border-t border-white/5 hover:border-gv-green/30">
-            <i class="fa-solid fa-masks-theater text-3xl 3xl:text-5xl 4xl:text-7xl text-gv-red mb-4 4xl:mb-8"></i>
-            <h3 class="font-black text-sm 3xl:text-xl 4xl:text-3xl uppercase tracking-widest">Rialto Theater</h3>
-            <p class="text-gray-400 text-xs 3xl:text-base 4xl:text-xl mt-2">Downtown</p>
-        </div>
-        <div class="glass-morphism p-6 3xl:p-10 4xl:p-14 rounded-2xl text-center hover:-translate-y-2 transition-transform border-t border-white/5 hover:border-gv-green/30">
-            <i class="fa-solid fa-tree text-3xl 3xl:text-5xl 4xl:text-7xl text-gv-green mb-4 4xl:mb-8"></i>
-            <h3 class="font-black text-sm 3xl:text-xl 4xl:text-3xl uppercase tracking-widest">Benson Garden</h3>
-            <p class="text-gray-400 text-xs 3xl:text-base 4xl:text-xl mt-2">Sculpture Park</p>
-        </div>
-        <div class="glass-morphism p-6 3xl:p-10 4xl:p-14 rounded-2xl text-center hover:-translate-y-2 transition-transform border-t border-white/5 hover:border-gv-green/30">
-            <i class="fa-solid fa-heart text-3xl 3xl:text-5xl 4xl:text-7xl text-gv-yellow mb-4 4xl:mb-8"></i>
-            <h3 class="font-black text-sm 3xl:text-xl 4xl:text-3xl uppercase tracking-widest">Sweetheart City</h3>
-            <p class="text-gray-400 text-xs 3xl:text-base 4xl:text-xl mt-2">Loveland, CO</p>
-        </div>
+        {landmarks.map(landmark => (
+            <div class="glass-morphism p-6 3xl:p-10 4xl:p-14 rounded-2xl text-center hover:-translate-y-2 transition-transform border-t border-white/5 hover:border-gv-green/30">
+                <i class={`${landmark.icon} text-3xl 3xl:text-5xl 4xl:text-7xl ${landmark.color} mb-4 4xl:mb-8`} aria-hidden="true"></i>
+                <h3 class="font-black text-sm 3xl:text-xl 4xl:text-3xl uppercase tracking-widest">{landmark.name}</h3>
+                <p class="text-gray-400 text-xs 3xl:text-base 4xl:text-xl mt-2">{landmark.subtitle}</p>
+            </div>
+        ))}
     </div>
 </section>

@@ -1,0 +1,12 @@
+{
+  "name": "Artisan Heady Beakers",
+  "category": "glass",
+  "badge": "Local Drop",
+  "badgeColor": "bg-purple-vibe text-white",
+  "icon": "fa-solid fa-fire",
+  "iconColor": "text-purple-vibe",
+  "description": "Hand-blown, thick borosilicate glass by local Colorado artists. Perfect daily driver.",
+  "price": "From $45",
+  "featured": true,
+  "order": 2
+}

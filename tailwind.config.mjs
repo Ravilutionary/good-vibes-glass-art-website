@@ -15,6 +15,13 @@ export default {
         'gv-green': '#8BC34A',
         'gv-red': '#E53935',
         'gv-yellow': '#FDD835',
+        'deep-black': '#0a0a0a',
+        'charcoal': '#141414',
+        'teal-glow': '#00f0ff',
+        'bright-cyan': '#06b6d4',
+        'electric-blue': '#3b82f6',
+        'green-glow': '#10b981',
+        'purple-vibe': '#8a2be2',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

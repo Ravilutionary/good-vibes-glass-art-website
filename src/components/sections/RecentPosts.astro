@@ -24,7 +24,7 @@ const recentPosts = posts.slice(0, 3);
           {post.data.description}
         </p>
         <div class="flex flex-wrap gap-2 mt-auto">
-          {post.data.tags.slice(0, 3).map(tag => (
+          {post.data.tags.slice(0, 3).map((tag: string) => (
             <span class="text-xs font-bold uppercase tracking-widest text-teal-glow bg-teal-glow/10 px-2 py-1 rounded">
               #{tag}
             </span>

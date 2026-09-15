@@ -1,0 +1,12 @@
+{
+  "name": "Geek Bar Pulse 15000",
+  "category": "vapes",
+  "badge": "In Stock",
+  "badgeColor": "bg-teal-glow text-deep-black",
+  "icon": "fa-solid fa-bolt",
+  "iconColor": "text-teal-glow",
+  "description": "The most requested disposable in Loveland. Dual mesh coil with full digital display.",
+  "price": "$24.99",
+  "featured": true,
+  "order": 1
+}

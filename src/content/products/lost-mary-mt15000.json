@@ -1,0 +1,12 @@
+{
+  "name": "Lost Mary MT15000 Turbo",
+  "category": "vapes",
+  "badge": "Low Stock",
+  "badgeColor": "bg-red-600 text-white",
+  "icon": "fa-solid fa-wind",
+  "iconColor": "text-red-500",
+  "description": "Smooth, turbo-powered dual mode airflow with exceptional long-lasting flavor.",
+  "price": "$22.99",
+  "featured": true,
+  "order": 3
+}

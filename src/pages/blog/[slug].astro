@@ -1,8 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import AgeGate from '../../components/global/AgeGate.astro';
 import Navbar from '../../components/global/Navbar.astro';
+import MobileStickyBar from '../../components/global/MobileStickyBar.astro';
 import Footer from '../../components/global/Footer.astro';
+import { STORE_CONFIG } from '../../config/store';
 import { formatDate } from '../../lib/utils';
 
 export async function getStaticPaths() {
@@ -24,11 +27,11 @@ const readingTime = Math.ceil(wordCount / 200);
 const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
 
 // Fetch related posts if they exist
-let relatedPostsData = [];
+let relatedPostsData: any[] = [];
 if (post.data.relatedPosts) {
   const allPosts = await getCollection('blog');
   relatedPostsData = allPosts.filter(p => 
-    post.data.relatedPosts.some(ref => ref.slug === p.slug)
+    post.data.relatedPosts?.some((ref: any) => ref.slug === p.slug)
   );
 }
 
@@ -39,21 +42,23 @@ const schema = {
   "datePublished": post.data.date.toISOString(),
   "author": {
     "@type": "Person",
-    "name": post.data.author || "Untouchable Smoke Shop"
+    "name": post.data.author || STORE_CONFIG.name
   },
   "description": post.data.description
 };
 ---
 
 <Layout 
-  title={`${post.data.title} | Untouchable Smoke Shop Blog`}
+  title={`${post.data.title} | ${STORE_CONFIG.name} Blog`}
   description={post.data.description}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <MobileStickyBar />
+  <AgeGate />
   
   <!-- Reading Progress Bar -->
   <div class="fixed top-0 left-0 w-full h-1.5 bg-charcoal z-50">
-    <div id="progress-bar" class="h-full bg-gradient-to-r from-teal-glow to-bright-cyan w-0 transition-all duration-150 ease-out"></div>
+    <div id="progress-bar" class="h-full bg-gradient-to-r from-gv-green to-gv-yellow w-0 transition-all duration-150 ease-out"></div>
   </div>
 
   <Navbar />
@@ -71,14 +76,14 @@ const schema = {
       <aside class="hidden xl:flex flex-col gap-4 col-span-1 xl:col-start-1 sticky top-40 items-center">
         <span class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2" style="writing-mode: vertical-rl; transform: rotate(180deg);">Share</span>
         <div class="w-px h-12 bg-white/10 mb-2"></div>
-        <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent('https://untouchablesmokeshop.com/blog/' + post.slug)}`} target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-charcoal border border-white/10 flex items-center justify-center text-gray-400 hover:text-bright-cyan hover:border-bright-cyan transition-all hover:-translate-y-1 shadow-lg" title="Share on Twitter">
-          <i class="fa-brands fa-twitter"></i>
+        <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(new URL('/blog/' + post.slug, STORE_CONFIG.siteUrl).href)}`} target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-charcoal border border-white/10 flex items-center justify-center text-gray-400 hover:text-gv-green hover:border-gv-green transition-all hover:-translate-y-1 shadow-lg" title="Share on Twitter">
+          <i class="fa-brands fa-twitter" aria-hidden="true"></i>
         </a>
-        <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://untouchablesmokeshop.com/blog/' + post.slug)}`} target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-charcoal border border-white/10 flex items-center justify-center text-gray-400 hover:text-bright-cyan hover:border-bright-cyan transition-all hover:-translate-y-1 shadow-lg" title="Share on Facebook">
-          <i class="fa-brands fa-facebook-f"></i>
+        <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL('/blog/' + post.slug, STORE_CONFIG.siteUrl).href)}`} target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-charcoal border border-white/10 flex items-center justify-center text-gray-400 hover:text-gv-green hover:border-gv-green transition-all hover:-translate-y-1 shadow-lg" title="Share on Facebook">
+          <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
         </a>
-        <button onclick="navigator.clipboard.writeText(window.location.href); alert('Link copied to clipboard!');" class="w-10 h-10 rounded-full bg-charcoal border border-white/10 flex items-center justify-center text-gray-400 hover:text-bright-cyan hover:border-bright-cyan transition-all hover:-translate-y-1 shadow-lg" title="Copy Link">
-          <i class="fa-solid fa-link"></i>
+        <button onclick="navigator.clipboard.writeText(window.location.href); alert('Link copied to clipboard!');" class="w-10 h-10 rounded-full bg-charcoal border border-white/10 flex items-center justify-center text-gray-400 hover:text-gv-green hover:border-gv-green transition-all hover:-translate-y-1 shadow-lg" title="Copy Link">
+          <i class="fa-solid fa-link" aria-hidden="true"></i>
         </button>
       </aside>
 
@@ -87,8 +92,8 @@ const schema = {
         
         <header class="mb-12">
           <div class="flex flex-wrap gap-2 mb-6">
-            {post.data.tags.map(tag => (
-              <a href={`/blog/tags/${tag}`} class="text-xs font-bold uppercase tracking-widest text-bright-cyan bg-bright-cyan/10 px-3 py-1.5 rounded-full hover:bg-bright-cyan hover:text-black transition-colors">
+            {post.data.tags.map((tag: string) => (
+              <a href={`/blog/tags/${tag}`} class="text-xs font-bold uppercase tracking-widest text-gv-green bg-gv-green/10 px-3 py-1.5 rounded-full hover:bg-gv-green hover:text-black transition-colors">
                 #{tag}
               </a>
             ))}
@@ -101,15 +106,15 @@ const schema = {
           <div class="flex flex-wrap items-center gap-6 text-sm text-gray-400 font-medium border-y border-white/10 py-5">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-full bg-charcoal flex items-center justify-center border border-white/10">
-                <i class="fa-solid fa-pen-nib text-bright-cyan"></i>
+                <i class="fa-solid fa-pen-nib text-gv-green" aria-hidden="true"></i>
               </div>
-              <span class="text-white font-bold uppercase tracking-wider">{post.data.author || "Untouchable Crew"}</span>
+              <span class="text-white font-bold uppercase tracking-wider">{post.data.author || STORE_CONFIG.name}</span>
             </div>
             <div class="flex items-center gap-2 uppercase tracking-wider">
-              <i class="fa-regular fa-calendar text-teal-glow"></i> {formatDate(post.data.date)}
+              <i class="fa-regular fa-calendar text-gv-green" aria-hidden="true"></i> {formatDate(post.data.date)}
             </div>
             <div class="flex items-center gap-2 uppercase tracking-wider">
-              <i class="fa-regular fa-clock text-teal-glow"></i> {readingTime} min read
+              <i class="fa-regular fa-clock text-gv-green" aria-hidden="true"></i> {readingTime} min read
             </div>
           </div>
         </header>
@@ -125,15 +130,15 @@ const schema = {
           prose-headings:uppercase prose-headings:font-black prose-headings:tracking-tight prose-headings:scroll-mt-40
           prose-h1:text-4xl md:prose-h1:text-5xl prose-h1:text-white prose-h1:mb-8
           prose-h2:text-3xl md:prose-h2:text-4xl prose-h2:text-white prose-h2:mt-16 prose-h2:mb-6 prose-h2:pb-4 prose-h2:border-b prose-h2:border-white/10
-          prose-h3:text-xl md:prose-h3:text-2xl prose-h3:text-bright-cyan prose-h3:mt-8 prose-h3:mb-4
+          prose-h3:text-xl md:prose-h3:text-2xl prose-h3:text-gv-green prose-h3:mt-8 prose-h3:mb-4
           prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6
-          prose-a:text-bright-cyan hover:prose-a:text-white prose-a:transition-colors prose-a:underline-offset-4
+          prose-a:text-gv-green hover:prose-a:text-white prose-a:transition-colors prose-a:underline-offset-4
           prose-strong:text-white prose-strong:font-bold
-          prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-6 prose-li:text-gray-300 prose-li:mb-2 prose-li:marker:text-teal-glow
-          prose-ol:list-decimal prose-ol:pl-6 prose-ol:mb-6 prose-li:marker:text-teal-glow
-          prose-blockquote:border-l-4 prose-blockquote:border-teal-glow prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-400 prose-blockquote:my-8 prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:pr-4 prose-blockquote:rounded-r-lg
+          prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-6 prose-li:text-gray-300 prose-li:mb-2 prose-li:marker:text-gv-green
+          prose-ol:list-decimal prose-ol:pl-6 prose-ol:mb-6 prose-li:marker:text-gv-green
+          prose-blockquote:border-l-4 prose-blockquote:border-gv-green prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-400 prose-blockquote:my-8 prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:pr-4 prose-blockquote:rounded-r-lg
           prose-img:rounded-2xl prose-img:shadow-2xl prose-img:border prose-img:border-white/10 prose-img:my-12
-          prose-code:text-bright-cyan prose-code:bg-charcoal prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none prose-code:border prose-code:border-white/10
+          prose-code:text-gv-green prose-code:bg-charcoal prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none prose-code:border prose-code:border-white/10
           prose-pre:bg-charcoal prose-pre:border prose-pre:border-white/10 prose-pre:rounded-xl prose-pre:shadow-xl
           first-of-type:prose-h1:hidden
         ">
@@ -142,17 +147,17 @@ const schema = {
 
         <!-- Author Bio / CTA Block -->
         <div class="mt-20 pt-12 border-t border-white/10 flex flex-col md:flex-row gap-8 items-center md:items-start bg-gradient-to-br from-charcoal to-deep-black p-8 md:p-10 rounded-3xl border border-white/5 shadow-2xl relative overflow-hidden">
-          <div class="absolute top-0 right-0 w-64 h-64 bg-teal-glow/10 rounded-full blur-[80px] pointer-events-none"></div>
-          <div class="w-24 h-24 rounded-full bg-gradient-to-br from-teal-glow to-bright-cyan p-1 flex-shrink-0 relative z-10">
+          <div class="absolute top-0 right-0 w-64 h-64 bg-gv-green/10 rounded-full blur-[80px] pointer-events-none"></div>
+          <div class="w-24 h-24 rounded-full bg-gradient-to-br from-gv-green to-gv-yellow p-1 flex-shrink-0 relative z-10">
             <div class="w-full h-full bg-charcoal rounded-full flex items-center justify-center text-3xl">
-              <i class="fa-solid fa-user-astronaut text-white"></i>
+              <i class="fa-solid fa-crown text-white" aria-hidden="true"></i>
             </div>
           </div>
           <div class="relative z-10 text-center md:text-left">
-            <h4 class="text-2xl font-black uppercase mb-3 text-white">{post.data.author || "Untouchable Crew"}</h4>
-            <p class="text-gray-400 mb-6 leading-relaxed">We are Midtown Atlanta's premier destination for premium glass, top-tier vapes, and authentic cigars. Drop by the shop to experience the culture firsthand.</p>
-            <a href="/#location-map" class="inline-flex items-center bg-white text-black font-bold uppercase tracking-widest text-sm px-8 py-4 rounded-full hover:bg-teal-glow hover:text-white transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(0,229,255,0.4)]">
-              Visit The Shop <i class="fa-solid fa-arrow-right ml-2"></i>
+            <h4 class="text-2xl font-black uppercase mb-3 text-white">{post.data.author || STORE_CONFIG.name}</h4>
+            <p class="text-gray-400 mb-6 leading-relaxed">{STORE_CONFIG.about}</p>
+            <a href="/#location-map" class="inline-flex items-center bg-white text-black font-bold uppercase tracking-widest text-sm px-8 py-4 rounded-full hover:bg-gv-green hover:text-white transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(139,195,74,0.4)]">
+              Visit The Shop <i class="fa-solid fa-arrow-right ml-2" aria-hidden="true"></i>
             </a>
           </div>
         </div>
@@ -196,7 +201,7 @@ const schema = {
           </a>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {relatedPostsData.map(relatedPost => (
+          {relatedPostsData.map((relatedPost: any) => (
             <a href={`/blog/${relatedPost.slug}`} class="bg-charcoal/40 rounded-3xl p-8 border border-white/5 hover:border-bright-cyan/50 transition-all hover:-translate-y-2 group relative overflow-hidden">
               <div class="absolute inset-0 bg-gradient-to-br from-teal-glow/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <div class="flex items-center gap-3 mb-4 text-xs font-bold uppercase tracking-widest text-gray-500">

@@ -1,0 +1,28 @@
+---
+interface Props {
+  variant?: 'green' | 'teal' | 'purple' | 'cyan' | 'white';
+  class?: string;
+  icon?: string;
+}
+
+const {
+  variant = 'green',
+  class: className = '',
+  icon
+} = Astro.props;
+
+const variantStyles = {
+  green: 'border-gv-green/30 bg-gv-green/10 text-gv-green shadow-[0_0_15px_rgba(139,195,74,0.2)]',
+  teal: 'border-teal-glow/30 bg-teal-glow/10 text-teal-glow shadow-[0_0_15px_rgba(0,240,255,0.2)]',
+  purple: 'border-purple-vibe/30 bg-purple-vibe/10 text-purple-vibe shadow-[0_0_15px_rgba(138,43,226,0.2)]',
+  cyan: 'border-bright-cyan/30 bg-bright-cyan/10 text-bright-cyan shadow-[0_0_15px_rgba(6,182,212,0.2)]',
+  white: 'border-white/20 bg-white/10 text-white backdrop-blur-md',
+};
+
+const classes = `inline-flex items-center gap-2 px-4 py-1.5 3xl:px-6 3xl:py-2.5 rounded-full border text-xs 3xl:text-base font-bold uppercase tracking-widest ${variantStyles[variant]} ${className}`;
+---
+
+<div class={classes}>
+  {icon && <i class={icon} aria-hidden="true"></i>}
+  <slot />
+</div>

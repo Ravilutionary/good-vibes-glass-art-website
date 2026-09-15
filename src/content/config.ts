@@ -37,8 +37,37 @@ const blogCollection = defineCollection({
   }),
 });
 
+const productsCollection = defineCollection({
+  type: 'data',
+  schema: z.object({
+    name: z.string(),
+    category: z.string(),
+    badge: z.string().optional(),
+    badgeColor: z.string().default('bg-teal-glow text-deep-black'),
+    icon: z.string().default('fa-solid fa-bolt'),
+    iconColor: z.string().default('text-teal-glow'),
+    description: z.string(),
+    price: z.string(),
+    featured: z.boolean().default(true),
+    order: z.number().default(0),
+  }),
+});
+
+const reviewsCollection = defineCollection({
+  type: 'data',
+  schema: z.object({
+    author: z.string(),
+    rating: z.number().default(5),
+    quote: z.string(),
+    source: z.string().default('Google'),
+    order: z.number().default(0),
+  }),
+});
+
 export const collections = {
   'events': eventsCollection,
   'brands': brandsCollection,
   'blog': blogCollection,
+  'products': productsCollection,
+  'reviews': reviewsCollection,
 };

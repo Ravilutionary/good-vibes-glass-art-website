@@ -6,9 +6,10 @@ import MobileStickyBar from '../components/global/MobileStickyBar.astro';
 import Footer from '../components/global/Footer.astro';
 import CategoryHero from '../components/ui/CategoryHero.astro';
 import LocalLandmarks from '../components/sections/LocalLandmarks.astro';
+import { STORE_CONFIG } from '../config/store';
 ---
 
-<Layout title="Premium Glass Pipes & Water Pipes in Atlanta | Untouchable Smoke Shop" description="Discover the finest selection of hand-blown glass, water pipes, bubblers, and dab rigs in Midtown Atlanta. Top brands like Illadelph, ROOR, and local artists.">
+<Layout title={`Premium Glass Pipes & Water Pipes in ${STORE_CONFIG.address.city} | ${STORE_CONFIG.name}`} description={`Discover the finest selection of hand-blown glass, water pipes, bubblers, and dab rigs in ${STORE_CONFIG.address.city}, ${STORE_CONFIG.address.state}. Top brands and local Colorado artists.`}>
     <MobileStickyBar />
     <AgeGate />
     <Navbar />
@@ -16,7 +17,7 @@ import LocalLandmarks from '../components/sections/LocalLandmarks.astro';
     <CategoryHero 
         title="Premium Glass" 
         subtitle="Functional Art & High-End Pieces"
-        description="From daily drivers to heady, one-of-a-kind functional art pieces. We curate the best glass from renowned brands and local Atlanta artists."
+        description={`From daily drivers to heady, one-of-a-kind functional art pieces. We curate the best glass from renowned brands and local ${STORE_CONFIG.address.state} artists.`}
         accentColor="text-teal-glow"
     />
 

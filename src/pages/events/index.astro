@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import AgeGate from '../../components/global/AgeGate.astro';
+import Navbar from '../../components/global/Navbar.astro';
+import MobileStickyBar from '../../components/global/MobileStickyBar.astro';
+import Footer from '../../components/global/Footer.astro';
+import SectionHeader from '../../components/ui/SectionHeader.astro';
+import { STORE_CONFIG } from '../../config/store';
+
+const allEvents = await getCollection('events');
+const sortedEvents = allEvents.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+---
+
+<Layout 
+  title={`Upcoming Community Events & Drops | ${STORE_CONFIG.name}`} 
+  description={`Check out upcoming community events, glass drops, and festivals near ${STORE_CONFIG.name} in ${STORE_CONFIG.address.city}, ${STORE_CONFIG.address.state}.`}
+>
+  <MobileStickyBar />
+  <AgeGate />
+  <Navbar />
+
+  <main class="pt-32 pb-24 px-6 max-w-[1400px] mx-auto min-h-[70vh]">
+    <div class="mb-16">
+      <SectionHeader 
+        title={`${STORE_CONFIG.address.city}`} 
+        accentText="Event Calendar" 
+        accentColor="text-gv-green" 
+        subtitle="Discover upcoming local events, exclusive in-store drops, and neighborhood celebrations." 
+      />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {sortedEvents.map(event => {
+        const d = new Date(event.data.date);
+        const month = d.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' });
+        const day = d.toLocaleDateString('en-US', { day: '2-digit', timeZone: 'UTC' });
+
+        return (
+          <a href={`/events/${event.slug}`} class="glass-morphism p-8 rounded-3xl border border-white/5 hover:border-gv-green/50 transition-all hover:-translate-y-1 flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between gap-4 mb-6">
+                <span class="bg-gv-green/20 text-gv-green text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest">
+                  {event.data.category}
+                </span>
+                <div class="text-sm font-bold text-gray-400">
+                  <i class="fa-regular fa-calendar mr-2 text-gv-green" aria-hidden="true"></i> {month} {day}, {d.getFullYear()}
+                </div>
+              </div>
+
+              <h2 class="text-2xl font-black uppercase text-white mb-3 group-hover:text-gv-green transition-colors">
+                {event.data.title}
+              </h2>
+
+              <div class="flex items-center gap-2 text-sm text-gray-300 font-bold mb-4">
+                <i class="fa-solid fa-location-dot text-gv-green" aria-hidden="true"></i>
+                <span>{event.data.venue}</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-6 border-t border-white/5 mt-6">
+              <span class="text-xs font-bold uppercase tracking-widest text-gray-400">
+                {event.data.time || "All Day"}
+              </span>
+              <span class="text-sm font-black text-gv-green uppercase tracking-wider flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                Event Details <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </span>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

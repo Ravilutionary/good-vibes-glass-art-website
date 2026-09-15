@@ -1,5 +1,7 @@
 ---
 import SectionHeader from '../ui/SectionHeader.astro';
+import { STORE_CONFIG } from '../../config/store';
+const { vipOffer } = STORE_CONFIG;
 ---
 <section id="optin" class="py-32 3xl:py-64 4xl:py-80 px-6">
     <div class="max-w-4xl 3xl:max-w-7xl 4xl:max-w-[2000px] mx-auto vibe-gradient p-[1px] rounded-[40px] 4xl:rounded-[60px] shadow-2xl shadow-cyan-500/20">
@@ -7,7 +9,7 @@ import SectionHeader from '../ui/SectionHeader.astro';
             <div class="glow-blur -bottom-20 -left-20 w-64 h-64 3xl:w-[600px] 3xl:h-[600px] 4xl:w-[1000px] 4xl:h-[1000px] bg-bright-cyan !opacity-10"></div>
             
             <div class="mb-10 3xl:mb-20 4xl:mb-28">
-                <SectionHeader title="Unlock" accentText="15% Off" accentColor="text-bright-cyan" subtitle="Join the Untouchable VIP list. Get instant access to exclusive drops, secret sales, and a 15% discount code sent straight to your phone right now." alignment="center" />
+                <SectionHeader title={vipOffer.title} accentText={vipOffer.discount} accentColor="text-bright-cyan" subtitle={vipOffer.subtitle} alignment="center" />
             </div>
 
             <form id="sms-form" class="max-w-xl md:max-w-2xl lg:max-w-3xl 3xl:max-w-4xl 4xl:max-w-5xl mx-auto space-y-4 4xl:space-y-8 relative z-10">
@@ -19,7 +21,7 @@ import SectionHeader from '../ui/SectionHeader.astro';
                     <input type="tel" id="phone-input" name="phone" placeholder="Mobile Number" required class="flex-1 bg-white/5 border border-white/10 rounded-2xl 4xl:rounded-3xl px-6 py-4 3xl:py-8 3xl:px-10 4xl:py-10 4xl:px-12 text-white 3xl:text-2xl 4xl:text-4xl focus:outline-none focus:border-teal-glow transition-all placeholder:text-gray-600 font-bold tracking-widest">
                     <button type="submit" id="submit-btn" class="vibe-gradient px-4 sm:px-8 py-4 3xl:px-12 3xl:py-8 4xl:px-16 4xl:py-10 rounded-2xl 4xl:rounded-3xl font-black text-white text-xs sm:text-sm md:text-base 3xl:text-2xl 4xl:text-4xl hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center justify-center shrink-0 min-w-[140px] 4xl:min-w-[200px]">
                         <span id="btn-text">JOIN THE INNER CIRCLE</span>
-                        <i id="btn-spinner" class="fa-solid fa-circle-notch fa-spin hidden"></i>
+                        <i id="btn-spinner" class="fa-solid fa-circle-notch fa-spin hidden" aria-hidden="true"></i>
                     </button>
                 </div>
                 <p id="error-message" class="text-[10px] 3xl:text-sm 4xl:text-xl text-red-500 font-bold uppercase tracking-widest hidden text-center">Please enter a valid 10-digit phone number.</p>
@@ -30,11 +32,12 @@ import SectionHeader from '../ui/SectionHeader.astro';
     </div>
 </section>
 
-<script>
-    document.getElementById('sms-form')?.addEventListener('submit', (event) => {
+<script is:inline define:vars={{ formEndpoint: vipOffer.formspreeEndpoint || '' }}>
+    document.getElementById('sms-form')?.addEventListener('submit', async (event) => {
         event.preventDefault();
-        const phoneInput = document.getElementById('phone-input') as HTMLInputElement | null;
-        const hpField = document.getElementById('hp_full_name') as HTMLInputElement | null;
+        const form = event.target;
+        const phoneInput = document.getElementById('phone-input');
+        const hpField = document.getElementById('hp_full_name');
         const errorMsg = document.getElementById('error-message');
         const submitBtn = document.getElementById('submit-btn');
         const btnText = document.getElementById('btn-text');
@@ -44,7 +47,7 @@ import SectionHeader from '../ui/SectionHeader.astro';
         if (!hpField || hpField.value.length > 0) return;
         const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
         
-        if (!phoneInput || !phoneRegex.test(phoneInput.value)) {
+        if (!phoneInput || !phoneRegex.test(phoneInput.value.trim())) {
             phoneInput?.classList.add('error-shake');
             errorMsg?.classList.remove('hidden');
             setTimeout(() => phoneInput?.classList.remove('error-shake'), 400);
@@ -59,13 +62,22 @@ import SectionHeader from '../ui/SectionHeader.astro';
             submitBtn.style.opacity = '0.7';
         }
 
-        // TODO: Replace with actual Formspree or API endpoint
-        // const formData = new FormData(event.target as HTMLFormElement);
-        // fetch('https://formspree.io/f/YOUR_FORM_ID', { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } })
+        if (formEndpoint) {
+            try {
+                const formData = new FormData(form);
+                await fetch(formEndpoint, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+            } catch (e) {
+                console.warn('Form submission error:', e);
+            }
+        }
         
         setTimeout(() => {
             document.getElementById('sms-form')?.classList.add('hidden');
             success?.classList.remove('hidden');
-        }, 1500);
+        }, 1000);
     });
 </script>

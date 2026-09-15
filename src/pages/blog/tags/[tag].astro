@@ -1,10 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
+import AgeGate from '../../../components/global/AgeGate.astro';
 import Navbar from '../../../components/global/Navbar.astro';
+import MobileStickyBar from '../../../components/global/MobileStickyBar.astro';
 import Footer from '../../../components/global/Footer.astro';
 import SectionHeader from '../../../components/ui/SectionHeader.astro';
 import { formatDate } from '../../../lib/utils';
+import { STORE_CONFIG } from '../../../config/store';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
@@ -26,9 +29,11 @@ posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <Layout 
-  title={`Posts tagged with "${tag}" | Untouchable Smoke Shop Blog`}
-  description={`Read all blog posts related to ${tag} from Untouchable Smoke Shop in Midtown Atlanta.`}
+  title={`Posts tagged with "${tag}" | ${STORE_CONFIG.name} Blog`} 
+  description={`Read all blog posts and guides related to ${tag} from ${STORE_CONFIG.name} in ${STORE_CONFIG.address.city}, ${STORE_CONFIG.address.state}.`}
 >
+  <MobileStickyBar />
+  <AgeGate />
   <Navbar />
   
   <main class="pt-32 pb-20 px-6 max-w-[1200px] mx-auto min-h-[60vh]">
@@ -67,7 +72,7 @@ posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
             {post.data.description}
           </p>
           <div class="flex flex-wrap gap-2 mt-auto">
-            {post.data.tags.map(t => (
+            {post.data.tags.map((t: string) => (
               <span class={`text-xs font-bold uppercase tracking-widest px-2 py-1 rounded ${t === tag ? 'bg-bright-cyan text-deep-black' : 'text-teal-glow bg-teal-glow/10'}`}>
                 #{t}
               </span>

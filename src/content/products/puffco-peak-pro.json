@@ -1,0 +1,12 @@
+{
+  "name": "Puffco Peak Pro",
+  "category": "glass",
+  "badge": "Top Rated",
+  "badgeColor": "bg-electric-blue text-white",
+  "icon": "fa-solid fa-flask",
+  "iconColor": "text-electric-blue",
+  "description": "The pinnacle of concentrate technology. Real-time temperature control and customizable vapor settings.",
+  "price": "$420.00",
+  "featured": true,
+  "order": 4
+}

@@ -6,17 +6,18 @@ import MobileStickyBar from '../components/global/MobileStickyBar.astro';
 import Footer from '../components/global/Footer.astro';
 import CategoryHero from '../components/ui/CategoryHero.astro';
 import LocalLandmarks from '../components/sections/LocalLandmarks.astro';
+import { STORE_CONFIG } from '../config/store';
 ---
 
-<Layout title="Premium Cigars & Humidor in Midtown Atlanta | Untouchable Smoke Shop" description="Step into our walk-in humidor for the finest selection of premium hand-rolled cigars in Downtown Atlanta. Arturo Fuente, Padron, Macanudo, and more.">
+<Layout title={`Premium Cigars & Humidor in ${STORE_CONFIG.address.city} | ${STORE_CONFIG.name}`} description={`Step into our humidor for the finest selection of premium hand-rolled cigars in ${STORE_CONFIG.address.city}, ${STORE_CONFIG.address.state}. Arturo Fuente, Padron, Macanudo, and more.`}>
     <MobileStickyBar />
     <AgeGate />
     <Navbar />
 
     <CategoryHero 
         title="Premium Cigars" 
-        subtitle="Walk-In Humidor & Accessories"
-        description="Experience our meticulously maintained walk-in humidor. We stock a curated selection of the world's finest hand-rolled cigars for every palate and occasion."
+        subtitle="Curated Humidor & Accessories"
+        description="Experience our meticulously maintained cigar collection. We stock a curated selection of the world's finest hand-rolled cigars for every palate and occasion."
         accentColor="text-electric-blue"
     />
 

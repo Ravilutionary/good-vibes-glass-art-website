@@ -2,11 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/global/Navbar.astro';
 import Footer from '../components/global/Footer.astro';
+import { STORE_CONFIG } from '../config/store';
 ---
 
 <Layout 
-    title="Page Not Found | Untouchable Smoke Shop" 
-    description="Oops! The page you are looking for does not exist. Return to Untouchable Smoke Shop in Midtown Atlanta for the best vapes, glass, and cigars."
+    title={`Page Not Found | ${STORE_CONFIG.name}`} 
+    description={`Oops! The page you are looking for does not exist. Return to ${STORE_CONFIG.name} in ${STORE_CONFIG.address.city} for the best glass, vapes, and accessories.`}
 >
     <Navbar />
     

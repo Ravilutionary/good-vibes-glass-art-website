@@ -1,5 +1,5 @@
 {
-  "name": "untouchable-smoke-shop",
+  "name": "good-vibes-glass-art-monolith",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -12,27 +12,24 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.8",
     "@astrojs/mdx": "^5.0.3",
-    "@astrojs/node": "^9.0.2",
+    "@astrojs/sitemap": "^3.7.4",
     "@astrojs/tailwind": "^5.1.5",
     "@fontsource/eczar": "^5.2.8",
     "@fontsource/inter": "^5.2.8",
-    "@google/genai": "^1.29.0",
     "@tailwindcss/typography": "^0.5.19",
-    "@tailwindcss/vite": "^4.1.14",
-    "astro": "^5.4.2",
-    "dotenv": "^17.2.3",
-    "express": "^4.21.2",
-    "vite": "^6.2.0"
+    "astro": "^5.4.2"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
+    "@astrojs/check": "^0.9.8",
+    "@google/genai": "^1.29.0",
     "@types/node": "^22.14.0",
     "autoprefixer": "^10.4.21",
+    "dotenv": "^17.2.3",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.21.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }
 }
+

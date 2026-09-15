@@ -1,5 +1,9 @@
 ---
+import { getCollection } from 'astro:content';
 import SectionHeader from '../ui/SectionHeader.astro';
+
+const allReviews = await getCollection('reviews');
+const sortedReviews = allReviews.sort((a, b) => a.data.order - b.data.order);
 ---
 <section id="reviews" class="bg-gv-black/30 py-24 3xl:py-48 4xl:py-64 px-6 relative">
     <div class="glow-blur absolute inset-0 bg-gv-blue opacity-5 animate-pulse-slow"></div>
@@ -8,21 +12,23 @@ import SectionHeader from '../ui/SectionHeader.astro';
             <SectionHeader title="Trusted by the" accentText="City" accentColor="text-gv-green" alignment="center" />
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 3xl:gap-12 4xl:gap-16">
-            <figure class="glass-morphism p-6 3xl:p-12 4xl:p-16 rounded-2xl 4xl:rounded-3xl hover:-translate-y-2 border-white/5 hover:border-gv-green/30">
-                <div class="flex text-gv-yellow mb-4 4xl:mb-8 text-xs 3xl:text-lg 4xl:text-2xl"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <blockquote class="text-sm 3xl:text-xl 4xl:text-3xl italic mb-4 4xl:mb-8 text-gray-300">"I was not expecting this place to be one of the coolest, chillest, beautifully decorated, and plant loving shop I have ever been to! Totally coming back! Don't walk, run!"</blockquote>
-                <figcaption class="text-xs 3xl:text-sm 4xl:text-xl font-bold uppercase tracking-widest text-gv-green">— Kaylee Skiles</figcaption>
-            </figure>
-            <figure class="glass-morphism p-6 3xl:p-12 4xl:p-16 rounded-2xl 4xl:rounded-3xl hover:-translate-y-2 border-white/5 hover:border-gv-green/30">
-                <div class="flex text-gv-yellow mb-4 4xl:mb-8 text-xs 3xl:text-lg 4xl:text-2xl"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <blockquote class="text-sm 3xl:text-xl 4xl:text-3xl italic mb-4 4xl:mb-8 text-gray-300">"The selection at Good Vibes is incredible. And the two who head up the place, Rachel and Alex, are phenomenal. Come in for quality product and quality customer experience."</blockquote>
-                <figcaption class="text-xs 3xl:text-sm 4xl:text-xl font-bold uppercase tracking-widest text-gv-green">— Timothy Bowles</figcaption>
-            </figure>
-            <figure class="glass-morphism p-6 3xl:p-12 4xl:p-16 rounded-2xl 4xl:rounded-3xl hover:-translate-y-2 border-white/5 hover:border-gv-green/30">
-                <div class="flex text-gv-yellow mb-4 4xl:mb-8 text-xs 3xl:text-lg 4xl:text-2xl"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <blockquote class="text-sm 3xl:text-xl 4xl:text-3xl italic mb-4 4xl:mb-8 text-gray-300">"This place is awesome and unique with great products. The best staff and local artists. I'm always taken care of so good here. I can't wait to go back!!!"</blockquote>
-                <figcaption class="text-xs 3xl:text-sm 4xl:text-xl font-bold uppercase tracking-widest text-gv-green">— Lydia Louscher</figcaption>
-            </figure>
+            {sortedReviews.map(review => (
+                <figure class="glass-morphism p-6 3xl:p-12 4xl:p-16 rounded-2xl 4xl:rounded-3xl hover:-translate-y-2 border-white/5 hover:border-gv-green/30 flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-gv-yellow mb-4 4xl:mb-8 text-xs 3xl:text-lg 4xl:text-2xl" aria-label={`Rating: ${review.data.rating} out of 5 stars`}>
+                            {Array.from({ length: review.data.rating }).map(() => (
+                                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            ))}
+                        </div>
+                        <blockquote class="text-sm 3xl:text-xl 4xl:text-3xl italic mb-4 4xl:mb-8 text-gray-300">
+                            "{review.data.quote}"
+                        </blockquote>
+                    </div>
+                    <figcaption class="text-xs 3xl:text-sm 4xl:text-xl font-bold uppercase tracking-widest text-gv-green">
+                        — {review.data.author}
+                    </figcaption>
+                </figure>
+            ))}
         </div>
     </div>
 </section>

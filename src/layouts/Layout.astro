@@ -1,10 +1,50 @@
 ---
+import { STORE_CONFIG } from '../config/store';
+
 interface Props {
-	title: string;
-	description: string;
+	title?: string;
+	description?: string;
+	image?: string;
+	canonical?: string;
 }
 
-const { title, description } = Astro.props;
+const { 
+	title = `${STORE_CONFIG.name} | ${STORE_CONFIG.taglineSub}`, 
+	description = STORE_CONFIG.description,
+	image = STORE_CONFIG.logo,
+	canonical
+} = Astro.props;
+
+const canonicalUrl = canonical || new URL(Astro.url.pathname, STORE_CONFIG.siteUrl).href;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SmokeShop",
+  "name": STORE_CONFIG.name,
+  "image": new URL(image, STORE_CONFIG.siteUrl).href,
+  "telephone": STORE_CONFIG.intlPhone,
+  "url": STORE_CONFIG.siteUrl,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": STORE_CONFIG.address.street,
+    "addressLocality": STORE_CONFIG.address.city,
+    "addressRegion": STORE_CONFIG.address.state,
+    "postalCode": STORE_CONFIG.address.zip,
+    "addressCountry": STORE_CONFIG.address.country
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": STORE_CONFIG.geo.latitude,
+    "longitude": STORE_CONFIG.geo.longitude
+  },
+  "openingHoursSpecification": STORE_CONFIG.hours.schema.map(h => ({
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": h.dayOfWeek,
+    "opens": h.opens,
+    "closes": h.closes
+  })),
+  "areaServed": { "@type": "City", "name": STORE_CONFIG.address.city }
+};
 ---
 
 <!DOCTYPE html>
@@ -16,20 +56,21 @@ const { title, description } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalUrl} />
 		
 		<!-- Open Graph / Social Meta Tags -->
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://goodvibesglassart.com/" />
+		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content="/ll.webp" />
+		<meta property="og:image" content={image} />
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content="https://goodvibesglassart.com/" />
+		<meta property="twitter:url" content={canonicalUrl} />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content="/ll.webp" />
+		<meta property="twitter:image" content={image} />
 		
 		<!-- PERFORMANCE: Resource Hints -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,48 +83,16 @@ const { title, description } = Astro.props;
 		<!-- Google Fonts (Synchronous for LCP) -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Eczar:wght@400;500;600;700;800&display=swap">
 		
-		<!-- Defer FontAwesome to prevent render blocking -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'">
-		<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
+		<!-- FontAwesome Icons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 		<!-- DYNAMIC LOCATION SCHEMA -->
-		<script type="application/ld+json" is:inline>
-		{
-		  "@context": "https://schema.org",
-		  "@type": "SmokeShop",
-		  "name": "Good Vibes Glass Art",
-		  "image": "/ll.webp",
-		  "telephone": "+1-970-619-8002",
-		  "url": "https://goodvibesglassart.com/",
-		  "address": {
-			"@type": "PostalAddress",
-			"streetAddress": "1421 N Cleveland Ave",
-			"addressLocality": "Loveland",
-			"addressRegion": "CO",
-			"postalCode": "80538",
-			"addressCountry": "US"
-		  },
-		  "geo": {
-			"@type": "GeoCoordinates",
-			"latitude": 40.407835,
-			"longitude": -105.074929
-		  },
-		  "openingHoursSpecification": [
-			{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "09:00", "closes": "21:00" },
-			{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday"], "opens": "10:00", "closes": "20:00" }
-		  ],
-		  "areaServed": { "@type": "City", "name": "Loveland" }
-		}
-		</script>
+		<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
 
 		<!-- AGE GATE CHECK (Run immediately to prevent flashing) -->
-		<script is:inline>
+		<script is:inline define:vars={{ ageGateId: STORE_CONFIG.ageGate.id }}>
 			(function() {
-				const STORE_CONFIG = {
-					id: 'good_vibes_v1',
-					phone: '9706198002'
-				};
-				const storedData = localStorage.getItem(`${STORE_CONFIG.id}_verified`);
+				const storedData = localStorage.getItem(ageGateId + '_verified');
 				let isVerified = false;
 				if (storedData) {
 					try {
@@ -104,7 +113,10 @@ const { title, description } = Astro.props;
 		</script>
 	</head>
 	<body class="bg-gv-black text-white overflow-x-hidden antialiased selection:bg-gv-green selection:text-gv-black font-sans">
-		<slot />
+		<a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-[9999] bg-gv-green text-gv-black font-bold px-4 py-2 rounded-lg shadow-xl uppercase tracking-wider text-xs">Skip to main content</a>
+		<div id="main-content">
+			<slot />
+		</div>
 	</body>
 </html>
 

@@ -6,16 +6,17 @@ import MobileStickyBar from '../components/global/MobileStickyBar.astro';
 import Footer from '../components/global/Footer.astro';
 import CategoryHero from '../components/ui/CategoryHero.astro';
 import LocalLandmarks from '../components/sections/LocalLandmarks.astro';
+import { STORE_CONFIG } from '../config/store';
 ---
 
-<Layout title="Premium Disposable Vapes & E-Juice in Midtown Atlanta | Untouchable Smoke Shop" description="Shop the largest selection of disposable vapes, e-juices, and pod systems in Downtown/Midtown Atlanta. Geek Bar, Elf Bar, and more. Open late until 2 AM.">
+<Layout title={`Premium Disposable Vapes & E-Juice in ${STORE_CONFIG.address.city} | ${STORE_CONFIG.name}`} description={`Shop the largest selection of disposable vapes, e-juices, and pod systems in ${STORE_CONFIG.address.city}, ${STORE_CONFIG.address.state}. Geek Bar, Elf Bar, and more. ${STORE_CONFIG.hours.shortNotice}.`}>
     <MobileStickyBar />
     <AgeGate />
     <Navbar />
 
     <CategoryHero 
         title="Vapes & E-Juice" 
-        subtitle="The Best Selection in Midtown"
+        subtitle={`The Best Selection in ${STORE_CONFIG.address.city}`}
         description="From the latest high-puff disposables to premium e-liquids and advanced pod systems, we stock the most sought-after brands. 100% authentic, guaranteed."
         accentColor="text-bright-cyan"
     />

@@ -1,0 +1,63 @@
+---
+interface Props {
+  variant?: 'gradient' | 'glass' | 'white' | 'outline';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  id?: string;
+  ariaLabel?: string;
+  target?: string;
+  rel?: string;
+}
+
+const {
+  variant = 'gradient',
+  size = 'md',
+  href,
+  type = 'button',
+  class: className = '',
+  id,
+  ariaLabel,
+  target,
+  rel
+} = Astro.props;
+
+const variantStyles = {
+  gradient: 'vibe-gradient text-white shadow-xl hover:shadow-[0_0_30px_rgba(139,195,74,0.4)] hover:-translate-y-0.5',
+  glass: 'glass-morphism text-gv-green border border-white/10 hover:bg-white/10 hover:border-gv-green/50',
+  white: 'bg-white text-black hover:bg-gv-green hover:text-white',
+  outline: 'border border-gv-green/30 bg-gv-green/10 text-gv-green hover:bg-gv-green/20',
+};
+
+const sizeStyles = {
+  sm: 'px-4 py-2 text-xs 3xl:text-sm font-bold uppercase tracking-wider rounded-full',
+  md: 'px-6 py-3 text-sm 3xl:text-base font-bold uppercase tracking-widest rounded-full',
+  lg: 'px-8 py-4 3xl:px-12 3xl:py-6 text-base 3xl:text-xl font-black uppercase tracking-wider rounded-full',
+  xl: 'px-10 py-5 3xl:px-16 3xl:py-8 text-lg 3xl:text-2xl font-black uppercase tracking-widest rounded-full',
+};
+
+const classes = `inline-flex items-center justify-center gap-2 font-sans transition-all duration-300 active:scale-95 cursor-pointer ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
+---
+
+{href ? (
+  <a 
+    href={href} 
+    id={id} 
+    class={classes} 
+    aria-label={ariaLabel}
+    target={target}
+    rel={target === '_blank' ? (rel || 'noopener noreferrer') : rel}
+  >
+    <slot />
+  </a>
+) : (
+  <button 
+    type={type} 
+    id={id} 
+    class={classes} 
+    aria-label={ariaLabel}
+  >
+    <slot />
+  </button>
+)}

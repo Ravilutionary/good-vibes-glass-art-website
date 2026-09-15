@@ -1,10 +1,11 @@
 ---
+import { STORE_CONFIG } from '../../config/store';
 ---
 <div class="fixed bottom-6 right-6 z-[60] md:hidden flex flex-col gap-4">
-    <a href="tel:4708736088" class="w-14 h-14 glass-morphism rounded-full flex items-center justify-center text-teal-glow shadow-2xl shadow-black/50 active:scale-95 transition-transform bg-deep-black/80 backdrop-blur-xl border border-white/10" aria-label="Call Shop Now">
-        <i class="fa-solid fa-phone text-xl"></i>
+    <a href={`tel:${STORE_CONFIG.rawPhone}`} class="w-14 h-14 glass-morphism rounded-full flex items-center justify-center text-teal-glow shadow-2xl shadow-black/50 active:scale-95 transition-transform bg-deep-black/80 backdrop-blur-xl border border-white/10" aria-label="Call Shop Now">
+        <i class="fa-solid fa-phone text-xl" aria-hidden="true"></i>
     </a>
-    <a href="https://maps.app.goo.gl/DBnPu5MiW5beXzQg4" target="_blank" class="w-14 h-14 vibe-gradient rounded-full flex items-center justify-center text-white shadow-2xl shadow-cyan-500/40 active:scale-95 transition-transform" aria-label="Get Directions">
-        <i class="fa-solid fa-diamond-turn-right text-xl"></i>
+    <a href={STORE_CONFIG.googleMapsUrl} target="_blank" rel="noopener noreferrer" class="w-14 h-14 vibe-gradient rounded-full flex items-center justify-center text-white shadow-2xl shadow-cyan-500/40 active:scale-95 transition-transform" aria-label="Get Directions">
+        <i class="fa-solid fa-diamond-turn-right text-xl" aria-hidden="true"></i>
     </a>
 </div>

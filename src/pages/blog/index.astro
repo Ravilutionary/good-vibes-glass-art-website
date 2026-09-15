@@ -1,9 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import AgeGate from '../../components/global/AgeGate.astro';
 import Navbar from '../../components/global/Navbar.astro';
+import MobileStickyBar from '../../components/global/MobileStickyBar.astro';
 import Footer from '../../components/global/Footer.astro';
 import SectionHeader from '../../components/ui/SectionHeader.astro';
+import { STORE_CONFIG } from '../../config/store';
 import { formatDate } from '../../lib/utils';
 
 const posts = await getCollection('blog');
@@ -14,23 +17,27 @@ const tags = [...new Set(posts.map((post) => post.data.tags).flat())];
 ---
 
 <Layout 
-  title="Blog | Untouchable Smoke Shop Atlanta"
-  description="Read the latest news, guides, and tips from Untouchable Smoke Shop in Midtown Atlanta."
+  title={`Blog | Guides & Culture | ${STORE_CONFIG.name}`}
+  description={`Read the latest glass guides, vaping tips, and culture news from ${STORE_CONFIG.name} in ${STORE_CONFIG.address.city}, ${STORE_CONFIG.address.state}.`}
 >
+  <MobileStickyBar />
+  <AgeGate />
   <Navbar />
   
   <main class="pt-32 pb-20 px-6 max-w-[1200px] mx-auto min-h-[60vh]">
-    <SectionHeader title="Untouchable Blog" subtitle="News, Guides & Culture" />
+    <div class="mb-12">
+      <SectionHeader title={STORE_CONFIG.shortName} accentText="Blog" accentColor="text-gv-green" subtitle="News, Guides & Local Culture" />
+    </div>
     
     <div class="mb-12">
       <h3 class="text-xl font-bold uppercase mb-4 text-white">Filter by Tag:</h3>
       <div class="flex flex-wrap gap-3">
-        <a href="/blog" class="bg-bright-cyan text-deep-black px-4 py-2 rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 transition-transform">
+        <a href="/blog" class="bg-gv-green text-gv-black px-4 py-2 rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 transition-transform">
           All
         </a>
         {tags.map(tag => (
-          <a href={`/blog/tags/${tag}`} class="bg-white/10 text-white px-4 py-2 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-bright-cyan/20 hover:text-bright-cyan transition-colors">
-            {tag}
+          <a href={`/blog/tags/${tag}`} class="bg-white/10 text-white px-4 py-2 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-gv-green/20 hover:text-gv-green transition-colors">
+            #{tag}
           </a>
         ))}
       </div>
@@ -38,19 +45,19 @@ const tags = [...new Set(posts.map((post) => post.data.tags).flat())];
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {posts.map(post => (
-        <a href={`/blog/${post.slug}`} class="bg-charcoal/30 rounded-3xl p-6 border border-white/5 hover:border-bright-cyan/30 transition-colors group flex flex-col h-full">
+        <a href={`/blog/${post.slug}`} class="glass-morphism rounded-3xl p-6 border border-white/5 hover:border-gv-green/30 transition-all hover:-translate-y-1 group flex flex-col h-full">
           <div class="mb-4 text-sm text-gray-400 font-bold uppercase tracking-widest">
             {formatDate(post.data.date)}
           </div>
-          <h2 class="text-2xl font-black uppercase mb-3 group-hover:text-bright-cyan transition-colors line-clamp-2">
+          <h2 class="text-2xl font-black uppercase mb-3 group-hover:text-gv-green transition-colors line-clamp-2">
             {post.data.title}
           </h2>
           <p class="text-gray-400 mb-6 line-clamp-3 flex-grow">
             {post.data.description}
           </p>
           <div class="flex flex-wrap gap-2 mt-auto">
-            {post.data.tags.map(tag => (
-              <span class="text-xs font-bold uppercase tracking-widest text-teal-glow bg-teal-glow/10 px-2 py-1 rounded">
+            {post.data.tags.map((tag: string) => (
+              <span class="text-xs font-bold uppercase tracking-widest text-gv-green bg-gv-green/10 px-2 py-1 rounded">
                 #{tag}
               </span>
             ))}
