@@ -1,6 +1,8 @@
 ---
 import { STORE_CONFIG } from '../../config/store';
-const { name, logo, trustBanner } = STORE_CONFIG;
+const { name, logo, trustBanner, features } = STORE_CONFIG;
+
+const hasProductLinks = features.hasVapes || features.hasGlassGallery || features.hasHookah || features.hasCigars;
 ---
 <!-- GLOBAL TRUST BANNER -->
 <header class="sticky top-0 z-50 flex flex-col w-full">
@@ -40,20 +42,22 @@ const { name, logo, trustBanner } = STORE_CONFIG;
             <a href="/" class="nav-link">Home</a>
             
             <!-- Products Dropdown -->
-            <div class="relative group py-4">
-                <button class="nav-link flex items-center gap-1 focus:outline-none" aria-haspopup="true" aria-expanded="false" id="desktop-products-btn">
-                    Products <i class="fa-solid fa-chevron-down text-[10px] transition-transform group-hover:rotate-180" aria-hidden="true"></i>
-                </button>
-                <div class="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-48 bg-deep-black border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 flex flex-col overflow-hidden z-50">
-                    <a href="/vapes" class="px-6 py-3 hover:bg-white/10 hover:text-bright-cyan transition-colors text-sm font-bold text-gray-200">Vapes</a>
-                    <a href="/glass" class="px-6 py-3 hover:bg-white/10 hover:text-bright-cyan transition-colors text-sm font-bold text-gray-200">Glass</a>
-                    <a href="/hookah" class="px-6 py-3 hover:bg-white/10 hover:text-bright-cyan transition-colors text-sm font-bold text-gray-200">Hookah</a>
-                    <a href="/cigars" class="px-6 py-3 hover:bg-white/10 hover:text-bright-cyan transition-colors text-sm font-bold text-gray-200">Cigars</a>
+            {hasProductLinks && (
+                <div class="relative group py-4">
+                    <button class="nav-link flex items-center gap-1 focus:outline-none" aria-haspopup="true" aria-expanded="false" id="desktop-products-btn">
+                        Products <i class="fa-solid fa-chevron-down text-[10px] transition-transform group-hover:rotate-180" aria-hidden="true"></i>
+                    </button>
+                    <div class="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-48 bg-deep-black border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 flex flex-col overflow-hidden z-50">
+                        {features.hasVapes && <a href="/vapes" class="px-6 py-3 hover:bg-white/10 hover:text-bright-cyan transition-colors text-sm font-bold text-gray-200">Vapes</a>}
+                        {features.hasGlassGallery && <a href="/glass" class="px-6 py-3 hover:bg-white/10 hover:text-bright-cyan transition-colors text-sm font-bold text-gray-200">Glass</a>}
+                        {features.hasHookah && <a href="/hookah" class="px-6 py-3 hover:bg-white/10 hover:text-bright-cyan transition-colors text-sm font-bold text-gray-200">Hookah</a>}
+                        {features.hasCigars && <a href="/cigars" class="px-6 py-3 hover:bg-white/10 hover:text-bright-cyan transition-colors text-sm font-bold text-gray-200">Cigars</a>}
+                    </div>
                 </div>
-            </div>
+            )}
 
-            <a href="/events" class="nav-link">Events</a>
-            <a href="/blog" class="nav-link">Blog</a>
+            {features.hasEventsCalendar && <a href="/events" class="nav-link">Events</a>}
+            {features.hasBlog && <a href="/blog" class="nav-link">Blog</a>}
             <a href="/#location-map" class="nav-link text-gv-green border-b border-gv-green">Location</a>
         </div>
         <a href="/#optin" class="hidden md:inline-block bg-white text-black py-2.5 px-6 3xl:px-10 4xl:py-4 4xl:px-14 rounded-full text-[10px] 3xl:text-sm 4xl:text-xl font-black hover:bg-gv-green hover:text-white transition-all uppercase tracking-widest" aria-label="Join the Inner Circle">Join the Inner Circle</a>
@@ -109,20 +113,22 @@ const { name, logo, trustBanner } = STORE_CONFIG;
         <a href="/" class="mobile-link hover:text-bright-cyan transition-colors">Home</a>
         
         <!-- Mobile Products Accordion -->
-        <div class="flex flex-col items-center w-full">
-            <button id="mobile-products-btn" class="flex items-center justify-center gap-2 hover:text-bright-cyan transition-colors w-full py-2" aria-expanded="false">
-                Products <i class="fa-solid fa-chevron-down text-sm transition-transform" id="mobile-products-icon" aria-hidden="true"></i>
-            </button>
-            <div id="mobile-products-menu" class="hidden flex-col gap-6 mt-6 w-full bg-white/5 rounded-2xl py-6 border border-white/10">
-                <a href="/vapes" class="mobile-link text-xl text-gray-300 hover:text-bright-cyan transition-colors">Vapes</a>
-                <a href="/glass" class="mobile-link text-xl text-gray-300 hover:text-bright-cyan transition-colors">Glass</a>
-                <a href="/hookah" class="mobile-link text-xl text-gray-300 hover:text-bright-cyan transition-colors">Hookah</a>
-                <a href="/cigars" class="mobile-link text-xl text-gray-300 hover:text-bright-cyan transition-colors">Cigars</a>
+        {hasProductLinks && (
+            <div class="flex flex-col items-center w-full">
+                <button id="mobile-products-btn" class="flex items-center justify-center gap-2 hover:text-bright-cyan transition-colors w-full py-2" aria-expanded="false">
+                    Products <i class="fa-solid fa-chevron-down text-sm transition-transform" id="mobile-products-icon" aria-hidden="true"></i>
+                </button>
+                <div id="mobile-products-menu" class="hidden flex-col gap-6 mt-6 w-full bg-white/5 rounded-2xl py-6 border border-white/10">
+                    {features.hasVapes && <a href="/vapes" class="mobile-link text-xl text-gray-300 hover:text-bright-cyan transition-colors">Vapes</a>}
+                    {features.hasGlassGallery && <a href="/glass" class="mobile-link text-xl text-gray-300 hover:text-bright-cyan transition-colors">Glass</a>}
+                    {features.hasHookah && <a href="/hookah" class="mobile-link text-xl text-gray-300 hover:text-bright-cyan transition-colors">Hookah</a>}
+                    {features.hasCigars && <a href="/cigars" class="mobile-link text-xl text-gray-300 hover:text-bright-cyan transition-colors">Cigars</a>}
+                </div>
             </div>
-        </div>
+        )}
 
-        <a href="/events" class="mobile-link hover:text-gv-green transition-colors">Events</a>
-        <a href="/blog" class="mobile-link hover:text-gv-green transition-colors">Blog</a>
+        {features.hasEventsCalendar && <a href="/events" class="mobile-link hover:text-gv-green transition-colors">Events</a>}
+        {features.hasBlog && <a href="/blog" class="mobile-link hover:text-gv-green transition-colors">Blog</a>}
         <a href="/#location-map" class="mobile-link text-gv-green">Location</a>
         <a href="/#optin" class="mobile-link mt-8 bg-white text-black py-4 px-10 rounded-full text-lg hover:bg-gv-green hover:text-white transition-all mx-auto">Join the Inner Circle</a>
     </div>

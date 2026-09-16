@@ -1,28 +1,20 @@
 # 🌿 High-Conversion Smoke Shop Web Template & Monolith Engine
 
-> **Production-grade, ultra-fast, data-driven web engine designed for smoke shops, head shops, glass galleries, and vapor dispensaries.**
+> **Production-grade, ultra-fast, multi-client web engine designed for smoke shops, head shops, glass galleries, and vapor dispensaries.**
 
-Built with **Astro 5**, **Tailwind CSS**, and **TypeScript Content Collections**, this template enables agencies and store owners to deploy fully branded, geo-optimized local smoke shop websites in under 5 minutes by updating a single configuration file (`src/config/store.ts`).
+Built with **Astro 5**, **Tailwind CSS**, and **TypeScript Content Collections**, this monorepo enables agencies and store owners to deploy fully branded, geo-optimized local smoke shop websites in **under 10 minutes** per client.
 
 ---
 
 ## ⚡ Key Architectural Features
 
-- **🎯 100% Parameterized Store Configuration (`src/config/store.ts`)**: Rebrand the entire site—name, address, coordinates, hours, hero copy, trust badges, review count, phone numbers, landmarks, and lead offers—without touching any UI code.
-- **🛡️ Synchronized Age Gate Modal (`AgeGate.astro`)**: Compliance-ready, zero-flicker 21+ age verification modal with localStorage synchronization, escape key handling, and ARIA focus trap.
+- **🏢 Multi-Client Monorepo Engine (`src/clients/`)**: Manage multiple smoke shop clients from a single codebase (`good-vibes-loveland`, `high-tide-denver`, etc.).
+- **🎨 Runtime CSS Variable Theming System**: Switch client color palettes with 1 line of config (`neon-cyberpunk`, `luxury-gold`, `herbal-emerald`).
+- **🚩 Dynamic Feature Flags**: Toggle category pages on/off per client (`hasGlassGallery`, `hasVapes`, `hasCigars`, `hasHookah`, `hasEventsCalendar`, `hasBlog`).
+- **🪄 CLI Generator Wizard (`npm run new-client`)**: Interactive command-line tool to scaffold a new client website in 2 minutes.
+- **🏗️ Multi-Client Build Pipeline (`npm run build:all`)**: Build all client sites sequentially for automated CI/CD deployment.
+- **🛡️ Synchronized Age Gate Modal (`AgeGate.astro`)**: Compliance-ready, zero-flicker 21+ age verification modal with localStorage synchronization.
 - **📍 Schema.org LocalBusiness JSON-LD & Geo-SEO**: Automated structured data injection with exact geo-coordinates, operating hours, price ranges, and local area service tags.
-- **📦 Type-Safe Content Collections (`src/content/`)**:
-  - `products/` (JSON schemas for featured hot items, tags, categories, pricing, badges)
-  - `reviews/` (JSON schemas for customer testimonials, ratings, platform sources)
-  - `events/` (Markdown with frontmatter for community gatherings, 4/20 drops, and showcases)
-  - `blog/` (SEO-focused guides, educational content, and buyer checklists)
-- **🗺️ Complete Navigation & Route Coverage**:
-  - `/events` & `/events/[slug]` (Active community calendar and event details)
-  - `/blog` & `/blog/[slug]` (Buyer guides and educational content)
-  - `/glass`, `/vapes`, `/cigars`, `/hookah` (High-converting category landing pages)
-  - `/vendors` & `/careers` (B2B vendor onboarding and hiring inquiry forms)
-  - `/404` (Custom themed error page)
-- **🚀 Ultra-Fast Static Site Generation (SSG)**: Zero client-side framework bloat, sub-second TTFB, 100 Lighthouse performance, and automated XML sitemap generation.
 
 ---
 
@@ -33,21 +25,19 @@ Built with **Astro 5**, **Tailwind CSS**, and **TypeScript Content Collections**
 npm install --legacy-peer-deps
 ```
 
-### 2. Start Development Server
+### 2. Scaffold a New Client
 ```bash
-npm run dev
-```
-Open `http://localhost:3000` to view the live site with hot module reloading.
-
-### 3. Type Checking & Validation
-```bash
-npm run lint
+npm run new-client
 ```
 
-### 4. Production Build
+### 3. Start Development Server for a Specific Client
 ```bash
-npm run build
-npm run preview
+SITE_ID=good-vibes-loveland npm run dev
+```
+
+### 4. Build All Registered Clients
+```bash
+npm run build:all
 ```
 
 ---

@@ -1,5 +1,14 @@
 import typography from '@tailwindcss/typography';
 
+function withOpacity(variableName, fallback) {
+  return ({ opacityValue }) => {
+    if (opacityValue !== undefined) {
+      return `color-mix(in srgb, var(${variableName}, ${fallback}) calc(${opacityValue} * 100%), transparent)`;
+    }
+    return `var(${variableName}, ${fallback})`;
+  };
+}
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
@@ -10,18 +19,28 @@ export default {
         '4xl': '2560px',
       },
       colors: {
-        'gv-black': '#0F0F0F',
+        // Theme variables
+        'brand-primary': withOpacity('--color-primary', '#00f0ff'),
+        'brand-secondary': withOpacity('--color-secondary', '#06b6d4'),
+        'brand-accent': withOpacity('--color-accent', '#8a2be2'),
+        'surface-bg': withOpacity('--color-bg', '#0a0a0a'),
+        'surface-card': withOpacity('--color-card', '#141414'),
+        'surface-border': withOpacity('--color-border', 'rgba(255,255,255,0.08)'),
+        'text-muted': withOpacity('--color-text-muted', '#9ca3af'),
+
+        // Backwards compatible brand aliases mapping to CSS variables
+        'gv-black': withOpacity('--color-bg', '#0F0F0F'),
         'gv-blue': '#0D2C54',
-        'gv-green': '#8BC34A',
+        'gv-green': withOpacity('--color-accent-green', '#8BC34A'),
         'gv-red': '#E53935',
         'gv-yellow': '#FDD835',
-        'deep-black': '#0a0a0a',
-        'charcoal': '#141414',
-        'teal-glow': '#00f0ff',
-        'bright-cyan': '#06b6d4',
-        'electric-blue': '#3b82f6',
-        'green-glow': '#10b981',
-        'purple-vibe': '#8a2be2',
+        'deep-black': withOpacity('--color-bg', '#0a0a0a'),
+        'charcoal': withOpacity('--color-card', '#141414'),
+        'teal-glow': withOpacity('--color-primary', '#00f0ff'),
+        'bright-cyan': withOpacity('--color-secondary', '#06b6d4'),
+        'electric-blue': withOpacity('--color-primary', '#3b82f6'),
+        'green-glow': withOpacity('--color-accent-green', '#10b981'),
+        'purple-vibe': withOpacity('--color-accent', '#8a2be2'),
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

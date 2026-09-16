@@ -1,0 +1,12 @@
+:root {
+  --color-primary: #FFD700;
+  --color-secondary: #C8A84B;
+  --color-accent: #8B4513;
+  --color-accent-green: #6B8E23;
+  --color-bg: #0D0B08;
+  --color-card: #1A1610;
+  --color-border: rgba(255, 215, 0, 0.15);
+  --color-text-muted: #a89070;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Lato', sans-serif;
+}

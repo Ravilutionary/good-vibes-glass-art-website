@@ -1,0 +1,34 @@
+name: Deploy Multi-Client Smoke Shop Monorepo
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    name: Build & Verify All Clients
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        client: [ good-vibes-loveland, high-tide-denver ]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Lint Codebase
+        run: npm run lint
+
+      - name: Build Client (${{ matrix.client }})
+        run: SITE_ID=${{ matrix.client }} npm run build
