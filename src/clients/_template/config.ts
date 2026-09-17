@@ -72,7 +72,8 @@ const config: StoreConfig = {
     formspreeEndpoint: ''
   },
   careersOffer: {
-    formspreeEndpoint: ''
+    formspreeEndpoint: '',
+    interviewBookingUrl: '%%INTERVIEW_URL%%'
   },
   theme: '%%THEME%%',
   features: {

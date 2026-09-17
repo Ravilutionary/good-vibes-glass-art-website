@@ -75,7 +75,8 @@ const config: StoreConfig = {
     formspreeEndpoint: ''
   },
   careersOffer: {
-    formspreeEndpoint: ''
+    formspreeEndpoint: '',
+    interviewBookingUrl: 'https://calendly.com'
   },
   theme: 'neon-cyberpunk',
   features: {

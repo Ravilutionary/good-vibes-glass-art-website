@@ -77,6 +77,7 @@ export interface StoreConfig {
   };
   careersOffer: {
     formspreeEndpoint?: string;
+    interviewBookingUrl?: string;
   };
   theme: 'neon-cyberpunk' | 'luxury-gold' | 'herbal-emerald' | string;
   features: {

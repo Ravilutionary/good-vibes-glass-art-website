@@ -5,73 +5,375 @@ import Navbar from '../components/global/Navbar.astro';
 import MobileStickyBar from '../components/global/MobileStickyBar.astro';
 import Footer from '../components/global/Footer.astro';
 import { STORE_CONFIG } from '../config/store';
+
+const { name, careersOffer } = STORE_CONFIG;
+const bookingUrl = careersOffer.interviewBookingUrl || '#';
 ---
 
-<Layout title={`Careers | Join The Crew at ${STORE_CONFIG.name}`} description={`Join the crew at ${STORE_CONFIG.name}. Think you can handle the floor?`}>
+<Layout title={`Careers & Hiring Portal | Join The Crew at ${name}`} description={`Apply to join the retail crew at ${name}. Take our 2-minute candidate screening and knowledge quiz.`}>
     <MobileStickyBar />
     <AgeGate />
     <Navbar />
 
-    <main class="pt-32 pb-24 px-6 max-w-4xl mx-auto min-h-[80vh] flex flex-col justify-center">
-        <div class="text-center mb-16">
-            <div class="inline-block bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-6 backdrop-blur-md">
-                <p class="text-purple-vibe font-bold uppercase tracking-widest text-xs">Join The Crew</p>
+    <main class="pt-28 md:pt-36 pb-24 px-4 sm:px-6 max-w-4xl mx-auto min-h-[85vh] flex flex-col justify-center">
+        <!-- Header -->
+        <div class="text-center mb-10 md:mb-14">
+            <div class="inline-block bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-4 backdrop-blur-md">
+                <p class="text-purple-vibe font-bold uppercase tracking-widest text-xs">⚡ Fast-Track Candidate Screening</p>
             </div>
-            <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-6 leading-tight">
-                Think you can <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-vibe to-bright-cyan">handle the floor?</span>
+            <h1 class="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white mb-4 leading-tight">
+                Join The Floor <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-vibe via-bright-cyan to-gv-green">At {name}</span>
             </h1>
-            <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-                We're always looking for knowledgeable, high-energy people to join the team at {STORE_CONFIG.name}. If you know the industry and can provide top-tier service, send your stats.
+            <p class="text-gray-300 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+                We're looking for reliable, 21+ team members who know the industry. Complete our 2-minute interactive screening to unlock instant interview auto-scheduling.
             </p>
         </div>
 
-        <div class="bg-black/40 p-8 md:p-12 rounded-[2rem] border border-white/10 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+        <!-- Main Card Container -->
+        <div class="bg-black/50 p-6 sm:p-10 md:p-12 rounded-[2rem] border border-white/10 backdrop-blur-xl shadow-2xl relative overflow-hidden">
             <div class="glow-blur -top-20 -right-20 w-64 h-64 bg-purple-vibe/20 pointer-events-none"></div>
-            
-            <form id="careers-form" class="relative z-10 space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-2">
-                        <label for="name" class="text-sm font-bold uppercase tracking-widest text-gray-400">Full Name</label>
-                        <input type="text" id="name" name="name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-purple-vibe transition-all font-medium">
+
+            <!-- Progress Bar -->
+            <div id="progress-container" class="mb-8">
+                <div class="flex justify-between items-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">
+                    <span id="step-label">Step 1 of 4: Compliance Check</span>
+                    <span id="step-percent" class="text-bright-cyan">25%</span>
+                </div>
+                <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="bg-gradient-to-r from-purple-vibe to-bright-cyan h-full w-1/4 transition-all duration-500"></div>
+                </div>
+            </div>
+
+            <form id="careers-pipeline-form" class="relative z-10">
+
+                <!-- ================= STEP 1: COMPLIANCE CHECK ================= -->
+                <div id="step-1" class="step-panel space-y-6">
+                    <div class="border-b border-white/10 pb-4">
+                        <h2 class="text-xl sm:text-2xl font-black uppercase text-white flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-purple-vibe/30 text-purple-vibe flex items-center justify-center text-sm border border-purple-vibe/50">1</span>
+                            21+ Compliance & Legal Eligibility
+                        </h2>
+                        <p class="text-gray-400 text-sm mt-1">Federal and state regulations require strict age verification for smoke shop staff.</p>
                     </div>
-                    <div class="space-y-2">
-                        <label for="phone" class="text-sm font-bold uppercase tracking-widest text-gray-400">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" required class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-purple-vibe transition-all font-medium">
+
+                    <div class="space-y-4">
+                        <label class="block text-sm font-bold uppercase tracking-widest text-gray-300">Are you at least 21 years of age? *</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <label class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl p-4 cursor-pointer hover:bg-white/10 transition-all">
+                                <input type="radio" name="age_21" value="yes" required class="accent-purple-vibe w-5 h-5">
+                                <span class="text-white font-bold">Yes (21+)</span>
+                            </label>
+                            <label class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl p-4 cursor-pointer hover:bg-white/10 transition-all">
+                                <input type="radio" name="age_21" value="no" class="accent-purple-vibe w-5 h-5">
+                                <span class="text-white font-bold">No (Under 21)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <label class="block text-sm font-bold uppercase tracking-widest text-gray-300">Are you legally authorized to work in the United States? *</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <label class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl p-4 cursor-pointer hover:bg-white/10 transition-all">
+                                <input type="radio" name="work_auth" value="yes" required class="accent-purple-vibe w-5 h-5">
+                                <span class="text-white font-bold">Yes</span>
+                            </label>
+                            <label class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl p-4 cursor-pointer hover:bg-white/10 transition-all">
+                                <input type="radio" name="work_auth" value="no" class="accent-purple-vibe w-5 h-5">
+                                <span class="text-white font-bold">No</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <label class="block text-sm font-bold uppercase tracking-widest text-gray-300">Do you have reliable transportation for all assigned shifts? *</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <label class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl p-4 cursor-pointer hover:bg-white/10 transition-all">
+                                <input type="radio" name="transport" value="yes" required class="accent-purple-vibe w-5 h-5">
+                                <span class="text-white font-bold">Yes</span>
+                            </label>
+                            <label class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl p-4 cursor-pointer hover:bg-white/10 transition-all">
+                                <input type="radio" name="transport" value="no" class="accent-purple-vibe w-5 h-5">
+                                <span class="text-white font-bold">No</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="button" id="btn-to-step-2" class="w-full bg-gradient-to-r from-purple-vibe to-bright-cyan px-8 py-4 rounded-xl font-black text-white uppercase tracking-widest hover:scale-[1.01] transition-all text-base shadow-lg mt-6">
+                        Continue to Knowledge Quiz ➔
+                    </button>
+                </div>
+
+
+                <!-- ================= STEP 2: GAMIFIED QUIZ ================= -->
+                <div id="step-2" class="step-panel hidden space-y-6">
+                    <div class="border-b border-white/10 pb-4">
+                        <h2 class="text-xl sm:text-2xl font-black uppercase text-white flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-bright-cyan/30 text-bright-cyan flex items-center justify-center text-sm border border-bright-cyan/50">2</span>
+                            Retail & Industry Situational Quiz
+                        </h2>
+                        <p class="text-gray-400 text-sm mt-1">Select the best answer for each real-world floor scenario.</p>
+                    </div>
+
+                    <!-- Scenario 1 -->
+                    <div class="space-y-3 bg-white/5 p-5 rounded-2xl border border-white/10">
+                        <p class="text-sm font-extrabold uppercase text-bright-cyan tracking-wider">Scenario 1: ID Verification</p>
+                        <p class="text-white text-base font-semibold">A customer attempts to purchase a vape with a driver's license that expires today, but they look under 21. What is your proper action?</p>
+                        <div class="space-y-2 pt-2">
+                            <label class="flex items-center gap-3 p-3 bg-black/40 rounded-xl border border-white/5 cursor-pointer hover:border-bright-cyan/50 transition-all">
+                                <input type="radio" name="q1" value="30" required class="accent-bright-cyan w-4 h-4">
+                                <span class="text-gray-200 text-sm font-medium">Verify the DOB is 21+ and license is valid today; complete the sale attentively.</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-black/40 rounded-xl border border-white/5 cursor-pointer hover:border-bright-cyan/50 transition-all">
+                                <input type="radio" name="q1" value="0" class="accent-bright-cyan w-4 h-4">
+                                <span class="text-gray-200 text-sm font-medium">Refuse the sale immediately without looking at the expiration date.</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-black/40 rounded-xl border border-white/5 cursor-pointer hover:border-bright-cyan/50 transition-all">
+                                <input type="radio" name="q1" value="0" class="accent-bright-cyan w-4 h-4">
+                                <span class="text-gray-200 text-sm font-medium">Allow the sale without checking the ID if they claim they forgot their wallet.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Scenario 2 -->
+                    <div class="space-y-3 bg-white/5 p-5 rounded-2xl border border-white/10">
+                        <p class="text-sm font-extrabold uppercase text-bright-cyan tracking-wider">Scenario 2: Glass Knowledge</p>
+                        <p class="text-white text-base font-semibold">A customer asks what a "percolator" (perc) does inside a glass water pipe. How do you explain it?</p>
+                        <div class="space-y-2 pt-2">
+                            <label class="flex items-center gap-3 p-3 bg-black/40 rounded-xl border border-white/5 cursor-pointer hover:border-bright-cyan/50 transition-all">
+                                <input type="radio" name="q2" value="35" required class="accent-bright-cyan w-4 h-4">
+                                <span class="text-gray-200 text-sm font-medium">It diffuses smoke through water into smaller bubbles for cooler, smoother hits.</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-black/40 rounded-xl border border-white/5 cursor-pointer hover:border-bright-cyan/50 transition-all">
+                                <input type="radio" name="q2" value="0" class="accent-bright-cyan w-4 h-4">
+                                <span class="text-gray-200 text-sm font-medium">It heats up the water to increase vapor density.</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-black/40 rounded-xl border border-white/5 cursor-pointer hover:border-bright-cyan/50 transition-all">
+                                <input type="radio" name="q2" value="0" class="accent-bright-cyan w-4 h-4">
+                                <span class="text-gray-200 text-sm font-medium">It changes the glass tint color as you use it.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Scenario 3 -->
+                    <div class="space-y-3 bg-white/5 p-5 rounded-2xl border border-white/10">
+                        <p class="text-sm font-extrabold uppercase text-bright-cyan tracking-wider">Scenario 3: Customer Service</p>
+                        <p class="text-white text-base font-semibold">A customer says their vape tastes burnt right after buying it. What do you inspect first?</p>
+                        <div class="space-y-2 pt-2">
+                            <label class="flex items-center gap-3 p-3 bg-black/40 rounded-xl border border-white/5 cursor-pointer hover:border-bright-cyan/50 transition-all">
+                                <input type="radio" name="q3" value="35" required class="accent-bright-cyan w-4 h-4">
+                                <span class="text-gray-200 text-sm font-medium">Check if the coil was primed, wattage setting is correct, and e-liquid is saturated.</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-black/40 rounded-xl border border-white/5 cursor-pointer hover:border-bright-cyan/50 transition-all">
+                                <input type="radio" name="q3" value="0" class="accent-bright-cyan w-4 h-4">
+                                <span class="text-gray-200 text-sm font-medium">Tell them all vapes taste burnt and send them away.</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-black/40 rounded-xl border border-white/5 cursor-pointer hover:border-bright-cyan/50 transition-all">
+                                <input type="radio" name="q3" value="0" class="accent-bright-cyan w-4 h-4">
+                                <span class="text-gray-200 text-sm font-medium">Give them a free glass bong instead.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 pt-4">
+                        <button type="button" id="btn-back-to-1" class="w-1/3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl font-bold text-white uppercase tracking-widest text-sm transition-all">
+                            ◀ Back
+                        </button>
+                        <button type="button" id="btn-to-step-3" class="w-2/3 bg-gradient-to-r from-bright-cyan to-gv-green px-8 py-4 rounded-xl font-black text-white uppercase tracking-widest hover:scale-[1.01] transition-all text-base shadow-lg">
+                            Next: Shift Availability ➔
+                        </button>
                     </div>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-2">
-                        <label for="email" class="text-sm font-bold uppercase tracking-widest text-gray-400">Email Address</label>
-                        <input type="email" id="email" name="email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-purple-vibe transition-all font-medium">
+
+
+                <!-- ================= STEP 3: SHIFT AVAILABILITY ================= -->
+                <div id="step-3" class="step-panel hidden space-y-6">
+                    <div class="border-b border-white/10 pb-4">
+                        <h2 class="text-xl sm:text-2xl font-black uppercase text-white flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-gv-green/30 text-gv-green flex items-center justify-center text-sm border border-gv-green/50">3</span>
+                            Shift Availability Matrix
+                        </h2>
+                        <p class="text-gray-400 text-sm mt-1">Select all shifts you are consistently available to work.</p>
                     </div>
-                    <div class="space-y-2">
-                        <label for="experience" class="text-sm font-bold uppercase tracking-widest text-gray-400">Years of Experience</label>
-                        <select id="experience" name="experience" required class="w-full bg-deep-black border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-purple-vibe transition-all font-medium appearance-none">
-                            <option value="" disabled selected>Select Experience Level</option>
-                            <option value="0-1">0-1 Years</option>
-                            <option value="1-3">1-3 Years</option>
-                            <option value="3-5">3-5 Years</option>
-                            <option value="5+">5+ Years</option>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <label class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl p-4 cursor-pointer hover:border-gv-green/50 transition-all">
+                            <input type="checkbox" name="shifts" value="weekday_mornings" class="accent-gv-green w-5 h-5">
+                            <div>
+                                <p class="text-white font-bold text-sm">🌅 Weekday Mornings</p>
+                                <p class="text-gray-400 text-xs">Mon-Fri (9:00 AM - 3:00 PM)</p>
+                            </div>
+                        </label>
+
+                        <label class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl p-4 cursor-pointer hover:border-gv-green/50 transition-all">
+                            <input type="checkbox" name="shifts" value="weekday_evenings" class="accent-gv-green w-5 h-5">
+                            <div>
+                                <p class="text-white font-bold text-sm">🌇 Weekday Evenings</p>
+                                <p class="text-gray-400 text-xs">Mon-Fri (3:00 PM - 9:00 PM)</p>
+                            </div>
+                        </label>
+
+                        <label class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl p-4 cursor-pointer hover:border-gv-green/50 transition-all">
+                            <input type="checkbox" name="shifts" value="weekend_days" class="accent-gv-green w-5 h-5">
+                            <div>
+                                <p class="text-white font-bold text-sm">🌙 Weekend Shifts</p>
+                                <p class="text-gray-400 text-xs">Saturday & Sunday shifts</p>
+                            </div>
+                        </label>
+
+                        <label class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl p-4 cursor-pointer hover:border-gv-green/50 transition-all">
+                            <input type="checkbox" name="shifts" value="holidays_drops" class="accent-gv-green w-5 h-5">
+                            <div>
+                                <p class="text-white font-bold text-sm">🚀 Special Drops / 4/20</p>
+                                <p class="text-gray-400 text-xs">Holidays & glass drop events</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="space-y-2 pt-2">
+                        <label for="employment_type" class="text-sm font-bold uppercase tracking-widest text-gray-300">Desired Employment Status</label>
+                        <select id="employment_type" name="employment_type" class="w-full bg-deep-black border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-gv-green transition-all font-medium appearance-none">
+                            <option value="full_time">Full-Time (32-40 hrs/wk)</option>
+                            <option value="part_time">Part-Time (15-30 hrs/wk)</option>
+                            <option value="flexible">Flexible / Any</option>
                         </select>
                     </div>
+
+                    <div class="flex gap-4 pt-4">
+                        <button type="button" id="btn-back-to-2" class="w-1/3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl font-bold text-white uppercase tracking-widest text-sm transition-all">
+                            ◀ Back
+                        </button>
+                        <button type="button" id="btn-to-step-4" class="w-2/3 bg-gradient-to-r from-gv-green to-purple-vibe px-8 py-4 rounded-xl font-black text-white uppercase tracking-widest hover:scale-[1.01] transition-all text-base shadow-lg">
+                            Next: Voice Intro & Bio ➔
+                        </button>
+                    </div>
+                </div>
+
+
+                <!-- ================= STEP 4: VOICE INTRO & CONTACT INFO ================= -->
+                <div id="step-4" class="step-panel hidden space-y-6">
+                    <div class="border-b border-white/10 pb-4">
+                        <h2 class="text-xl sm:text-2xl font-black uppercase text-white flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-purple-vibe/30 text-purple-vibe flex items-center justify-center text-sm border border-purple-vibe/50">4</span>
+                            Voice Pitch & Contact Info
+                        </h2>
+                        <p class="text-gray-400 text-sm mt-1">Record a quick 30-second voice introduction or enter your contact details.</p>
+                    </div>
+
+                    <!-- Voice Recorder Container -->
+                    <div class="bg-white/5 border border-white/10 p-5 rounded-2xl space-y-4">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-white font-bold text-sm uppercase tracking-wider flex items-center gap-2">
+                                    <i class="fa-solid fa-microphone text-purple-vibe" aria-hidden="true"></i>
+                                    30-Second Voice Intro (Optional)
+                                </p>
+                                <p class="text-gray-400 text-xs mt-0.5">Tell us why you're a great fit for the shop floor.</p>
+                            </div>
+                            <span id="voice-timer" class="text-purple-vibe font-mono font-bold text-sm bg-purple-vibe/10 px-3 py-1 rounded-full border border-purple-vibe/30">00:00 / 00:30</span>
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-3 pt-2">
+                            <button type="button" id="record-btn" class="bg-purple-vibe hover:bg-purple-600 text-white px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all">
+                                <i class="fa-solid fa-circle text-red-400" aria-hidden="true"></i> Record Audio
+                            </button>
+                            <button type="button" id="stop-btn" class="bg-gray-700 hover:bg-gray-600 text-white px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider hidden items-center gap-2 transition-all">
+                                <i class="fa-solid fa-square" aria-hidden="true"></i> Stop
+                            </button>
+                            <span id="recording-status" class="text-gray-400 text-xs italic">No recording yet</span>
+                        </div>
+                        <audio id="audio-playback" controls class="w-full hidden mt-3 rounded-lg"></audio>
+                        <input type="hidden" id="audio-data-input" name="audio_base64" value="">
+                    </div>
+
+                    <!-- Contact Details -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-1.5">
+                            <label for="applicant_name" class="text-xs font-bold uppercase tracking-widest text-gray-300">Full Name *</label>
+                            <input type="text" id="applicant_name" name="name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-vibe transition-all text-sm font-medium">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label for="applicant_phone" class="text-xs font-bold uppercase tracking-widest text-gray-300">Phone Number *</label>
+                            <input type="tel" id="applicant_phone" name="phone" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-vibe transition-all text-sm font-medium">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-1.5">
+                            <label for="applicant_email" class="text-xs font-bold uppercase tracking-widest text-gray-300">Email Address *</label>
+                            <input type="email" id="applicant_email" name="email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-vibe transition-all text-sm font-medium">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label for="experience_years" class="text-xs font-bold uppercase tracking-widest text-gray-300">Years Retail Experience</label>
+                            <select id="experience_years" name="experience" class="w-full bg-deep-black border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-vibe transition-all text-sm font-medium appearance-none">
+                                <option value="0-1">0-1 Years</option>
+                                <option value="1-3">1-3 Years</option>
+                                <option value="3-5">3-5 Years</option>
+                                <option value="5+">5+ Years</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label for="applicant_bio" class="text-xs font-bold uppercase tracking-widest text-gray-300">Short Bio / Specialty Products You Know</label>
+                        <textarea id="applicant_bio" name="bio" rows="3" placeholder="e.g., Knowledgeable in vape pod systems, heady glass rigs, and hand-rolled cigars." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-vibe transition-all text-sm font-medium resize-none"></textarea>
+                    </div>
+
+                    <div class="flex gap-4 pt-4">
+                        <button type="button" id="btn-back-to-3" class="w-1/3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl font-bold text-white uppercase tracking-widest text-sm transition-all">
+                            ◀ Back
+                        </button>
+                        <button type="submit" id="careers-submit-btn" class="w-2/3 bg-gradient-to-r from-purple-vibe via-bright-cyan to-gv-green px-8 py-4 rounded-xl font-black text-white uppercase tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all text-base shadow-[0_0_25px_rgba(138,43,226,0.4)]">
+                            Submit & Score Application 🚀
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+            <!-- ================= AGE COMPLIANCE HALT SCREEN ================= -->
+            <div id="compliance-halt" class="hidden text-center py-12 relative z-10 space-y-4">
+                <i class="fa-solid fa-triangle-exclamation text-6xl text-red-500 mb-2" aria-hidden="true"></i>
+                <h3 class="text-2xl sm:text-3xl font-black uppercase text-white">Compliance Notice</h3>
+                <p class="text-gray-300 text-base max-w-md mx-auto">Federal and state statutes mandate that all employees working inside licensed smoke, vape, and glass shops must be strictly **21 years of age or older**.</p>
+                <a href="/" class="inline-block mt-4 bg-white/10 border border-white/20 text-white px-6 py-3 rounded-full font-bold uppercase text-xs tracking-widest hover:bg-white/20 transition-all">Return to Home</a>
+            </div>
+
+            <!-- ================= RESULTS & AUTO-SCHEDULER SCREEN ================= -->
+            <div id="careers-results" class="hidden text-center py-10 relative z-10 space-y-6">
+                <div class="inline-block bg-gv-green/20 border border-gv-green/50 rounded-full px-6 py-2">
+                    <p class="text-gv-green font-black uppercase tracking-widest text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-star" aria-hidden="true"></i> Candidate Match Calculated
+                    </p>
                 </div>
 
                 <div class="space-y-2">
-                    <label for="knowledge" class="text-sm font-bold uppercase tracking-widest text-gray-400">Your Expertise (Vapes, Glass, Cigars, etc.)</label>
-                    <textarea id="knowledge" name="knowledge" rows="4" required class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-purple-vibe transition-all font-medium resize-none"></textarea>
+                    <h3 class="text-4xl sm:text-6xl font-black uppercase tracking-tight text-white">
+                        Match Score: <span id="final-score-display" class="text-transparent bg-clip-text bg-gradient-to-r from-bright-cyan to-gv-green">95%</span>
+                    </h3>
+                    <p id="score-status-subtitle" class="text-gray-300 text-base max-w-xl mx-auto">Excellent fit! You met all 21+ compliance requirements and passed our retail situational assessment.</p>
                 </div>
 
-                <button type="submit" id="careers-submit-btn" class="w-full bg-gradient-to-r from-purple-vibe to-bright-cyan px-8 py-5 rounded-xl font-black text-white uppercase tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all text-lg shadow-[0_0_20px_rgba(138,43,226,0.3)] mt-4">
-                    Show Your Knowledge
-                </button>
-            </form>
+                <!-- High Match Booking Box -->
+                <div id="booking-box" class="bg-gradient-to-br from-purple-vibe/20 via-black to-gv-green/20 border border-gv-green/40 p-6 sm:p-8 rounded-2xl max-w-xl mx-auto text-left space-y-4 shadow-2xl">
+                    <div class="flex items-center gap-3 border-b border-white/10 pb-3">
+                        <i class="fa-solid fa-calendar-check text-2xl text-gv-green" aria-hidden="true"></i>
+                        <div>
+                            <h4 class="text-white font-extrabold uppercase text-lg">Instant Interview Auto-Scheduler</h4>
+                            <p class="text-gray-400 text-xs">Fast-track your application directly with the store manager.</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm">You passed our floor screening! Select a time on our manager's calendar for a quick 10-minute in-store interview.</p>
+                    
+                    <a id="booking-btn" href={bookingUrl} target="_blank" rel="noopener noreferrer" class="block text-center w-full bg-gv-green hover:bg-emerald-400 text-black font-black uppercase tracking-widest py-4 px-8 rounded-xl text-base shadow-[0_0_20px_rgba(139,195,74,0.4)] transition-all hover:scale-[1.02]">
+                        📅 Schedule Your In-Store Interview Now ➔
+                    </a>
+                </div>
 
-            <div id="careers-success" class="hidden text-center py-12 relative z-10">
-                <i class="fa-solid fa-check-circle text-6xl text-purple-vibe mb-6" aria-hidden="true"></i>
-                <h3 class="text-3xl font-black uppercase tracking-tighter text-white mb-4">Stats Sent</h3>
-                <p class="text-gray-300 text-lg">Application received. Stay tuned.</p>
+                <div id="standard-thanks" class="hidden text-gray-300 text-base max-w-md mx-auto pt-4">
+                    Thank you for applying to {name}! Your scores and bio have been sent to our management team. We will contact you if a shift matching your availability opens up.
+                </div>
             </div>
+
         </div>
     </main>
 
@@ -79,7 +381,148 @@ import { STORE_CONFIG } from '../config/store';
 </Layout>
 
 <script is:inline define:vars={{ formEndpoint: STORE_CONFIG.careersOffer.formspreeEndpoint || '' }}>
-    document.getElementById('careers-form')?.addEventListener('submit', async (e) => {
+    let quizScore = 0;
+    let mediaRecorder = null;
+    let audioChunks = [];
+    let recordTimerInterval = null;
+    let secondsRecorded = 0;
+
+    const progressBar = document.getElementById('progress-bar');
+    const stepLabel = document.getElementById('step-label');
+    const stepPercent = document.getElementById('step-percent');
+
+    function updateStep(step) {
+        currentStep = step;
+        document.querySelectorAll('.step-panel').forEach(panel => panel.classList.add('hidden'));
+        document.getElementById(`step-${step}`)?.classList.remove('hidden');
+
+        const labelMap = {
+            1: 'Step 1 of 4: Compliance Check',
+            2: 'Step 2 of 4: Knowledge Quiz',
+            3: 'Step 3 of 4: Shift Availability',
+            4: 'Step 4 of 4: Voice Intro & Bio'
+        };
+        const percentMap = { 1: '25%', 2: '50%', 3: '75%', 4: '100%' };
+
+        if (stepLabel) stepLabel.textContent = labelMap[step];
+        if (stepPercent) stepPercent.textContent = percentMap[step];
+        if (progressBar) progressBar.style.width = percentMap[step];
+        window.scrollTo({ top: 200, behavior: 'smooth' });
+    }
+
+    // Step 1 -> Step 2 validation
+    document.getElementById('btn-to-step-2')?.addEventListener('click', () => {
+        const age21 = document.querySelector('input[name="age_21"]:checked')?.value;
+        const workAuth = document.querySelector('input[name="work_auth"]:checked')?.value;
+
+        if (!age21 || !workAuth) {
+            alert('Please complete all compliance questions before continuing.');
+            return;
+        }
+
+        if (age21 === 'no') {
+            document.getElementById('careers-pipeline-form')?.classList.add('hidden');
+            document.getElementById('progress-container')?.classList.add('hidden');
+            document.getElementById('compliance-halt')?.classList.remove('hidden');
+            return;
+        }
+
+        updateStep(2);
+    });
+
+    // Step 2 Navigation
+    document.getElementById('btn-back-to-1')?.addEventListener('click', () => updateStep(1));
+    document.getElementById('btn-to-step-3')?.addEventListener('click', () => {
+        const q1 = document.querySelector('input[name="q1"]:checked');
+        const q2 = document.querySelector('input[name="q2"]:checked');
+        const q3 = document.querySelector('input[name="q3"]:checked');
+
+        if (!q1 || !q2 || !q3) {
+            alert('Please answer all 3 quiz scenarios before proceeding.');
+            return;
+        }
+
+        quizScore = parseInt(q1.value) + parseInt(q2.value) + parseInt(q3.value); // max 100
+        updateStep(3);
+    });
+
+    // Step 3 Navigation
+    document.getElementById('btn-back-to-2')?.addEventListener('click', () => updateStep(2));
+    document.getElementById('btn-to-step-4')?.addEventListener('click', () => updateStep(4));
+    document.getElementById('btn-back-to-3')?.addEventListener('click', () => updateStep(3));
+
+    // WebRTC Voice Recording Module
+    const recordBtn = document.getElementById('record-btn');
+    const stopBtn = document.getElementById('stop-btn');
+    const recordingStatus = document.getElementById('recording-status');
+    const voiceTimer = document.getElementById('voice-timer');
+    const audioPlayback = document.getElementById('audio-playback');
+    const audioInput = document.getElementById('audio-data-input');
+
+    if (recordBtn && stopBtn) {
+        recordBtn.addEventListener('click', async () => {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = (event) => audioChunks.push(event.data);
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    if (audioPlayback) {
+                        audioPlayback.src = audioUrl;
+                        audioPlayback.classList.remove('hidden');
+                    }
+                    if (recordingStatus) recordingStatus.textContent = '✅ Recording ready';
+
+                    // Convert to base64 for payload input
+                    const reader = new FileReader();
+                    reader.readAsDataURL(audioBlob);
+                    reader.onloadend = () => {
+                        if (audioInput) audioInput.value = reader.result;
+                    };
+                };
+
+                mediaRecorder.start();
+                secondsRecorded = 0;
+                recordBtn.classList.add('hidden');
+                stopBtn.classList.remove('hidden');
+                stopBtn.classList.add('flex');
+                if (recordingStatus) recordingStatus.textContent = '🔴 Recording... Speak now';
+
+                recordTimerInterval = setInterval(() => {
+                    secondsRecorded++;
+                    const secsStr = secondsRecorded < 10 ? `0${secondsRecorded}` : `${secondsRecorded}`;
+                    if (voiceTimer) voiceTimer.textContent = `00:${secsStr} / 00:30`;
+
+                    if (secondsRecorded >= 30) {
+                        stopRecording();
+                    }
+                }, 1000);
+
+            } catch (err) {
+                alert('Microphone access unavailable or denied. You can still submit your application via text.');
+            }
+        });
+
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());
+            }
+            clearInterval(recordTimerInterval);
+            stopBtn.classList.add('hidden');
+            stopBtn.classList.remove('flex');
+            recordBtn.classList.remove('hidden');
+            recordBtn.textContent = '🔄 Re-Record Voice Intro';
+        }
+
+        stopBtn.addEventListener('click', stopRecording);
+    }
+
+    // Form Submission & Auto-Scoring
+    document.getElementById('careers-pipeline-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const form = e.target;
         const submitBtn = document.getElementById('careers-submit-btn');
@@ -87,22 +530,43 @@ import { STORE_CONFIG } from '../config/store';
         if (submitBtn) {
             submitBtn.style.pointerEvents = 'none';
             submitBtn.style.opacity = '0.7';
+            submitBtn.textContent = 'Calculating Score & Submitting...';
         }
 
+        // Send Form Data if Formspree endpoint exists
         if (formEndpoint) {
             try {
                 const formData = new FormData(form);
+                formData.append('final_score', `${quizScore}%`);
                 await fetch(formEndpoint, {
                     method: 'POST',
                     body: formData,
                     headers: { 'Accept': 'application/json' }
                 });
             } catch (err) {
-                console.warn('Careers submission error:', err);
+                console.warn('Form submission notice:', err);
             }
         }
 
-        document.getElementById('careers-form')?.classList.add('hidden');
-        document.getElementById('careers-success')?.classList.remove('hidden');
+        // Hide form & show results
+        document.getElementById('careers-pipeline-form')?.classList.add('hidden');
+        document.getElementById('progress-container')?.classList.add('hidden');
+
+        const resultsScreen = document.getElementById('careers-results');
+        const scoreDisplay = document.getElementById('final-score-display');
+        const bookingBox = document.getElementById('booking-box');
+        const standardThanks = document.getElementById('standard-thanks');
+
+        if (scoreDisplay) scoreDisplay.textContent = `${quizScore}%`;
+        if (resultsScreen) resultsScreen.classList.remove('hidden');
+
+        if (quizScore >= 70) {
+            if (bookingBox) bookingBox.classList.remove('hidden');
+        } else {
+            if (bookingBox) bookingBox.classList.add('hidden');
+            if (standardThanks) standardThanks.classList.remove('hidden');
+        }
+
+        window.scrollTo({ top: 200, behavior: 'smooth' });
     });
 </script>
